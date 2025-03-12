@@ -4,6 +4,9 @@
  */
 package Interfaces;
 
+import java.awt.Image;
+import java.awt.Toolkit;
+
 /**
  *
  * @author miche
@@ -14,6 +17,8 @@ public class MainFrame extends javax.swing.JFrame {
      * Creates new form Frame
      */
     public MainFrame() {
+        Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/logo.png");
+        setIconImage(icon);
         setLocationRelativeTo(null);
         initComponents();
     }
@@ -31,6 +36,7 @@ public class MainFrame extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Befootball (Dev version)");
 
         jButton1.setText("Crear partido");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
