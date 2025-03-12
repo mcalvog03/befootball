@@ -17,7 +17,7 @@ public class Paises {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pkPais")
+    @Column(name = "pk_pais")
     private int pkPais;
 
     @Column(name = "nombre", columnDefinition = "LONGTEXT")

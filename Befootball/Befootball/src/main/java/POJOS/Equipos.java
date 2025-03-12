@@ -19,18 +19,18 @@ public class Equipos {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pkEquipo")
+    @Column(name = "pk_equipo")
     private int pkEquipo;
     
     @Column(name = "nombre", columnDefinition = "LONGTEXT")
     private String nombreEquipo;
     
     @ManyToOne
-    @JoinColumn(name = "liga_id", referencedColumnName = "pkLiga")
+    @JoinColumn(name = "liga_id", referencedColumnName = "pk_liga")
     private Ligas liga;
     
     @ManyToOne
-    @JoinColumn(name = "estadio_id", referencedColumnName = "pkEstadio")
+    @JoinColumn(name = "estadio_id", referencedColumnName = "pk_estadio")
     private Estadios estadio;
     
     @Column(name = "escudo", columnDefinition = "LONGTEXT")

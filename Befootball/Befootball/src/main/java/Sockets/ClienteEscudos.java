@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ClienteEscudos extends JFrame {
 
-    private static final String SERVER_IP = "192.168.25.45";
+    private static final String SERVER_IP = "192.168.1.45";
     private static final int SERVER_PORT = 5000;
     private static final String LOCAL_FOLDER = "EscudosDescargados";
 

@@ -17,7 +17,7 @@ public class Estadios {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pkEstadio")
+    @Column(name = "pk_estadio")
     private int pkEstadio;
     
     @Column(name = "nombre", columnDefinition = "LONGTEXT")

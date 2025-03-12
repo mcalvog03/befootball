@@ -19,7 +19,7 @@ public class Ligas {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pkLiga")
+    @Column(name = "pk_liga")
     private int pkLiga;
     
     @Column(name = "nombre", columnDefinition = "LONGTEXT")
@@ -29,7 +29,7 @@ public class Ligas {
     private String temporada;
     
     @ManyToOne
-    @JoinColumn(name = "pais_id", referencedColumnName = "pkPais")
+    @JoinColumn(name = "pais_id", referencedColumnName = "pk_pais")
     private Paises pais;
 
     public int getPkLiga() {
