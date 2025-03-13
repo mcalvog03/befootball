@@ -28,7 +28,7 @@ public class Splash extends JWindow {
         }
         setVisible(false);//ocultar el Splash
         dispose(); // destruir el Splash
-        MainFrame login = new MainFrame(null, true);
+        Login login = new Login(null, true);
         login.setVisible(true);
 
         //System.exit(0);
