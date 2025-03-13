@@ -12,7 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "partidos")
@@ -24,18 +24,24 @@ public class Partidos {
     private int pkPartido;
     
     @ManyToOne
-    @JoinColumn(name = "equipoLocal", referencedColumnName = "pk_equipo")
+    @JoinColumn(name = "equipo_local", referencedColumnName = "pk_equipo")
     private Equipos equipoLocal;
     
     @ManyToOne
-    @JoinColumn(name = "equipoVisitante", referencedColumnName = "pk_equipo")
+    @JoinColumn(name = "equipo_visitante", referencedColumnName = "pk_equipo")
     private Equipos equipoVisitante;
+    
+    @Column(name = "goles_local")
+    private int golesLocal;
+    
+    @Column(name = "goles_visitante")
+    private int golesVisitante;
     
     @Column(name = "estado", columnDefinition = "LONGTEXT")
     private String estado;
     
-    @Column(name = "fecha", columnDefinition = "LONGTEXT")
-    private Date fecha;
+    @Column(name = "fecha")
+    private LocalDateTime fecha;
     
     @Column(name = "jornada")
     private int jornada;
@@ -68,6 +74,24 @@ public class Partidos {
         this.equipoVisitante = equipoVisitante;
     }
 
+    public int getGolesLocal() {
+        return golesLocal;
+    }
+
+    public void setGolesLocal(int golesLocal) {
+        this.golesLocal = golesLocal;
+    }
+
+    public int getGolesVisitante() {
+        return golesVisitante;
+    }
+
+    public void setGolesVisitante(int golesVisitante) {
+        this.golesVisitante = golesVisitante;
+    }
+    
+    
+
     public String getEstado() {
         return estado;
     }
@@ -76,11 +100,11 @@ public class Partidos {
         this.estado = estado;
     }
 
-    public Date getFecha() {
+    public LocalDateTime getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
     }
 

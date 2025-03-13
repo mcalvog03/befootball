@@ -6,13 +6,24 @@ package Interfaces;
 
 import POJOS.Equipos;
 import POJOS.Ligas;
+import POJOS.Partidos;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import org.hibernate.cfg.Configuration;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 public class CrearPartido extends javax.swing.JDialog {
 
@@ -29,6 +40,14 @@ public class CrearPartido extends javax.swing.JDialog {
         initComponents();
         initializeSessionFactory();
         rellenarCombox();
+
+        // Listener para actualizar la lista de equipos dependiendo de la liga seleccionada
+        ligasComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                actualizarEquiposEnJList();
+            }
+        });
     }
 
     /**
@@ -99,29 +118,36 @@ public class CrearPartido extends javax.swing.JDialog {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fechaSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(jornadaSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)
-                        .addComponent(ligasComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(jornadaSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(ligasComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(fechaSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel6, java.awt.BorderLayout.PAGE_START);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Equipo local", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("sansserif", 0, 12))); // NOI18N
+        jPanel2.setMinimumSize(new java.awt.Dimension(290, 176));
         jPanel2.setLayout(new java.awt.BorderLayout());
+
+        jScrollPane1.setMinimumSize(new java.awt.Dimension(262, 134));
 
         jScrollPane1.setViewportView(equposLocalesjList);
 
         jPanel2.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Equipo visitante", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("sansserif", 0, 12))); // NOI18N
+        jPanel3.setMinimumSize(new java.awt.Dimension(290, 176));
         jPanel3.setLayout(new java.awt.BorderLayout());
+
+        jScrollPane2.setMinimumSize(new java.awt.Dimension(262, 134));
 
         jScrollPane2.setViewportView(equiposVisitantesjList);
 
@@ -153,6 +179,11 @@ public class CrearPartido extends javax.swing.JDialog {
         jPanel4.setLayout(new java.awt.BorderLayout());
 
         crearPartidoButton.setText("Crear partido");
+        crearPartidoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                crearPartidoButtonActionPerformed(evt);
+            }
+        });
         jPanel4.add(crearPartidoButton, java.awt.BorderLayout.CENTER);
 
         jPanel1.add(jPanel4, java.awt.BorderLayout.PAGE_END);
@@ -171,44 +202,44 @@ public class CrearPartido extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void crearPartidoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearPartidoButtonActionPerformed
+        // TODO add your handling code here:
+        crearPartido();
+    }//GEN-LAST:event_crearPartidoButtonActionPerformed
+
+    // Crear factorty
     private void initializeSessionFactory() {
-        // Create the SessionFactory from hibernate.cfg.xml
         factory = new Configuration().configure().buildSessionFactory();
     }
 
     // Obtener ligas para el combobox
     public List<String> obtenerLigas() {
-        Session session = factory.openSession();
-
-        // Obtener todas las ligas
-        List<Ligas> ligasList = session.createQuery("FROM Ligas", Ligas.class).getResultList();
-
-        // Lista de nombres de ligas
         List<String> nombresLigas = new ArrayList<>();
-        for (Ligas liga : ligasList) {
-            nombresLigas.add(liga.getNombreLiga());
-        }
+        Transaction tx = null;
 
-        session.close();
+        try (Session session = factory.openSession()) {
+            tx = session.beginTransaction();
+
+            // Obtener nombres de ligas de la base de datos
+            List<Ligas> ligasList = session.createQuery("FROM Ligas", Ligas.class).getResultList();
+            
+            // Agregar los nombres de las ligas en una lista
+            for (Ligas liga : ligasList) {
+                nombresLigas.add(liga.getNombreLiga());
+            }
+
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            JOptionPane.showMessageDialog(this, "Error al obtener las ligas: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
 
         return nombresLigas;
     }
 
-    public List<String> obtenerEquiposDeLiga(Ligas liga) {
-        Session session = factory.openSession();
-        List<Equipos> equiposList = session.createQuery("FROM Equipos e WHERE e.liga = :liga", Equipos.class)
-                .setParameter("liga", liga)
-                .getResultList();
-
-        List<String> nombresEquipos = new ArrayList<>();
-        for (Equipos equipo : equiposList) {
-            nombresEquipos.add(equipo.getNombreEquipo());
-        }
-
-        session.close();
-        return nombresEquipos;
-    }
-
+    // Rellenar el comboBox de ligas con la lista de los nombres obtenidos
     public void rellenarCombox() {
         List<String> nombresLigas = obtenerLigas();
         // Llenar el JComboBox con los nombres de las ligas
@@ -217,12 +248,171 @@ public class CrearPartido extends javax.swing.JDialog {
         }
     }
 
+    // Obtener los equipos
+    public List<String> obtenerEquiposDeLiga(Ligas liga) {
+    List<String> nombresEquipos = new ArrayList<>();
+    Transaction tx = null;
+    
+    try (Session session = factory.openSession()) {
+        tx = session.beginTransaction();
+        
+        // Obtener nombres de los equipos dependiendo de la liga seleccionada en el comboBox
+        List<Equipos> equiposList = session.createQuery("FROM Equipos e WHERE e.liga = :liga", Equipos.class)
+                .setParameter("liga", liga)
+                .getResultList();
+        
+        // Agregar los nombres a una lista
+        for (Equipos equipo : equiposList) {
+            nombresEquipos.add(equipo.getNombreEquipo());
+        }
+        
+        tx.commit();
+    } catch (Exception e) {
+        if (tx != null) tx.rollback();
+        JOptionPane.showMessageDialog(this, "Error al obtener equipos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    
+    return nombresEquipos;
+}
+
+    // Método que se llama cuando se selecciona una liga
+    public void actualizarEquiposEnJList() {
+        // Obtener la liga seleccionada del ComboBox
+        String nombreLigaSeleccionada = (String) ligasComboBox.getSelectedItem();
+
+        // Obtener la liga correspondiente desde la base de datos
+        Session session = factory.openSession();
+        Ligas ligaSeleccionada = session.createQuery("FROM Ligas l WHERE l.nombreLiga = :nombre", Ligas.class)
+                .setParameter("nombre", nombreLigaSeleccionada)
+                .uniqueResult();
+        session.close();
+
+        // Obtener los equipos de la liga seleccionada
+        List<String> nombresEquipos = obtenerEquiposDeLiga(ligaSeleccionada);
+
+        // Actualizar el JList con los nombres de los equipos
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+        for (String equipo : nombresEquipos) {
+            listModel.addElement(equipo);
+        }
+        equposLocalesjList.setModel(listModel);
+        equiposVisitantesjList.setModel(listModel);
+    }
+
+    // Obtener la liga seleccionada en el comboBox
+    public Ligas obtenerLigaSeleccionada() {
+    Ligas liga = null;
+    Transaction tx = null;
+    
+    try (Session session = factory.openSession()) {
+        tx = session.beginTransaction();
+        
+        // Obtener nombre de la liga seleccionada del comboBox
+        String nombreLiga = (String) ligasComboBox.getSelectedItem();
+        liga = session.createQuery("FROM Ligas l WHERE l.nombreLiga = :nombre", Ligas.class)
+                .setParameter("nombre", nombreLiga)
+                .uniqueResult();
+        
+        tx.commit();
+    } catch (Exception e) {
+        if (tx != null) tx.rollback();
+        JOptionPane.showMessageDialog(this, "Error al obtener la liga seleccionada: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    
+    return liga;
+}
+
+    // Obtener los equipos seleccionados
+    public Equipos obtenerEquipoSeleccionado(JList<String> jListEquipos) {
+    Equipos equipo = null;
+    Transaction tx = null;
+    
+    try (Session session = factory.openSession()) {
+        tx = session.beginTransaction();
+        
+        // Obtener equipo seleccionado de un jList
+        String nombreEquipo = jListEquipos.getSelectedValue();
+        // Seleccionar el equipo
+        if (nombreEquipo != null) {
+            equipo = session.createQuery("FROM Equipos e WHERE e.nombreEquipo = :nombre", Equipos.class)
+                    .setParameter("nombre", nombreEquipo)
+                    .uniqueResult();
+        }
+        
+        tx.commit();
+    } catch (Exception e) {
+        if (tx != null) tx.rollback();
+        JOptionPane.showMessageDialog(this, "Error al obtener el equipo seleccionado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    
+    return equipo;
+}
+
+    // Crear el partido en la base de datos
+    public void crearPartido() {
+    // Llamar al método para obtener la liga
+    Ligas ligaSeleccionada = obtenerLigaSeleccionada();
+    // Obtener los equipos del partido
+    Equipos equipoLocal = obtenerEquipoSeleccionado(equposLocalesjList);
+    Equipos equipoVisitante = obtenerEquipoSeleccionado(equiposVisitantesjList);
+
+    // Comprobar que se hayan seleccionado equipos y ligas
+    if (ligaSeleccionada == null || equipoLocal == null || equipoVisitante == null) {
+        JOptionPane.showMessageDialog(this, "Debe seleccionar una liga y dos equipos.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    
+    // Comprobar que los equipos seleccionados no sean los mismos
+    if (equipoLocal.getPkEquipo() == equipoVisitante.getPkEquipo()) {
+        JOptionPane.showMessageDialog(this, "El equipo local y visitante no pueden ser el mismo.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Obtener la fecha y hora del spinner
+    Date date = (Date) fechaSpinner.getValue();
+    Instant instant = date.toInstant();
+    LocalDateTime fechaPartido = instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
+    
+    // Obtener el número de la jornada del spinner
+    int jornada = (int) jornadaSpinner.getValue();
+
+    // Crear un objeto de partidos
+    Partidos nuevoPartido = new Partidos();
+    
+    // Establecer los datos del objeto partido para agregarlos a la base de datos mediante una transacción
+    nuevoPartido.setEquipoLocal(equipoLocal);
+    nuevoPartido.setEquipoVisitante(equipoVisitante);
+    nuevoPartido.setFecha(fechaPartido);
+    nuevoPartido.setJornada(jornada);
+    nuevoPartido.setLiga(ligaSeleccionada);
+    nuevoPartido.setGolesLocal(0);
+    nuevoPartido.setGolesVisitante(0);
+    nuevoPartido.setEstado("no iniciado");
+
+    Transaction tx = null;
+    
+    // Ejecutar transacción
+    try (Session session = factory.openSession()) {
+        tx = session.beginTransaction();
+        
+        session.persist(nuevoPartido);
+        
+        tx.commit();
+        JOptionPane.showMessageDialog(this, "Partido creado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+    } catch (Exception e) {
+        if (tx != null) tx.rollback();
+        JOptionPane.showMessageDialog(this, "Error al crear el partido: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+    // Cerrar flujos factorty
     public void closeSessionFactory() {
         if (factory != null) {
             factory.close();
         }
     }
 
+    // Cerrar flujos en caso de que se cierre la ventana
     @Override
     public void dispose() {
         closeSessionFactory();

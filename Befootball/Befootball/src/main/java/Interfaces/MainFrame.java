@@ -16,11 +16,15 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * Creates new form Frame
      */
-    public MainFrame() {
+    public MainFrame(java.awt.Frame parent, boolean modal) {
         Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/logo.png");
         setIconImage(icon);
         setLocationRelativeTo(null);
         initComponents();
+    }
+
+    private MainFrame() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     /**
