@@ -4,6 +4,7 @@
  */
 package Interfaces;
 
+import Funcionalidades.ConfiguradorDeInterfaz;
 import java.awt.Image;
 import java.awt.Toolkit;
 
@@ -16,11 +17,25 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainFrame
      */
+    
     public MainFrame() {
+        this(0, null);
+    }
+    
+    public MainFrame(int pkUsuario, String rol) {
+        initComponents();
         setLocationRelativeTo(null);
         Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/logo.png");
         setIconImage(icon);
-        initComponents();
+        
+        
+        System.out.println("Cargando datos del usuario...");
+        cargarPanelUsuario(pkUsuario);
+
+        System.out.println("Configurando interfaz por rol...");
+        if (rol != null) {
+            ConfiguradorDeInterfaz.configurarPorRol(rol, this);
+        }
     }
 
     /**
@@ -32,7 +47,8 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel3 = new javax.swing.JPanel();
+        jPanel13 = new javax.swing.JPanel();
+        appPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
         jPanel4 = new javax.swing.JPanel();
@@ -42,11 +58,12 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jPanel5 = new javax.swing.JPanel();
-        jPanel7 = new javax.swing.JPanel();
+        resultadosPanel = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jToolBar2 = new javax.swing.JToolBar();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -55,7 +72,8 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel12 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jPanel6 = new javax.swing.JPanel();
+        clasificacionPanel = new javax.swing.JPanel();
+        userPanel = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -64,7 +82,9 @@ public class MainFrame extends javax.swing.JFrame {
         setTitle("Befootball");
         setBackground(new java.awt.Color(0, 0, 0));
 
-        jPanel3.setLayout(new java.awt.BorderLayout());
+        jPanel13.setLayout(new java.awt.CardLayout());
+
+        appPanel.setLayout(new java.awt.BorderLayout());
 
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -130,13 +150,13 @@ public class MainFrame extends javax.swing.JFrame {
 
         jPanel1.add(jToolBar1);
 
-        jPanel3.add(jPanel1, java.awt.BorderLayout.PAGE_START);
+        appPanel.add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
         jPanel5.setBackground(new java.awt.Color(0, 0, 0));
         jPanel5.setLayout(new java.awt.CardLayout());
 
-        jPanel7.setBackground(new java.awt.Color(0, 0, 0));
-        jPanel7.setLayout(new java.awt.BorderLayout());
+        resultadosPanel.setBackground(new java.awt.Color(0, 0, 0));
+        resultadosPanel.setLayout(new java.awt.BorderLayout());
 
         jPanel8.setBackground(new java.awt.Color(0, 0, 0));
         jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
@@ -149,6 +169,8 @@ public class MainFrame extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         jButton1.setForeground(new java.awt.Color(102, 255, 255));
         jButton1.setText("Resultados");
+        jButton1.setContentAreaFilled(false);
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.setFocusable(false);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -157,10 +179,22 @@ public class MainFrame extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         jButton2.setForeground(new java.awt.Color(102, 255, 255));
         jButton2.setText("Clasificación");
+        jButton2.setBorderPainted(false);
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton2.setFocusable(false);
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar2.add(jButton2);
+
+        jButton3.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(102, 255, 255));
+        jButton3.setText("Usuario");
+        jButton3.setBorderPainted(false);
+        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton3.setFocusable(false);
+        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar2.add(jButton3);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -179,7 +213,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel7.add(jPanel8, java.awt.BorderLayout.PAGE_END);
+        resultadosPanel.add(jPanel8, java.awt.BorderLayout.PAGE_END);
 
         jPanel9.setBackground(new java.awt.Color(0, 0, 0));
         jPanel9.setLayout(new javax.swing.BoxLayout(jPanel9, javax.swing.BoxLayout.X_AXIS));
@@ -225,7 +259,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jPanel9.add(jPanel11);
 
-        jPanel7.add(jPanel9, java.awt.BorderLayout.PAGE_START);
+        resultadosPanel.add(jPanel9, java.awt.BorderLayout.PAGE_START);
 
         jPanel12.setBackground(new java.awt.Color(0, 0, 0));
         jPanel12.setLayout(new java.awt.BorderLayout());
@@ -260,24 +294,39 @@ public class MainFrame extends javax.swing.JFrame {
 
         jPanel12.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        jPanel7.add(jPanel12, java.awt.BorderLayout.CENTER);
+        resultadosPanel.add(jPanel12, java.awt.BorderLayout.CENTER);
 
-        jPanel5.add(jPanel7, "card2");
+        jPanel5.add(resultadosPanel, "card2");
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout clasificacionPanelLayout = new javax.swing.GroupLayout(clasificacionPanel);
+        clasificacionPanel.setLayout(clasificacionPanelLayout);
+        clasificacionPanelLayout.setHorizontalGroup(
+            clasificacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 758, Short.MAX_VALUE)
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        clasificacionPanelLayout.setVerticalGroup(
+            clasificacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 376, Short.MAX_VALUE)
         );
 
-        jPanel5.add(jPanel6, "card3");
+        jPanel5.add(clasificacionPanel, "card3");
 
-        jPanel3.add(jPanel5, java.awt.BorderLayout.CENTER);
+        appPanel.add(jPanel5, java.awt.BorderLayout.CENTER);
+
+        jPanel13.add(appPanel, "card2");
+
+        javax.swing.GroupLayout userPanelLayout = new javax.swing.GroupLayout(userPanel);
+        userPanel.setLayout(userPanelLayout);
+        userPanelLayout.setHorizontalGroup(
+            userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 758, Short.MAX_VALUE)
+        );
+        userPanelLayout.setVerticalGroup(
+            userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 480, Short.MAX_VALUE)
+        );
+
+        jPanel13.add(userPanel, "card2");
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -291,16 +340,31 @@ public class MainFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+            .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    // Interfaz para usuario normal
+    public void ventanaUsuario(){
+        
+    }
+    
+    // Interfaz para invitado
+    public void ventanaInvitado(){
+        
+    }
+    
+    // Cargar panel de usuario
+    public void cargarPanelUsuario(int pkUsuario){
+        
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -337,8 +401,11 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel appPanel;
+    private javax.swing.JPanel clasificacionPanel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
@@ -350,12 +417,10 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
@@ -364,5 +429,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToolBar jToolBar2;
     private Componentes.ResizableImageLabel resizableImageLabel1;
+    private javax.swing.JPanel resultadosPanel;
+    private javax.swing.JPanel userPanel;
     // End of variables declaration//GEN-END:variables
 }

@@ -17,10 +17,10 @@ public class DevFrame extends javax.swing.JFrame {
      * Creates new form Frame
      */
     public DevFrame() {
+        initComponents();
         Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/logo.png");
         setIconImage(icon);
         setLocationRelativeTo(null);
-        initComponents();
     }
 
     /**

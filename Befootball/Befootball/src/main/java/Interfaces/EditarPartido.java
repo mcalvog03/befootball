@@ -18,10 +18,10 @@ public class EditarPartido extends javax.swing.JDialog {
      */
     public EditarPartido(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        initComponents();
         setLocationRelativeTo(null);
         Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/logo.png");
         setIconImage(icon);
-        initComponents();
     }
 
     /**

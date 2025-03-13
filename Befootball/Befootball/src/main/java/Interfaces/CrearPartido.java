@@ -34,10 +34,10 @@ public class CrearPartido extends javax.swing.JDialog {
      */
     public CrearPartido(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        initComponents();
         setLocationRelativeTo(null);
         Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/logo.png");
         setIconImage(icon);
-        initComponents();
         initializeSessionFactory();
         rellenarCombox();
 
