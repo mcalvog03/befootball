@@ -14,10 +14,6 @@ import java.security.NoSuchAlgorithmException;
 import javax.swing.JOptionPane;
 import org.hibernate.Session;
 
-/**
- *
- * @author miche
- */
 public class LoginDialog extends javax.swing.JDialog {
 
     /**
@@ -57,6 +53,7 @@ public class LoginDialog extends javax.swing.JDialog {
         contraseñaPasswordField = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Iniciar sesión");
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 

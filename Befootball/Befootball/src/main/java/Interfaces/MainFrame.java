@@ -179,7 +179,7 @@ public class MainFrame extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         jButton2.setForeground(new java.awt.Color(102, 255, 255));
         jButton2.setText("Clasificación");
-        jButton2.setBorderPainted(false);
+        jButton2.setContentAreaFilled(false);
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton2.setFocusable(false);
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -189,7 +189,7 @@ public class MainFrame extends javax.swing.JFrame {
         jButton3.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         jButton3.setForeground(new java.awt.Color(102, 255, 255));
         jButton3.setText("Usuario");
-        jButton3.setBorderPainted(false);
+        jButton3.setContentAreaFilled(false);
         jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton3.setFocusable(false);
         jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -285,8 +285,8 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
         jTable1.setGridColor(new java.awt.Color(255, 255, 255));
-        jTable1.setSelectionBackground(new java.awt.Color(255, 255, 255));
-        jTable1.setSelectionForeground(new java.awt.Color(0, 0, 0));
+        jTable1.setSelectionBackground(new java.awt.Color(0, 0, 0));
+        jTable1.setSelectionForeground(new java.awt.Color(0, 255, 0));
         jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTable1.setShowGrid(true);
         jTable1.getTableHeader().setReorderingAllowed(false);

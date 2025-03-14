@@ -2,9 +2,7 @@ package Funcionalidades;
 
 import POJOS.Usuarios;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.time.LocalDateTime;
-import java.util.Base64;
 import javax.swing.JOptionPane;
 import org.hibernate.Session;
 
@@ -17,9 +15,9 @@ public class UsuarioService {
             JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
-        // Generar un salt aleatorio
-        String salt = generateSalt();
+        
+        // Generar un salt aleatorio con el metodo de PasswordUtils
+        String salt = PasswordUtils.generateSalt();
 
         // Hashear la contraseña con el salt
         String passwordHash = hashPassword(contraseña, salt);
@@ -30,15 +28,15 @@ public class UsuarioService {
         usuario.setCorreo(correo);
         usuario.setSalt(salt);
         usuario.setPasswordHash(passwordHash);
-        usuario.setRol(rol);  // Asignar el rol al usuario
-        usuario.setFechaRegistro(LocalDateTime.now());  // Asignar la fecha actual
+        usuario.setRol(rol);
+        usuario.setFechaRegistro(LocalDateTime.now());
 
         // Abrir sesión con Hibernate
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
         try {
-            // Guardar el usuario en la base de datos utilizando persist
+            // Guardar el usuario en la base de datos
             session.persist(usuario);
             session.getTransaction().commit();
             JOptionPane.showMessageDialog(null, "Usuario registrado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
@@ -51,17 +49,7 @@ public class UsuarioService {
         }
     }
 
-    // Método para generar un salt único
-    private String generateSalt() {
-        // Usamos SecureRandom para generar un salt aleatorio de 16 bytes
-        SecureRandom secureRandom = new SecureRandom();
-        byte[] saltBytes = new byte[16];
-        secureRandom.nextBytes(saltBytes);
-        
-        // Convertir el salt a una cadena Base64
-        return Base64.getEncoder().encodeToString(saltBytes);
-    }
-
+    
     // Método para hashear la contraseña con el salt
     private String hashPassword(String password, String salt) {
         try {
