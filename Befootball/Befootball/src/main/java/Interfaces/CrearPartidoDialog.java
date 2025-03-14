@@ -25,14 +25,14 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-public class CrearPartido extends javax.swing.JDialog {
+public class CrearPartidoDialog extends javax.swing.JDialog {
 
     private SessionFactory factory;
 
     /**
      * Creates new form CrearPartido
      */
-    public CrearPartido(java.awt.Frame parent, boolean modal) {
+    public CrearPartidoDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
@@ -222,7 +222,7 @@ public class CrearPartido extends javax.swing.JDialog {
 
             // Obtener nombres de ligas de la base de datos
             List<Ligas> ligasList = session.createQuery("FROM Ligas", Ligas.class).getResultList();
-            
+
             // Agregar los nombres de las ligas en una lista
             for (Ligas liga : ligasList) {
                 nombresLigas.add(liga.getNombreLiga());
@@ -250,30 +250,32 @@ public class CrearPartido extends javax.swing.JDialog {
 
     // Obtener los equipos
     public List<String> obtenerEquiposDeLiga(Ligas liga) {
-    List<String> nombresEquipos = new ArrayList<>();
-    Transaction tx = null;
-    
-    try (Session session = factory.openSession()) {
-        tx = session.beginTransaction();
-        
-        // Obtener nombres de los equipos dependiendo de la liga seleccionada en el comboBox
-        List<Equipos> equiposList = session.createQuery("FROM Equipos e WHERE e.liga = :liga", Equipos.class)
-                .setParameter("liga", liga)
-                .getResultList();
-        
-        // Agregar los nombres a una lista
-        for (Equipos equipo : equiposList) {
-            nombresEquipos.add(equipo.getNombreEquipo());
+        List<String> nombresEquipos = new ArrayList<>();
+        Transaction tx = null;
+
+        try (Session session = factory.openSession()) {
+            tx = session.beginTransaction();
+
+            // Obtener nombres de los equipos dependiendo de la liga seleccionada en el comboBox
+            List<Equipos> equiposList = session.createQuery("FROM Equipos e WHERE e.liga = :liga", Equipos.class)
+                    .setParameter("liga", liga)
+                    .getResultList();
+
+            // Agregar los nombres a una lista
+            for (Equipos equipo : equiposList) {
+                nombresEquipos.add(equipo.getNombreEquipo());
+            }
+
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            JOptionPane.showMessageDialog(this, "Error al obtener equipos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
-        tx.commit();
-    } catch (Exception e) {
-        if (tx != null) tx.rollback();
-        JOptionPane.showMessageDialog(this, "Error al obtener equipos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+
+        return nombresEquipos;
     }
-    
-    return nombresEquipos;
-}
 
     // Método que se llama cuando se selecciona una liga
     public void actualizarEquiposEnJList() {
@@ -301,109 +303,115 @@ public class CrearPartido extends javax.swing.JDialog {
 
     // Obtener la liga seleccionada en el comboBox
     public Ligas obtenerLigaSeleccionada() {
-    Ligas liga = null;
-    Transaction tx = null;
-    
-    try (Session session = factory.openSession()) {
-        tx = session.beginTransaction();
-        
-        // Obtener nombre de la liga seleccionada del comboBox
-        String nombreLiga = (String) ligasComboBox.getSelectedItem();
-        liga = session.createQuery("FROM Ligas l WHERE l.nombreLiga = :nombre", Ligas.class)
-                .setParameter("nombre", nombreLiga)
-                .uniqueResult();
-        
-        tx.commit();
-    } catch (Exception e) {
-        if (tx != null) tx.rollback();
-        JOptionPane.showMessageDialog(this, "Error al obtener la liga seleccionada: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        Ligas liga = null;
+        Transaction tx = null;
+
+        try (Session session = factory.openSession()) {
+            tx = session.beginTransaction();
+
+            // Obtener nombre de la liga seleccionada del comboBox
+            String nombreLiga = (String) ligasComboBox.getSelectedItem();
+            liga = session.createQuery("FROM Ligas l WHERE l.nombreLiga = :nombre", Ligas.class)
+                    .setParameter("nombre", nombreLiga)
+                    .uniqueResult();
+
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            JOptionPane.showMessageDialog(this, "Error al obtener la liga seleccionada: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+        return liga;
     }
-    
-    return liga;
-}
 
     // Obtener los equipos seleccionados
     public Equipos obtenerEquipoSeleccionado(JList<String> jListEquipos) {
-    Equipos equipo = null;
-    Transaction tx = null;
-    
-    try (Session session = factory.openSession()) {
-        tx = session.beginTransaction();
-        
-        // Obtener equipo seleccionado de un jList
-        String nombreEquipo = jListEquipos.getSelectedValue();
-        // Seleccionar el equipo
-        if (nombreEquipo != null) {
-            equipo = session.createQuery("FROM Equipos e WHERE e.nombreEquipo = :nombre", Equipos.class)
-                    .setParameter("nombre", nombreEquipo)
-                    .uniqueResult();
+        Equipos equipo = null;
+        Transaction tx = null;
+
+        try (Session session = factory.openSession()) {
+            tx = session.beginTransaction();
+
+            // Obtener equipo seleccionado de un jList
+            String nombreEquipo = jListEquipos.getSelectedValue();
+            // Seleccionar el equipo
+            if (nombreEquipo != null) {
+                equipo = session.createQuery("FROM Equipos e WHERE e.nombreEquipo = :nombre", Equipos.class)
+                        .setParameter("nombre", nombreEquipo)
+                        .uniqueResult();
+            }
+
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            JOptionPane.showMessageDialog(this, "Error al obtener el equipo seleccionado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
-        tx.commit();
-    } catch (Exception e) {
-        if (tx != null) tx.rollback();
-        JOptionPane.showMessageDialog(this, "Error al obtener el equipo seleccionado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+
+        return equipo;
     }
-    
-    return equipo;
-}
 
     // Crear el partido en la base de datos
     public void crearPartido() {
-    // Llamar al método para obtener la liga
-    Ligas ligaSeleccionada = obtenerLigaSeleccionada();
-    // Obtener los equipos del partido
-    Equipos equipoLocal = obtenerEquipoSeleccionado(equposLocalesjList);
-    Equipos equipoVisitante = obtenerEquipoSeleccionado(equiposVisitantesjList);
+        // Llamar al método para obtener la liga
+        Ligas ligaSeleccionada = obtenerLigaSeleccionada();
+        // Obtener los equipos del partido
+        Equipos equipoLocal = obtenerEquipoSeleccionado(equposLocalesjList);
+        Equipos equipoVisitante = obtenerEquipoSeleccionado(equiposVisitantesjList);
 
-    // Comprobar que se hayan seleccionado equipos y ligas
-    if (ligaSeleccionada == null || equipoLocal == null || equipoVisitante == null) {
-        JOptionPane.showMessageDialog(this, "Debe seleccionar una liga y dos equipos.", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
+        // Comprobar que se hayan seleccionado equipos y ligas
+        if (ligaSeleccionada == null || equipoLocal == null || equipoVisitante == null) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una liga y dos equipos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Comprobar que los equipos seleccionados no sean los mismos
+        if (equipoLocal.getPkEquipo() == equipoVisitante.getPkEquipo()) {
+            JOptionPane.showMessageDialog(this, "El equipo local y visitante no pueden ser el mismo.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Obtener la fecha y hora del spinner
+        Date date = (Date) fechaSpinner.getValue();
+        Instant instant = date.toInstant();
+        LocalDateTime fechaPartido = instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
+
+        // Obtener el número de la jornada del spinner
+        int jornada = (int) jornadaSpinner.getValue();
+
+        // Crear un objeto de partidos
+        Partidos nuevoPartido = new Partidos();
+
+        // Establecer los datos del objeto partido para agregarlos a la base de datos mediante una transacción
+        nuevoPartido.setEquipoLocal(equipoLocal);
+        nuevoPartido.setEquipoVisitante(equipoVisitante);
+        nuevoPartido.setFecha(fechaPartido);
+        nuevoPartido.setJornada(jornada);
+        nuevoPartido.setLiga(ligaSeleccionada);
+        nuevoPartido.setGolesLocal(0);
+        nuevoPartido.setGolesVisitante(0);
+        nuevoPartido.setEstado("no iniciado");
+
+        Transaction tx = null;
+
+        // Ejecutar transacción
+        try (Session session = factory.openSession()) {
+            tx = session.beginTransaction();
+
+            session.persist(nuevoPartido);
+
+            tx.commit();
+            JOptionPane.showMessageDialog(this, "Partido creado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            JOptionPane.showMessageDialog(this, "Error al crear el partido: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
-    
-    // Comprobar que los equipos seleccionados no sean los mismos
-    if (equipoLocal.getPkEquipo() == equipoVisitante.getPkEquipo()) {
-        JOptionPane.showMessageDialog(this, "El equipo local y visitante no pueden ser el mismo.", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-
-    // Obtener la fecha y hora del spinner
-    Date date = (Date) fechaSpinner.getValue();
-    Instant instant = date.toInstant();
-    LocalDateTime fechaPartido = instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
-    
-    // Obtener el número de la jornada del spinner
-    int jornada = (int) jornadaSpinner.getValue();
-
-    // Crear un objeto de partidos
-    Partidos nuevoPartido = new Partidos();
-    
-    // Establecer los datos del objeto partido para agregarlos a la base de datos mediante una transacción
-    nuevoPartido.setEquipoLocal(equipoLocal);
-    nuevoPartido.setEquipoVisitante(equipoVisitante);
-    nuevoPartido.setFecha(fechaPartido);
-    nuevoPartido.setJornada(jornada);
-    nuevoPartido.setLiga(ligaSeleccionada);
-    nuevoPartido.setGolesLocal(0);
-    nuevoPartido.setGolesVisitante(0);
-    nuevoPartido.setEstado("no iniciado");
-
-    Transaction tx = null;
-    
-    // Ejecutar transacción
-    try (Session session = factory.openSession()) {
-        tx = session.beginTransaction();
-        
-        session.persist(nuevoPartido);
-        
-        tx.commit();
-        JOptionPane.showMessageDialog(this, "Partido creado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-    } catch (Exception e) {
-        if (tx != null) tx.rollback();
-        JOptionPane.showMessageDialog(this, "Error al crear el partido: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    }
-}
 
     // Cerrar flujos factorty
     public void closeSessionFactory() {
@@ -436,20 +444,23 @@ public class CrearPartido extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CrearPartido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CrearPartidoDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CrearPartido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CrearPartidoDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CrearPartido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CrearPartidoDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CrearPartido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CrearPartidoDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                CrearPartido dialog = new CrearPartido(new javax.swing.JFrame(), true);
+                CrearPartidoDialog dialog = new CrearPartidoDialog(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

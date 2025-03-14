@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "usuarios")
@@ -28,8 +29,12 @@ public class Usuarios {
     @Column(name = "correo", columnDefinition = "LONGTEXT")
     private String correo;
     
-    @Column(name = "contraseña", columnDefinition = "LONGTEXT")
-    private String contraseña;
+    // Salt generado
+    @Column(name = "salt", columnDefinition = "LONGTEXT")
+    private String salt;  
+    // Hash de la contraseña
+    @Column(name = "password_hash", columnDefinition = "LONGTEXT")
+    private String passwordHash;  
     
     @Column(name = "rol", columnDefinition = "LONGTEXT")
     private String rol;
@@ -37,6 +42,9 @@ public class Usuarios {
     @ManyToOne
     @JoinColumn(name = "equipo_favorito", referencedColumnName = "pk_equipo")
     private Equipos equipoFavorito;
+    
+    @Column(name = "fecha_registro")
+    private LocalDateTime fechaRegistro;
 
     public int getPkUsuario() {
         return pkUsuario;
@@ -61,13 +69,21 @@ public class Usuarios {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
-
-    public String getContraseña() {
-        return contraseña;
+    
+    public String getSalt() {
+        return salt;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
     public String getRol() {
@@ -85,6 +101,13 @@ public class Usuarios {
     public void setEquipoFavorito(Equipos equipoFavorito) {
         this.equipoFavorito = equipoFavorito;
     }
-    
-    
+
+    public LocalDateTime getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(LocalDateTime fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
+        
 }

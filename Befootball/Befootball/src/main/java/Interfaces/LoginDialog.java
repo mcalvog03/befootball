@@ -4,19 +4,26 @@
  */
 package Interfaces;
 
+import Funcionalidades.HibernateUtil;
+import static Funcionalidades.PasswordUtils.hashPassword;
+import Funcionalidades.UsuarioService;
+import POJOS.Usuarios;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.security.NoSuchAlgorithmException;
+import javax.swing.JOptionPane;
+import org.hibernate.Session;
 
 /**
  *
  * @author miche
  */
-public class Login extends javax.swing.JDialog {
+public class LoginDialog extends javax.swing.JDialog {
 
     /**
      * Creates new form Login
      */
-    public Login(java.awt.Frame parent, boolean modal) {
+    public LoginDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
@@ -37,6 +44,7 @@ public class Login extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         resizableImageLabel2 = new Componentes.ResizableImageLabel();
         jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         registrarButton = new javax.swing.JButton();
@@ -61,6 +69,13 @@ public class Login extends javax.swing.JDialog {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Iniciar sesión");
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -69,16 +84,23 @@ public class Login extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(resizableImageLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(resizableImageLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(resizableImageLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(jButton1)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -184,13 +206,70 @@ public class Login extends javax.swing.JDialog {
         login();
     }//GEN-LAST:event_loginButtonActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        // Crear una instancia de UsuarioService
+        UsuarioService usuarioService = new UsuarioService();
+
+// Registrar un nuevo usuario (ejemplo con datos ficticios)
+        usuarioService.registerUser("prueba", "prueba@prueba.com", "1234", "usuario");
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Iniciar sesión con un usuario
     private void login() {
-        // Obtener nombre y contraseña de los fields
         String nombre = nombreTextField.getText().trim();
-        String contraseña = new String(contraseñaPasswordField.getPassword()).trim();
-        
-        
+        String contraseñaIngresada = new String(contraseñaPasswordField.getPassword()).trim();
+
+        if (nombre.isEmpty() || contraseñaIngresada.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Abrir sesión con Hibernate
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        try {
+            // Obtener el usuario desde la BD
+            Usuarios usuario = session.createQuery("FROM Usuarios WHERE nombre = :nombre", Usuarios.class)
+                    .setParameter("nombre", nombre)
+                    .uniqueResult();
+
+            if (usuario != null) {
+                // Recuperar el salt y el password_hash almacenados en la base de datos
+                String salt = usuario.getSalt();
+                String hash = usuario.getPasswordHash();
+
+                // Verificar la contraseña
+                if (salt != null && hash != null && verifyPassword(contraseñaIngresada, salt, hash)) {
+                    JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso.", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
+                    dispose();  // Cierra el diálogo de login
+                    new MainFrame().setVisible(true); // Abrir la ventana principal
+                } else {
+                    JOptionPane.showMessageDialog(this, "Contraseña incorrecta.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Usuario no encontrado.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al iniciar sesión.", "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            session.close();
+        }
+    }
+
+    // Verificar contraseña comparando el salt y el hash de la base de datos
+    public boolean verifyPassword(String enteredPassword, String storedSalt, String storedHash) throws NoSuchAlgorithmException {
+        // Hashear la contraseña ingresada con el salt almacenado
+        String hashedEnteredPassword = hashPassword(enteredPassword, storedSalt);
+
+        // Comparar los hashes
+        return hashedEnteredPassword.equals(storedHash);
     }
 
     /**
@@ -210,20 +289,27 @@ public class Login extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Login dialog = new Login(new javax.swing.JFrame(), true);
+                LoginDialog dialog = new LoginDialog(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -238,6 +324,7 @@ public class Login extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton accederButton;
     private javax.swing.JPasswordField contraseñaPasswordField;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
