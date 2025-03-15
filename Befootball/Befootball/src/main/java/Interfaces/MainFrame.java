@@ -5,6 +5,7 @@
 package Interfaces;
 
 import Funcionalidades.ConfiguradorDeInterfaz;
+import java.awt.CardLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 
@@ -17,18 +18,16 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainFrame
      */
-    
     public MainFrame() {
         this(0, null);
     }
-    
+
     public MainFrame(int pkUsuario, String rol) {
         initComponents();
         setLocationRelativeTo(null);
         Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/logo.png");
         setIconImage(icon);
-        
-        
+
         System.out.println("Cargando datos del usuario...");
         cargarPanelUsuario(pkUsuario);
 
@@ -47,7 +46,7 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel13 = new javax.swing.JPanel();
+        mainPanel = new javax.swing.JPanel();
         appPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
@@ -57,13 +56,13 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jPanel5 = new javax.swing.JPanel();
+        resultadosClasifiacionPanel = new javax.swing.JPanel();
         resultadosPanel = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jToolBar2 = new javax.swing.JToolBar();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        resultadosButton = new javax.swing.JButton();
+        clasificacionResultadosButton = new javax.swing.JButton();
+        usuarioResultadosButton = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -73,7 +72,31 @@ public class MainFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         clasificacionPanel = new javax.swing.JPanel();
+        jPanel21 = new javax.swing.JPanel();
+        jPanel22 = new javax.swing.JPanel();
+        jPanel23 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jComboBox5 = new javax.swing.JComboBox<>();
+        jPanel24 = new javax.swing.JPanel();
+        jPanel25 = new javax.swing.JPanel();
+        jPanel26 = new javax.swing.JPanel();
+        jToolBar5 = new javax.swing.JToolBar();
+        resultadosClasificacionButton = new javax.swing.JButton();
+        clasificacionButton = new javax.swing.JButton();
+        usuariosClasificacionButton = new javax.swing.JButton();
         userPanel = new javax.swing.JPanel();
+        jPanel14 = new javax.swing.JPanel();
+        jPanel16 = new javax.swing.JPanel();
+        jPanel17 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jComboBox4 = new javax.swing.JComboBox<>();
+        jPanel18 = new javax.swing.JPanel();
+        jPanel19 = new javax.swing.JPanel();
+        jPanel15 = new javax.swing.JPanel();
+        jToolBar4 = new javax.swing.JToolBar();
+        resultadosUsuarioButton = new javax.swing.JButton();
+        clasificacionUsuarioButton = new javax.swing.JButton();
+        usuarioButton = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -82,7 +105,7 @@ public class MainFrame extends javax.swing.JFrame {
         setTitle("Befootball");
         setBackground(new java.awt.Color(0, 0, 0));
 
-        jPanel13.setLayout(new java.awt.CardLayout());
+        mainPanel.setLayout(new java.awt.CardLayout());
 
         appPanel.setLayout(new java.awt.BorderLayout());
 
@@ -152,8 +175,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         appPanel.add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
-        jPanel5.setBackground(new java.awt.Color(0, 0, 0));
-        jPanel5.setLayout(new java.awt.CardLayout());
+        resultadosClasifiacionPanel.setBackground(new java.awt.Color(0, 0, 0));
+        resultadosClasifiacionPanel.setLayout(new java.awt.CardLayout());
 
         resultadosPanel.setBackground(new java.awt.Color(0, 0, 0));
         resultadosPanel.setLayout(new java.awt.BorderLayout());
@@ -166,35 +189,45 @@ public class MainFrame extends javax.swing.JFrame {
         jToolBar2.setFloatable(false);
         jToolBar2.setRollover(true);
 
-        jButton1.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(102, 255, 255));
-        jButton1.setText("Resultados");
-        jButton1.setContentAreaFilled(false);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar2.add(jButton1);
+        resultadosButton.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        resultadosButton.setForeground(new java.awt.Color(102, 255, 255));
+        resultadosButton.setText("Resultados");
+        resultadosButton.setContentAreaFilled(false);
+        resultadosButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        resultadosButton.setFocusable(false);
+        resultadosButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        resultadosButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar2.add(resultadosButton);
 
-        jButton2.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(102, 255, 255));
-        jButton2.setText("Clasificación");
-        jButton2.setContentAreaFilled(false);
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton2.setFocusable(false);
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar2.add(jButton2);
+        clasificacionResultadosButton.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        clasificacionResultadosButton.setForeground(new java.awt.Color(102, 255, 255));
+        clasificacionResultadosButton.setText("Clasificación");
+        clasificacionResultadosButton.setContentAreaFilled(false);
+        clasificacionResultadosButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        clasificacionResultadosButton.setFocusable(false);
+        clasificacionResultadosButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        clasificacionResultadosButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        clasificacionResultadosButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clasificacionResultadosButtonActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(clasificacionResultadosButton);
 
-        jButton3.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(102, 255, 255));
-        jButton3.setText("Usuario");
-        jButton3.setContentAreaFilled(false);
-        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton3.setFocusable(false);
-        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar2.add(jButton3);
+        usuarioResultadosButton.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        usuarioResultadosButton.setForeground(new java.awt.Color(102, 255, 255));
+        usuarioResultadosButton.setText("Usuario");
+        usuarioResultadosButton.setContentAreaFilled(false);
+        usuarioResultadosButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        usuarioResultadosButton.setFocusable(false);
+        usuarioResultadosButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        usuarioResultadosButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        usuarioResultadosButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usuarioResultadosButtonActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(usuarioResultadosButton);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -296,37 +329,285 @@ public class MainFrame extends javax.swing.JFrame {
 
         resultadosPanel.add(jPanel12, java.awt.BorderLayout.CENTER);
 
-        jPanel5.add(resultadosPanel, "card2");
+        resultadosClasifiacionPanel.add(resultadosPanel, "card2");
 
-        javax.swing.GroupLayout clasificacionPanelLayout = new javax.swing.GroupLayout(clasificacionPanel);
-        clasificacionPanel.setLayout(clasificacionPanelLayout);
-        clasificacionPanelLayout.setHorizontalGroup(
-            clasificacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 758, Short.MAX_VALUE)
+        clasificacionPanel.setLayout(new java.awt.BorderLayout());
+
+        jPanel21.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel21.setLayout(new java.awt.BorderLayout());
+
+        jPanel22.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel22.setLayout(new javax.swing.BoxLayout(jPanel22, javax.swing.BoxLayout.X_AXIS));
+
+        jPanel23.setBackground(new java.awt.Color(0, 0, 0));
+
+        javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
+        jPanel23.setLayout(jPanel23Layout);
+        jPanel23Layout.setHorizontalGroup(
+            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 265, Short.MAX_VALUE)
         );
-        clasificacionPanelLayout.setVerticalGroup(
-            clasificacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 376, Short.MAX_VALUE)
-        );
-
-        jPanel5.add(clasificacionPanel, "card3");
-
-        appPanel.add(jPanel5, java.awt.BorderLayout.CENTER);
-
-        jPanel13.add(appPanel, "card2");
-
-        javax.swing.GroupLayout userPanelLayout = new javax.swing.GroupLayout(userPanel);
-        userPanel.setLayout(userPanelLayout);
-        userPanelLayout.setHorizontalGroup(
-            userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 758, Short.MAX_VALUE)
-        );
-        userPanelLayout.setVerticalGroup(
-            userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 480, Short.MAX_VALUE)
+        jPanel23Layout.setVerticalGroup(
+            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        jPanel13.add(userPanel, "card2");
+        jPanel22.add(jPanel23);
+
+        jLabel5.setFont(new java.awt.Font("sansserif", 1, 48)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(229, 229, 0));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Tabla");
+        jPanel22.add(jLabel5);
+
+        jComboBox5.setBackground(new java.awt.Color(229, 229, 0));
+        jComboBox5.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel22.add(jComboBox5);
+
+        jPanel24.setBackground(new java.awt.Color(0, 0, 0));
+
+        javax.swing.GroupLayout jPanel24Layout = new javax.swing.GroupLayout(jPanel24);
+        jPanel24.setLayout(jPanel24Layout);
+        jPanel24Layout.setHorizontalGroup(
+            jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 265, Short.MAX_VALUE)
+        );
+        jPanel24Layout.setVerticalGroup(
+            jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        jPanel22.add(jPanel24);
+
+        jPanel21.add(jPanel22, java.awt.BorderLayout.PAGE_START);
+
+        jPanel25.setBackground(new java.awt.Color(0, 0, 0));
+
+        javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
+        jPanel25.setLayout(jPanel25Layout);
+        jPanel25Layout.setHorizontalGroup(
+            jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel25Layout.setVerticalGroup(
+            jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        jPanel21.add(jPanel25, java.awt.BorderLayout.CENTER);
+
+        jPanel26.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel26.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+
+        jToolBar5.setBackground(new java.awt.Color(0, 0, 0));
+        jToolBar5.setBorder(null);
+        jToolBar5.setFloatable(false);
+        jToolBar5.setRollover(true);
+
+        resultadosClasificacionButton.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        resultadosClasificacionButton.setForeground(new java.awt.Color(102, 255, 255));
+        resultadosClasificacionButton.setText("Resultados");
+        resultadosClasificacionButton.setContentAreaFilled(false);
+        resultadosClasificacionButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        resultadosClasificacionButton.setFocusable(false);
+        resultadosClasificacionButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        resultadosClasificacionButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        resultadosClasificacionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resultadosClasificacionButtonActionPerformed(evt);
+            }
+        });
+        jToolBar5.add(resultadosClasificacionButton);
+
+        clasificacionButton.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        clasificacionButton.setForeground(new java.awt.Color(102, 255, 255));
+        clasificacionButton.setText("Clasificación");
+        clasificacionButton.setContentAreaFilled(false);
+        clasificacionButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        clasificacionButton.setFocusable(false);
+        clasificacionButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        clasificacionButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar5.add(clasificacionButton);
+
+        usuariosClasificacionButton.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        usuariosClasificacionButton.setForeground(new java.awt.Color(102, 255, 255));
+        usuariosClasificacionButton.setText("Usuario");
+        usuariosClasificacionButton.setContentAreaFilled(false);
+        usuariosClasificacionButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        usuariosClasificacionButton.setFocusable(false);
+        usuariosClasificacionButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        usuariosClasificacionButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        usuariosClasificacionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usuariosClasificacionButtonActionPerformed(evt);
+            }
+        });
+        jToolBar5.add(usuariosClasificacionButton);
+
+        javax.swing.GroupLayout jPanel26Layout = new javax.swing.GroupLayout(jPanel26);
+        jPanel26.setLayout(jPanel26Layout);
+        jPanel26Layout.setHorizontalGroup(
+            jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel26Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jToolBar5, javax.swing.GroupLayout.DEFAULT_SIZE, 742, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel26Layout.setVerticalGroup(
+            jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel26Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jToolBar5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jPanel21.add(jPanel26, java.awt.BorderLayout.PAGE_END);
+
+        clasificacionPanel.add(jPanel21, java.awt.BorderLayout.CENTER);
+
+        resultadosClasifiacionPanel.add(clasificacionPanel, "card3");
+
+        appPanel.add(resultadosClasifiacionPanel, java.awt.BorderLayout.CENTER);
+
+        mainPanel.add(appPanel, "card2");
+
+        userPanel.setLayout(new java.awt.BorderLayout());
+
+        jPanel14.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel14.setLayout(new java.awt.BorderLayout());
+
+        jPanel16.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel16.setLayout(new javax.swing.BoxLayout(jPanel16, javax.swing.BoxLayout.X_AXIS));
+
+        jPanel17.setBackground(new java.awt.Color(0, 0, 0));
+
+        javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
+        jPanel17.setLayout(jPanel17Layout);
+        jPanel17Layout.setHorizontalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 247, Short.MAX_VALUE)
+        );
+        jPanel17Layout.setVerticalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        jPanel16.add(jPanel17);
+
+        jLabel4.setFont(new java.awt.Font("sansserif", 1, 48)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(229, 229, 0));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Usuario");
+        jPanel16.add(jLabel4);
+
+        jComboBox4.setBackground(new java.awt.Color(229, 229, 0));
+        jComboBox4.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel16.add(jComboBox4);
+
+        jPanel18.setBackground(new java.awt.Color(0, 0, 0));
+
+        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
+        jPanel18.setLayout(jPanel18Layout);
+        jPanel18Layout.setHorizontalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 247, Short.MAX_VALUE)
+        );
+        jPanel18Layout.setVerticalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        jPanel16.add(jPanel18);
+
+        jPanel14.add(jPanel16, java.awt.BorderLayout.PAGE_START);
+
+        jPanel19.setBackground(new java.awt.Color(0, 0, 0));
+
+        javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
+        jPanel19.setLayout(jPanel19Layout);
+        jPanel19Layout.setHorizontalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel19Layout.setVerticalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        jPanel14.add(jPanel19, java.awt.BorderLayout.CENTER);
+
+        jPanel15.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel15.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+
+        jToolBar4.setBackground(new java.awt.Color(0, 0, 0));
+        jToolBar4.setBorder(null);
+        jToolBar4.setFloatable(false);
+        jToolBar4.setRollover(true);
+
+        resultadosUsuarioButton.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        resultadosUsuarioButton.setForeground(new java.awt.Color(102, 255, 255));
+        resultadosUsuarioButton.setText("Resultados");
+        resultadosUsuarioButton.setContentAreaFilled(false);
+        resultadosUsuarioButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        resultadosUsuarioButton.setFocusable(false);
+        resultadosUsuarioButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        resultadosUsuarioButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        resultadosUsuarioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resultadosUsuarioButtonActionPerformed(evt);
+            }
+        });
+        jToolBar4.add(resultadosUsuarioButton);
+
+        clasificacionUsuarioButton.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        clasificacionUsuarioButton.setForeground(new java.awt.Color(102, 255, 255));
+        clasificacionUsuarioButton.setText("Clasificación");
+        clasificacionUsuarioButton.setContentAreaFilled(false);
+        clasificacionUsuarioButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        clasificacionUsuarioButton.setFocusable(false);
+        clasificacionUsuarioButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        clasificacionUsuarioButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        clasificacionUsuarioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clasificacionUsuarioButtonActionPerformed(evt);
+            }
+        });
+        jToolBar4.add(clasificacionUsuarioButton);
+
+        usuarioButton.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        usuarioButton.setForeground(new java.awt.Color(102, 255, 255));
+        usuarioButton.setText("Usuario");
+        usuarioButton.setContentAreaFilled(false);
+        usuarioButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        usuarioButton.setFocusable(false);
+        usuarioButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        usuarioButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar4.add(usuarioButton);
+
+        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
+        jPanel15.setLayout(jPanel15Layout);
+        jPanel15Layout.setHorizontalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jToolBar4, javax.swing.GroupLayout.DEFAULT_SIZE, 742, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel15Layout.setVerticalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jToolBar4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jPanel14.add(jPanel15, java.awt.BorderLayout.PAGE_END);
+
+        userPanel.add(jPanel14, java.awt.BorderLayout.CENTER);
+
+        mainPanel.add(userPanel, "card2");
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -340,31 +621,111 @@ public class MainFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void usuarioResultadosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioResultadosButtonActionPerformed
+        // TODO add your handling code here:
+        mostrarPanelUsuario();
+    }//GEN-LAST:event_usuarioResultadosButtonActionPerformed
+
+    private void resultadosUsuarioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resultadosUsuarioButtonActionPerformed
+        // TODO add your handling code here:
+        mostrarPanelResultadosUsuario();
+    }//GEN-LAST:event_resultadosUsuarioButtonActionPerformed
+
+    private void clasificacionResultadosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clasificacionResultadosButtonActionPerformed
+        // TODO add your handling code here:
+        mostrarPanelClasificacion();
+    }//GEN-LAST:event_clasificacionResultadosButtonActionPerformed
+
+    private void clasificacionUsuarioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clasificacionUsuarioButtonActionPerformed
+        // TODO add your handling code here:
+        mostrarPanelClasificacionUsuario();
+    }//GEN-LAST:event_clasificacionUsuarioButtonActionPerformed
+
+    private void resultadosClasificacionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resultadosClasificacionButtonActionPerformed
+        // TODO add your handling code here:
+        mostrarPanelResultados();
+    }//GEN-LAST:event_resultadosClasificacionButtonActionPerformed
+
+    private void usuariosClasificacionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuariosClasificacionButtonActionPerformed
+        // TODO add your handling code here:
+        mostrarPanelUsuario();
+    }//GEN-LAST:event_usuariosClasificacionButtonActionPerformed
+
+    // Mostrar panel princiapl
+    public void mostrarPanelPrincipal() {
+        CardLayout cl = (CardLayout) mainPanel.getLayout();
+        // Añadir nombre del panel a cambiar en el panel elegido con cardLayout
+        mainPanel.add(appPanel, "appPanel");
+        // Mostrar el panel
+        cl.show(mainPanel, "appPanel");
+    }
+    
+    // Mostrar panel de usuario
+    public void mostrarPanelUsuario() {
+        CardLayout cl = (CardLayout) mainPanel.getLayout();
+        // Añadir nombre del panel a cambiar en el panel elegido con cardLayout
+        mainPanel.add(userPanel, "userPanel");
+        // Mostrar el panel
+        cl.show(mainPanel, "userPanel");
+    }
+    
+    // Mostrar panel de resultados
+    public void mostrarPanelResultados() {
+        CardLayout cl = (CardLayout) resultadosClasifiacionPanel.getLayout();
+        // Añadir nombre del panel a cambiar en el panel elegido con cardLayout
+        resultadosClasifiacionPanel.add(resultadosPanel, "resultadosPanel");
+        // Mostrar el panel
+        cl.show(resultadosClasifiacionPanel, "resultadosPanel");
+    }
+
+    // Mostrar panel de clasificación
+    public void mostrarPanelClasificacion() {
+        CardLayout cl = (CardLayout) resultadosClasifiacionPanel.getLayout();
+        // Añadir nombre del panel a cambiar en el panel elegido con cardLayout
+        resultadosClasifiacionPanel.add(clasificacionPanel, "clasificacionPanel");
+        // Mostrar el panel
+        cl.show(resultadosClasifiacionPanel, "clasificacionPanel");
+    }
+    
+    // Mostrar panel de resultados desde usuario
+    public void mostrarPanelResultadosUsuario() {
+        mostrarPanelPrincipal();
+        mostrarPanelResultados();
+    }
+    
+    // Mostrar panel de clasificaión desde el panel de usuario
+    public void mostrarPanelClasificacionUsuario(){
+        mostrarPanelPrincipal();
+        mostrarPanelClasificacion();
+    }
+
     // Interfaz para usuario normal
-    public void ventanaUsuario(){
+    public void ventanaUsuario() {
         
     }
-    
+
     // Interfaz para invitado
-    public void ventanaInvitado(){
-        
+    public void ventanaInvitado() {
+        usuarioButton.setVisible(false);
+        usuarioResultadosButton.setVisible(false);
+        usuarioButton.setVisible(false);
     }
-    
-    // Cargar panel de usuario
-    public void cargarPanelUsuario(int pkUsuario){
-        
+
+    // Cargar panel de usuario con datos del login
+    public void cargarPanelUsuario(int pkUsuario) {
+
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -402,14 +763,18 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel appPanel;
+    private javax.swing.JButton clasificacionButton;
     private javax.swing.JPanel clasificacionPanel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton clasificacionResultadosButton;
+    private javax.swing.JButton clasificacionUsuarioButton;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> jComboBox4;
+    private javax.swing.JComboBox<String> jComboBox5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -417,10 +782,20 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
+    private javax.swing.JPanel jPanel16;
+    private javax.swing.JPanel jPanel17;
+    private javax.swing.JPanel jPanel18;
+    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel21;
+    private javax.swing.JPanel jPanel22;
+    private javax.swing.JPanel jPanel23;
+    private javax.swing.JPanel jPanel24;
+    private javax.swing.JPanel jPanel25;
+    private javax.swing.JPanel jPanel26;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
@@ -428,8 +803,18 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToolBar jToolBar2;
+    private javax.swing.JToolBar jToolBar4;
+    private javax.swing.JToolBar jToolBar5;
+    private javax.swing.JPanel mainPanel;
     private Componentes.ResizableImageLabel resizableImageLabel1;
+    private javax.swing.JButton resultadosButton;
+    private javax.swing.JPanel resultadosClasifiacionPanel;
+    private javax.swing.JButton resultadosClasificacionButton;
     private javax.swing.JPanel resultadosPanel;
+    private javax.swing.JButton resultadosUsuarioButton;
     private javax.swing.JPanel userPanel;
+    private javax.swing.JButton usuarioButton;
+    private javax.swing.JButton usuarioResultadosButton;
+    private javax.swing.JButton usuariosClasificacionButton;
     // End of variables declaration//GEN-END:variables
 }
