@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 import org.hibernate.Session;
 
 public class LoginDialog extends javax.swing.JDialog {
-
+    
     /**
      * Creates new form Login
      */
@@ -194,7 +194,7 @@ public class LoginDialog extends javax.swing.JDialog {
     private void accederButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accederButtonActionPerformed
         // TODO add your handling code here:
         dispose();
-        MainFrame mainFrame = new MainFrame();
+        MainFrame mainFrame = new MainFrame(0, "INVITADO");
         mainFrame.setVisible(true);
     }//GEN-LAST:event_accederButtonActionPerformed
 
@@ -209,7 +209,7 @@ public class LoginDialog extends javax.swing.JDialog {
         UsuarioService usuarioService = new UsuarioService();
 
 // Registrar un nuevo usuario (ejemplo con datos ficticios)
-        usuarioService.registerUser("prueba", "prueba@prueba.com", "1234", "usuario");
+        usuarioService.registerUser("prueba", "prueba@prueba.com", "1234", "USUARIO");
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -242,7 +242,7 @@ public class LoginDialog extends javax.swing.JDialog {
                 if (salt != null && hash != null && verifyPassword(contraseñaIngresada, salt, hash)) {
                     JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso.", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
                     dispose();  // Cierra el diálogo de login
-                    new MainFrame().setVisible(true); // Abrir la ventana principal
+                    new MainFrame(usuario.getPkUsuario(), usuario.getRol()).setVisible(true); // Abrir la ventana principal
                 } else {
                     JOptionPane.showMessageDialog(this, "Contraseña incorrecta.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -268,7 +268,7 @@ public class LoginDialog extends javax.swing.JDialog {
         // Comparar los hashes
         return hashedEnteredPassword.equals(storedHash);
     }
-
+   
     /**
      * @param args the command line arguments
      */

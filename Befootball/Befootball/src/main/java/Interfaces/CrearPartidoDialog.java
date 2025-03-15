@@ -4,6 +4,7 @@
  */
 package Interfaces;
 
+import Funcionalidades.ObtenerDatos;
 import POJOS.Equipos;
 import POJOS.Ligas;
 import POJOS.Partidos;
@@ -28,7 +29,8 @@ import org.hibernate.Transaction;
 public class CrearPartidoDialog extends javax.swing.JDialog {
 
     private SessionFactory factory;
-
+    private ObtenerDatos obtenerDatos;
+    
     /**
      * Creates new form CrearPartido
      */
@@ -39,6 +41,7 @@ public class CrearPartidoDialog extends javax.swing.JDialog {
         Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/logo.png");
         setIconImage(icon);
         initializeSessionFactory();
+        obtenerDatos = new ObtenerDatos(factory);
         rellenarCombox();
 
         // Listener para actualizar la lista de equipos dependiendo de la liga seleccionada
@@ -93,7 +96,7 @@ public class CrearPartidoDialog extends javax.swing.JDialog {
 
         jLabel3.setText("Jornada");
 
-        jornadaSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        jornadaSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -212,69 +215,13 @@ public class CrearPartidoDialog extends javax.swing.JDialog {
         factory = new Configuration().configure().buildSessionFactory();
     }
 
-    // Obtener ligas para el combobox
-    public List<String> obtenerLigas() {
-        List<String> nombresLigas = new ArrayList<>();
-        Transaction tx = null;
-
-        try (Session session = factory.openSession()) {
-            tx = session.beginTransaction();
-
-            // Obtener nombres de ligas de la base de datos
-            List<Ligas> ligasList = session.createQuery("FROM Ligas", Ligas.class).getResultList();
-
-            // Agregar los nombres de las ligas en una lista
-            for (Ligas liga : ligasList) {
-                nombresLigas.add(liga.getNombreLiga());
-            }
-
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null) {
-                tx.rollback();
-            }
-            JOptionPane.showMessageDialog(this, "Error al obtener las ligas: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-
-        return nombresLigas;
-    }
-
     // Rellenar el comboBox de ligas con la lista de los nombres obtenidos
     public void rellenarCombox() {
-        List<String> nombresLigas = obtenerLigas();
+        List<String> nombresLigas = obtenerDatos.obtenerLigas();
         // Llenar el JComboBox con los nombres de las ligas
         for (String nombre : nombresLigas) {
-            ligasComboBox.addItem(nombre);  // Agregar cada nombre de liga al JComboBox
+            ligasComboBox.addItem(nombre);
         }
-    }
-
-    // Obtener los equipos
-    public List<String> obtenerEquiposDeLiga(Ligas liga) {
-        List<String> nombresEquipos = new ArrayList<>();
-        Transaction tx = null;
-
-        try (Session session = factory.openSession()) {
-            tx = session.beginTransaction();
-
-            // Obtener nombres de los equipos dependiendo de la liga seleccionada en el comboBox
-            List<Equipos> equiposList = session.createQuery("FROM Equipos e WHERE e.liga = :liga", Equipos.class)
-                    .setParameter("liga", liga)
-                    .getResultList();
-
-            // Agregar los nombres a una lista
-            for (Equipos equipo : equiposList) {
-                nombresEquipos.add(equipo.getNombreEquipo());
-            }
-
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null) {
-                tx.rollback();
-            }
-            JOptionPane.showMessageDialog(this, "Error al obtener equipos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-
-        return nombresEquipos;
     }
 
     // Método que se llama cuando se selecciona una liga
@@ -290,7 +237,7 @@ public class CrearPartidoDialog extends javax.swing.JDialog {
         session.close();
 
         // Obtener los equipos de la liga seleccionada
-        List<String> nombresEquipos = obtenerEquiposDeLiga(ligaSeleccionada);
+        List<String> nombresEquipos = obtenerDatos.obtenerEquiposDeLiga(ligaSeleccionada);
 
         // Actualizar el JList con los nombres de los equipos
         DefaultListModel<String> listModel = new DefaultListModel<>();
@@ -321,6 +268,7 @@ public class CrearPartidoDialog extends javax.swing.JDialog {
                 tx.rollback();
             }
             JOptionPane.showMessageDialog(this, "Error al obtener la liga seleccionada: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            System.err.println("Error al obtener la liga seleccionada: " + e.getMessage());
         }
 
         return liga;
@@ -349,6 +297,7 @@ public class CrearPartidoDialog extends javax.swing.JDialog {
                 tx.rollback();
             }
             JOptionPane.showMessageDialog(this, "Error al obtener el equipo seleccionado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            System.err.println("Error al obtener las ligas: " + e.getMessage());
         }
 
         return equipo;
@@ -410,6 +359,7 @@ public class CrearPartidoDialog extends javax.swing.JDialog {
                 tx.rollback();
             }
             JOptionPane.showMessageDialog(this, "Error al crear el partido: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            System.err.println("Error al crear el partido: " + e.getMessage());
         }
     }
 
