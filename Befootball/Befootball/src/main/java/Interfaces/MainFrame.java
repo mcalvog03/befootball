@@ -7,11 +7,28 @@ package Interfaces;
 import Funcionalidades.ConfiguradorDeInterfaz;
 import Funcionalidades.ObtenerDatos;
 import POJOS.Usuarios;
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -19,6 +36,11 @@ public class MainFrame extends javax.swing.JFrame {
 
     private SessionFactory factory;
     private ObtenerDatos obtenerDatos;
+
+    // Información servidor socket
+    private static final String SERVER_IP = "192.168.1.45";
+    private static final int SERVER_PORT = 5000;
+    private static final String LOCAL_FOLDER = "EscudosDescargados";
 
     /**
      * Creates new form MainFrame
@@ -114,6 +136,8 @@ public class MainFrame extends javax.swing.JFrame {
         idUsuarioLabel = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
+        equipoFavoritoLabel = new javax.swing.JLabel();
+        escudoFavoritoPanel = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
         jToolBar4 = new javax.swing.JToolBar();
         resultadosUsuarioButton = new javax.swing.JButton();
@@ -654,13 +678,34 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Equipo favorito");
 
+        equipoFavoritoLabel.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        equipoFavoritoLabel.setForeground(new java.awt.Color(255, 255, 255));
+        equipoFavoritoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        equipoFavoritoLabel.setText("nombre del equipo");
+
+        escudoFavoritoPanel.setBackground(new java.awt.Color(0, 181, 12));
+
+        javax.swing.GroupLayout escudoFavoritoPanelLayout = new javax.swing.GroupLayout(escudoFavoritoPanel);
+        escudoFavoritoPanel.setLayout(escudoFavoritoPanelLayout);
+        escudoFavoritoPanelLayout.setHorizontalGroup(
+            escudoFavoritoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        escudoFavoritoPanelLayout.setVerticalGroup(
+            escudoFavoritoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 244, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(escudoFavoritoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
+                    .addComponent(equipoFavoritoLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -668,7 +713,11 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel6)
-                .addContainerGap(286, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(equipoFavoritoLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(escudoFavoritoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel19.add(jPanel3);
@@ -938,6 +987,67 @@ public class MainFrame extends javax.swing.JFrame {
         fechaRegistroUsuarioLabel.setText(usuario.getFechaRegistro().format(formatoDateTime));
         // Mostrar id del usuario en el label
         idUsuarioLabel.setText(String.valueOf(pkUsuario));
+        // Mostrar nombre del equipo favorito
+        equipoFavoritoLabel.setText(usuario.getEquipoFavorito().getNombreEquipo());
+        // Cargar escudo favorito
+        obtenerEscudoFavorito(pkUsuario);
+    }
+
+    // Crear directorio para guardar los escudos en caso de que no exista
+    public void crearDirectorioEscudos() {
+        File localDir = new File(LOCAL_FOLDER);
+        if (!localDir.exists()) {
+            localDir.mkdir();
+        }
+    }
+
+    // Obtener el escudo favorito del usuario
+    private void obtenerEscudoFavorito(int pkUsuario) {
+        mostrarEscudoEnPanel(obtenerDatos.obtenerDatosUsuario(pkUsuario).getEquipoFavorito().getEscudo(), escudoFavoritoPanel);
+    }
+
+    // Descargar el escudo favortio y mostrarlo en el panel
+    private void mostrarEscudoEnPanel(String fileName, JPanel panelDestino) {
+        File tempFile = new File(LOCAL_FOLDER, fileName);
+
+        // Verificar si la imagen ya está descargada
+        if (!tempFile.exists()) {
+            try (Socket socket = new Socket(SERVER_IP, SERVER_PORT); PrintWriter writer = new PrintWriter(socket.getOutputStream(), true); InputStream in = socket.getInputStream(); FileOutputStream fileOut = new FileOutputStream(tempFile)) {
+
+                writer.println("DOWNLOAD " + fileName);
+
+                byte[] buffer = new byte[1024];
+                int bytesRead;
+                while ((bytesRead = in.read(buffer)) != -1) {
+                    fileOut.write(buffer, 0, bytesRead);
+                }
+
+            } catch (IOException e) {
+                System.err.println("Error al descargar el escudo: " + fileName);
+                e.printStackTrace();
+                return;
+            }
+        }
+
+        // Cargar la imagen y aplicarla al panel
+        ImageIcon icon = new ImageIcon(new ImageIcon(tempFile.getAbsolutePath())
+                .getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH));
+
+        JLabel labelEscudo = new JLabel(icon);
+        labelEscudo.setHorizontalAlignment(JLabel.CENTER);
+        labelEscudo.setVerticalAlignment(JLabel.CENTER);
+
+        // Asegurar que el panel tiene un layout adecuado
+        panelDestino.setLayout(new BorderLayout());
+        // Limpiar panel antes de agregar la imagen
+        panelDestino.removeAll();
+        panelDestino.add(labelEscudo, BorderLayout.CENTER);
+
+        // Asegurar que el panel tiene un tamaño adecuado
+        panelDestino.setPreferredSize(new Dimension(120, 120));
+
+        panelDestino.revalidate();
+        panelDestino.repaint();
     }
 
     // Rellenar el combox de ligas con los datos obtenidos mediante el objeto obtener datos
@@ -1007,6 +1117,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel correoUsuarioLabel;
     private javax.swing.JMenuItem crearPartidoMenuItem;
     private javax.swing.JMenu devMenu;
+    private javax.swing.JLabel equipoFavoritoLabel;
+    private javax.swing.JPanel escudoFavoritoPanel;
     private javax.swing.JLabel fechaRegistroUsuarioLabel;
     private javax.swing.JLabel idUsuarioLabel;
     private javax.swing.JMenu inicioMenu;

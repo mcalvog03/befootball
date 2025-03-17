@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 import org.hibernate.Session;
 
 public class LoginDialog extends javax.swing.JDialog {
-    
+
     /**
      * Creates new form Login
      */
@@ -268,7 +268,7 @@ public class LoginDialog extends javax.swing.JDialog {
         // Comparar los hashes
         return hashedEnteredPassword.equals(storedHash);
     }
-   
+
     /**
      * @param args the command line arguments
      */

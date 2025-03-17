@@ -18,30 +18,30 @@ import org.hibernate.Transaction;
 public class ObtenerDatos {
 
     private SessionFactory factory;
-
+    
     public ObtenerDatos(SessionFactory factory) {
         this.factory = factory;
     }
-    
+
+    // Obtener datos del usuario que ha iniciado sesión
     public Usuarios obtenerDatosUsuario(int pkUsuario) {
-    
         Usuarios usuario = null;
-    try (Session session = factory.openSession()) {
-        // Iniciar transacción
-        Transaction transaction = session.beginTransaction();
-        
-        // Buscar el usuario en la base de datos
-        usuario = session.find(Usuarios.class, pkUsuario); 
-        
-        // Confirmar la transacción
-        transaction.commit();
-    } catch (Exception e) {
-        e.printStackTrace();
+        try (Session session = factory.openSession()) {
+            // Iniciar transacción
+            Transaction transaction = session.beginTransaction();
+
+            // Buscar el usuario en la base de datos
+            usuario = session.find(Usuarios.class, pkUsuario);
+
+            // Confirmar la transacción
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return usuario;
     }
-    
-    return usuario;
-}
-    
+
     // Obtener ligas
     public List<String> obtenerLigas() {
         List<String> nombresLigas = new ArrayList<>();
