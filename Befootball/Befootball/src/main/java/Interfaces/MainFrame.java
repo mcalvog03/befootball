@@ -6,9 +6,11 @@ package Interfaces;
 
 import Funcionalidades.ConfiguradorDeInterfaz;
 import Funcionalidades.ObtenerDatos;
+import POJOS.Usuarios;
 import java.awt.CardLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -97,10 +99,21 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel14 = new javax.swing.JPanel();
         jPanel16 = new javax.swing.JPanel();
         jPanel17 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        nombreUsuarioLabel = new javax.swing.JLabel();
         jPanel18 = new javax.swing.JPanel();
         jPanel19 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        rolUsuarioLabel = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        correoUsuarioLabel = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        fechaRegistroUsuarioLabel = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        idUsuarioLabel = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
         jPanel15 = new javax.swing.JPanel();
         jToolBar4 = new javax.swing.JToolBar();
         resultadosUsuarioButton = new javax.swing.JButton();
@@ -278,7 +291,7 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 259, Short.MAX_VALUE)
+            .addGap(0, 266, Short.MAX_VALUE)
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -304,7 +317,7 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 259, Short.MAX_VALUE)
+            .addGap(0, 266, Short.MAX_VALUE)
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -366,7 +379,7 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel23.setLayout(jPanel23Layout);
         jPanel23Layout.setHorizontalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 265, Short.MAX_VALUE)
+            .addGap(0, 273, Short.MAX_VALUE)
         );
         jPanel23Layout.setVerticalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -392,7 +405,7 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel24.setLayout(jPanel24Layout);
         jPanel24Layout.setHorizontalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 265, Short.MAX_VALUE)
+            .addGap(0, 273, Short.MAX_VALUE)
         );
         jPanel24Layout.setVerticalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -507,7 +520,7 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel17.setLayout(jPanel17Layout);
         jPanel17Layout.setHorizontalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 247, Short.MAX_VALUE)
+            .addGap(0, 290, Short.MAX_VALUE)
         );
         jPanel17Layout.setVerticalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -516,16 +529,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         jPanel16.add(jPanel17);
 
-        jLabel4.setFont(new java.awt.Font("sansserif", 1, 48)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(229, 229, 0));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Usuario");
-        jPanel16.add(jLabel4);
-
-        jComboBox4.setBackground(new java.awt.Color(229, 229, 0));
-        jComboBox4.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel16.add(jComboBox4);
+        nombreUsuarioLabel.setFont(new java.awt.Font("sansserif", 1, 48)); // NOI18N
+        nombreUsuarioLabel.setForeground(new java.awt.Color(229, 229, 0));
+        nombreUsuarioLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        nombreUsuarioLabel.setText("Usuario");
+        jPanel16.add(nombreUsuarioLabel);
 
         jPanel18.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -533,7 +541,7 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel18.setLayout(jPanel18Layout);
         jPanel18Layout.setHorizontalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 247, Short.MAX_VALUE)
+            .addGap(0, 290, Short.MAX_VALUE)
         );
         jPanel18Layout.setVerticalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -545,17 +553,125 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel14.add(jPanel16, java.awt.BorderLayout.PAGE_START);
 
         jPanel19.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel19.setLayout(new java.awt.GridLayout(1, 2));
 
-        javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
-        jPanel19.setLayout(jPanel19Layout);
-        jPanel19Layout.setHorizontalGroup(
-            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        jPanel5.setBackground(new java.awt.Color(223, 31, 31));
+
+        jLabel3.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Rol del usuario:");
+
+        rolUsuarioLabel.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        rolUsuarioLabel.setForeground(new java.awt.Color(255, 255, 255));
+        rolUsuarioLabel.setText("rol");
+
+        jLabel4.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Correo:");
+
+        correoUsuarioLabel.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        correoUsuarioLabel.setForeground(new java.awt.Color(255, 255, 255));
+        correoUsuarioLabel.setText("correo");
+
+        jLabel7.setFont(new java.awt.Font("sansserif", 1, 30)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Información del usuario");
+
+        jLabel8.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Fecha de registro:");
+
+        fechaRegistroUsuarioLabel.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        fechaRegistroUsuarioLabel.setForeground(new java.awt.Color(255, 255, 255));
+        fechaRegistroUsuarioLabel.setText("fecha");
+
+        jLabel9.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel9.setText("ID:");
+
+        idUsuarioLabel.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        idUsuarioLabel.setText("id");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(idUsuarioLabel))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(correoUsuarioLabel))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(rolUsuarioLabel))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(fechaRegistroUsuarioLabel)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
-        jPanel19Layout.setVerticalGroup(
-            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(rolUsuarioLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(correoUsuarioLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(fechaRegistroUsuarioLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(idUsuarioLabel))
+                .addContainerGap())
         );
+
+        jPanel19.add(jPanel5);
+
+        jPanel3.setBackground(new java.awt.Color(0, 181, 12));
+
+        jLabel6.setFont(new java.awt.Font("sansserif", 1, 36)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Equipo favorito");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6)
+                .addContainerGap(286, Short.MAX_VALUE))
+        );
+
+        jPanel19.add(jPanel3);
 
         jPanel14.add(jPanel19, java.awt.BorderLayout.CENTER);
 
@@ -806,9 +922,22 @@ public class MainFrame extends javax.swing.JFrame {
         usuariosClasificacionButton.setVisible(false);
     }
 
-    // Cargar panel de usuario con datos del login
+    // Cargar panel de usuario con datos obtenidos comparadno login con la base de datos
     public void cargarPanelUsuario(int pkUsuario) {
-
+        // Crear un objeto de usuario con la información de usuario logueado
+        Usuarios usuario = obtenerDatos.obtenerDatosUsuario(pkUsuario);
+        // Mostrar nombre del usuario en el label
+        nombreUsuarioLabel.setText(usuario.getNombre());
+        // Mostrar rol del usuario en el label
+        rolUsuarioLabel.setText(usuario.getRol());
+        // Mostrar correo del usuario en el label
+        correoUsuarioLabel.setText(usuario.getCorreo());
+        // Formato para mostrar la fecha y hora de registro del usuario
+        DateTimeFormatter formatoDateTime = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        // Mostrar fecha de registro del usuario en el label
+        fechaRegistroUsuarioLabel.setText(usuario.getFechaRegistro().format(formatoDateTime));
+        // Mostrar id del usuario en el label
+        idUsuarioLabel.setText(String.valueOf(pkUsuario));
     }
 
     // Rellenar el combox de ligas con los datos obtenidos mediante el objeto obtener datos
@@ -875,15 +1004,22 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel clasificacionPanel;
     private javax.swing.JButton clasificacionResultadosButton;
     private javax.swing.JButton clasificacionUsuarioButton;
+    private javax.swing.JLabel correoUsuarioLabel;
     private javax.swing.JMenuItem crearPartidoMenuItem;
     private javax.swing.JMenu devMenu;
+    private javax.swing.JLabel fechaRegistroUsuarioLabel;
+    private javax.swing.JLabel idUsuarioLabel;
     private javax.swing.JMenu inicioMenu;
-    private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JComboBox<String> jComboBox5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -902,7 +1038,9 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel24;
     private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel26;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
@@ -916,12 +1054,14 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> ligaComboBox;
     private javax.swing.JMenuItem logoutMenuItem;
     private javax.swing.JPanel mainPanel;
+    private javax.swing.JLabel nombreUsuarioLabel;
     private Componentes.ResizableImageLabel resizableImageLabel1;
     private javax.swing.JButton resultadosButton;
     private javax.swing.JPanel resultadosClasifiacionPanel;
     private javax.swing.JButton resultadosClasificacionButton;
     private javax.swing.JPanel resultadosPanel;
     private javax.swing.JButton resultadosUsuarioButton;
+    private javax.swing.JLabel rolUsuarioLabel;
     private javax.swing.JMenuItem salirMenuItem;
     private javax.swing.JPanel userPanel;
     private javax.swing.JButton usuarioButton;

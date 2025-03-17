@@ -7,6 +7,7 @@ package Funcionalidades;
 import POJOS.Equipos;
 import POJOS.Ligas;
 import POJOS.Partidos;
+import POJOS.Usuarios;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -21,7 +22,26 @@ public class ObtenerDatos {
     public ObtenerDatos(SessionFactory factory) {
         this.factory = factory;
     }
-
+    
+    public Usuarios obtenerDatosUsuario(int pkUsuario) {
+    
+        Usuarios usuario = null;
+    try (Session session = factory.openSession()) {
+        // Iniciar transacción
+        Transaction transaction = session.beginTransaction();
+        
+        // Buscar el usuario en la base de datos
+        usuario = session.find(Usuarios.class, pkUsuario); 
+        
+        // Confirmar la transacción
+        transaction.commit();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    
+    return usuario;
+}
+    
     // Obtener ligas
     public List<String> obtenerLigas() {
         List<String> nombresLigas = new ArrayList<>();
