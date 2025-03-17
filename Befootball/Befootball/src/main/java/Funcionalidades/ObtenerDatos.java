@@ -18,7 +18,7 @@ import org.hibernate.Transaction;
 public class ObtenerDatos {
 
     private SessionFactory factory;
-    
+
     public ObtenerDatos(SessionFactory factory) {
         this.factory = factory;
     }
@@ -142,4 +142,40 @@ public class ObtenerDatos {
         return jornadas;
     }
 
+    // Obtener los partidos de la jornada y liga seleccionados mediante los comboBox de la interfaz
+    public List<Partidos> obtenerPartidosFiltrados(String ligaSeleccionada, int jornadaSeleccionada) {
+        List<Partidos> partidosFiltrados = new ArrayList<>();
+        Transaction tx = null;
+
+        try (Session session = factory.openSession()) {
+            tx = session.beginTransaction();
+
+            // Obtener el objeto Ligas correspondiente al nombre de la liga
+            Ligas liga = session.createQuery("FROM Ligas l WHERE l.nombreLiga = :ligaNombre", Ligas.class)
+                    .setParameter("ligaNombre", ligaSeleccionada)
+                    .uniqueResult();
+
+            // Si no se encuentra la liga, mostrar mensaje de error
+            if (liga == null) {
+                JOptionPane.showMessageDialog(null, "Liga no encontrada: " + ligaSeleccionada, "Error", JOptionPane.ERROR_MESSAGE);
+                return partidosFiltrados;
+            }
+
+            // Obtener los partidos correspondientes a la liga y jornada seleccionada
+            partidosFiltrados = session.createQuery("FROM Partidos p WHERE p.liga.id = :ligaId AND p.jornada = :jornada", Partidos.class)
+                    .setParameter("ligaId", liga.getPkLiga())
+                    .setParameter("jornada", jornadaSeleccionada)
+                    .getResultList();
+
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            JOptionPane.showMessageDialog(null, "Error al obtener los partidos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            System.err.println("Error al obtener los partidos: " + e.getMessage());
+        }
+
+        return partidosFiltrados;
+    }
 }

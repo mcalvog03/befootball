@@ -4,8 +4,11 @@
  */
 package Interfaces;
 
+import Funcionalidades.PartidosTableModel;
 import Funcionalidades.ConfiguradorDeInterfaz;
+import Funcionalidades.ImageRenderer;
 import Funcionalidades.ObtenerDatos;
+import POJOS.Partidos;
 import POJOS.Usuarios;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -22,7 +25,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -56,11 +61,11 @@ public class MainFrame extends javax.swing.JFrame {
         rellenarComboxLigas();
 
         // Cargar contenido del usuario en caso de haber iniciado sesión
-        if (pkUsuario!=0) {
+        if (pkUsuario != 0) {
             System.out.println("Cargando datos del usuario...");
             cargarPanelUsuario(pkUsuario);
         }
-        
+
         System.out.println("Configurando interfaz por rol...");
         if (rol != null) {
             ConfiguradorDeInterfaz.configurarPorRol(rol, this);
@@ -101,7 +106,7 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel11 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        partidosTable = new javax.swing.JTable();
         clasificacionPanel = new javax.swing.JPanel();
         jPanel21 = new javax.swing.JPanel();
         jPanel22 = new javax.swing.JPanel();
@@ -250,7 +255,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         ligaComboBox.setBackground(new java.awt.Color(255, 0, 0));
         ligaComboBox.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        ligaComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" }));
         ligaComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ligaComboBoxActionPerformed(evt);
@@ -391,7 +395,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         jornadaComboBox.setBackground(new java.awt.Color(229, 229, 0));
         jornadaComboBox.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jornadaComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        jornadaComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jornadaComboBoxActionPerformed(evt);
+            }
+        });
         jPanel9.add(jornadaComboBox);
 
         jPanel11.setBackground(new java.awt.Color(0, 0, 0));
@@ -414,9 +422,9 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel12.setBackground(new java.awt.Color(0, 0, 0));
         jPanel12.setLayout(new java.awt.BorderLayout());
 
-        jTable1.setBackground(new java.awt.Color(0, 0, 0));
-        jTable1.setForeground(new java.awt.Color(255, 255, 255));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        partidosTable.setBackground(new java.awt.Color(0, 0, 0));
+        partidosTable.setForeground(new java.awt.Color(255, 255, 255));
+        partidosTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -434,13 +442,14 @@ public class MainFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setGridColor(new java.awt.Color(255, 255, 255));
-        jTable1.setSelectionBackground(new java.awt.Color(0, 0, 0));
-        jTable1.setSelectionForeground(new java.awt.Color(0, 255, 0));
-        jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jTable1.setShowGrid(true);
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jTable1);
+        partidosTable.setGridColor(new java.awt.Color(255, 255, 255));
+        partidosTable.setRowHeight(70);
+        partidosTable.setSelectionBackground(new java.awt.Color(0, 0, 0));
+        partidosTable.setSelectionForeground(new java.awt.Color(0, 255, 0));
+        partidosTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        partidosTable.setShowGrid(true);
+        partidosTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(partidosTable);
 
         jPanel12.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
@@ -1474,14 +1483,20 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void ligaComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ligaComboBoxActionPerformed
         // TODO add your handling code here:
-        // Llamar al método para rellenar el comboBox de jornadas según la liga seleccionada
+
+        // Obtener liga seleccionada
         String ligaSeleccionada = (String) ligaComboBox.getSelectedItem();
 
         if (ligaSeleccionada != null) {
-            // Limpiar el comboBox de jornadas antes de llenarlo nuevamente
+            // Vaciar comboBox
             jornadaComboBox.removeAllItems();
-            // Llenar el comboBox con nuevas jornadas
+            // Rellenar el comboBox con las jornadas de la liga seleccionada
             rellenarComboboxJornadas(ligaSeleccionada);
+
+            // Auto-seleccionar la primera jornada para evitar que el comboBox esté vacío
+            if (jornadaComboBox.getItemCount() > 0) {
+                jornadaComboBox.setSelectedIndex(0);
+            }
         }
     }//GEN-LAST:event_ligaComboBoxActionPerformed
 
@@ -1505,6 +1520,36 @@ public class MainFrame extends javax.swing.JFrame {
     private void clasificacionUsuarioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clasificacionUsuarioButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_clasificacionUsuarioButton2ActionPerformed
+
+    private void jornadaComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jornadaComboBoxActionPerformed
+        // TODO add your handling code here:
+
+        // Obtener elementos seleccionados en los comboBox
+        String ligaSeleccionada = (String) ligaComboBox.getSelectedItem();
+        Object jornadaSeleccionadaObj = jornadaComboBox.getSelectedItem();
+
+        // Evitar error cuando aún no hay valores seleccionados en los comboBox
+        if (ligaSeleccionada == null || jornadaSeleccionadaObj == null) {
+            return;
+        }
+
+        try {
+            int jornadaSeleccionada = Integer.parseInt(jornadaSeleccionadaObj.toString());
+            // Crear una lista de los partidos de la jornada y liga seleccionada
+            List<Partidos> partidos = obtenerDatos.obtenerPartidosFiltrados(ligaSeleccionada, jornadaSeleccionada);
+            // Cargar la lista en el modelo de la tabla
+            PartidosTableModel model = new PartidosTableModel(partidos);
+            // Actualizar la tabla
+            partidosTable.setModel(model);
+            // Escudo Local
+            partidosTable.getColumnModel().getColumn(0).setCellRenderer(new ImageRenderer());
+            // Escudo Visitante
+            partidosTable.getColumnModel().getColumn(5).setCellRenderer(new ImageRenderer());
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Error al convertir jornada a número: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jornadaComboBoxActionPerformed
 
     // Crear factorty
     private void initializeSessionFactory() {
@@ -1546,9 +1591,9 @@ public class MainFrame extends javax.swing.JFrame {
         // Mostrar el panel
         cl.show(resultadosClasifiacionPanel, "clasificacionPanel");
     }
-    
+
     // Mostrar panel de equipo
-    public void mostrarPanelEquipo(){
+    public void mostrarPanelEquipo() {
         CardLayout cl = (CardLayout) mainPanel.getLayout();
         // Añadir nombre del panel a cambiar en el panel elegido con cardLayout
         mainPanel.add(equipoPanel, "equipoPanel");
@@ -1639,26 +1684,30 @@ public class MainFrame extends javax.swing.JFrame {
             }
         }
 
-        // Cargar la imagen y aplicarla al panel
-        ImageIcon icon = new ImageIcon(new ImageIcon(tempFile.getAbsolutePath()).getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH));
+        // Usar invokeLater para asegurarse de que la actualización se haga en el hilo de la interfaz
+        SwingUtilities.invokeLater(() -> {
+            // Cargar la imagen y aplicarla al panel
+            ImageIcon icon = new ImageIcon(new ImageIcon(tempFile.getAbsolutePath()).getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH));
 
-        // Crear label para el escudo
-        JLabel labelEscudo = new JLabel(icon);
-        labelEscudo.setHorizontalAlignment(JLabel.CENTER);
-        labelEscudo.setVerticalAlignment(JLabel.CENTER);
+            // Crear label para el escudo
+            JLabel labelEscudo = new JLabel(icon);
+            labelEscudo.setHorizontalAlignment(JLabel.CENTER);
+            labelEscudo.setVerticalAlignment(JLabel.CENTER);
 
-        // Asegurar que el panel tiene un layout adecuado
-        panelDestino.setLayout(new BorderLayout());
-        // Limpiar panel antes de agregar la imagen
-        panelDestino.removeAll();
-        panelDestino.add(labelEscudo, BorderLayout.CENTER);
+            // Asegurar que el panel tiene un layout adecuado
+            panelDestino.setLayout(new BorderLayout());
 
-        // Asegurar que el panel tiene un tamaño adecuado
-        panelDestino.setPreferredSize(new Dimension(120, 120));
+            // Limpiar panel antes de agregar la imagen
+            panelDestino.removeAll();
+            panelDestino.add(labelEscudo, BorderLayout.CENTER);
 
-        // Aplicar imagen
-        panelDestino.revalidate();
-        panelDestino.repaint();
+            // Asegurar que el panel tiene un tamaño adecuado
+            panelDestino.setPreferredSize(new Dimension(120, 120));
+
+            // Aplicar imagen
+            panelDestino.revalidate();
+            panelDestino.repaint();
+        });
     }
 
     // Rellenar el combox de ligas con los datos obtenidos mediante el objeto obtener datos
@@ -1674,11 +1723,22 @@ public class MainFrame extends javax.swing.JFrame {
     // Rellenar el combox de jornadas de acuerdo con la liga seleccionada en el comboBox de ligas con los datos obtenidos mediante el objeto obtener datos
     public void rellenarComboboxJornadas(String ligaSeleccionada) {
         List<Integer> numeroJornadas = obtenerDatos.obtenerJornadas(ligaSeleccionada);
-        // Llenar el JComboBox con las jornadas
-        for (int numero : numeroJornadas) {
-            jornadaComboBox.addItem(String.valueOf(numero));
+
+        // Limpiar antes de agregar
+        jornadaComboBox.removeAllItems();
+
+        // Comprobar si hay jornadas
+        if (numeroJornadas == null || numeroJornadas.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No hay jornadas disponibles para la liga seleccionada.", "Información", JOptionPane.WARNING_MESSAGE);
+            return;
         }
 
+        // Rellenar comboBox con las jornadas
+        for (Integer numero : numeroJornadas) {
+            if (numero != null) {
+                jornadaComboBox.addItem(String.valueOf(numero));
+            }
+        }
     }
 
     /**
@@ -1806,7 +1866,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JToolBar.Separator jSeparator1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToolBar jToolBar2;
@@ -1823,6 +1882,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel nombreUsuarioLabel;
     private javax.swing.JLabel paisEquipoLabel;
     private javax.swing.JPanel partidoPanel;
+    private javax.swing.JTable partidosTable;
     private javax.swing.JLabel posicionLigaEquipoLabel;
     private Componentes.ResizableImageLabel resizableImageLabel1;
     private Componentes.ResizableImageLabel resizableImageLabel2;
