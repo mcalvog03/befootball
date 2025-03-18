@@ -10,7 +10,9 @@ import POJOS.Ligas;
 import POJOS.Partidos;
 import POJOS.Usuarios;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.swing.JOptionPane;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -42,7 +44,7 @@ public class ObtenerDatos {
 
         return usuario;
     }
-    
+
     // Obtener datos del equipo seleccionado
     public Equipos obtenerDatosEquipos(int pkEquipo) {
         Equipos equipo = null;
@@ -61,14 +63,14 @@ public class ObtenerDatos {
 
         return equipo;
     }
-    
-    public List<Jugadores> obtenerJugadoresEquipo(int pkEquipo){
+
+    public List<Jugadores> obtenerJugadoresEquipo(int pkEquipo) {
         List<Jugadores> jugadores = new ArrayList<>();
         Transaction tx = null;
 
         try (Session session = factory.openSession()) {
             tx = session.beginTransaction();
-            
+
             // Obtener los partidos correspondientes a la liga y jornada seleccionada
             jugadores = session.createQuery("FROM Jugadores j WHERE j.equipo.id = :equipoid", Jugadores.class)
                     .setParameter("equipoid", pkEquipo)
@@ -144,6 +146,7 @@ public class ObtenerDatos {
         return nombresEquipos;
     }
 
+    /*
     // Obtener las jornadas existentes por liga
     public List<Integer> obtenerJornadas(String ligaSeleccionada) {
         List<Integer> jornadas = new ArrayList<>();
@@ -184,6 +187,51 @@ public class ObtenerDatos {
         }
 
         return jornadas;
+    }
+    */
+    
+    
+    // Obtener las jornadas existentes por liga
+    public List<Integer> obtenerJornadas(String ligaSeleccionada) {
+        Set<Integer> jornadasSet = new HashSet<>();  // Usamos un Set para evitar duplicados
+        Transaction tx = null;
+
+        try (Session session = factory.openSession()) {
+            tx = session.beginTransaction();
+
+            // Obtener el objeto Ligas correspondiente al nombre de la liga
+            Ligas liga = session.createQuery("FROM Ligas l WHERE l.nombreLiga = :ligaNombre", Ligas.class)
+                    .setParameter("ligaNombre", ligaSeleccionada)
+                    .uniqueResult();
+
+            // Si no se encuentra la liga mostrar mensaje de error
+            if (liga == null) {
+                JOptionPane.showMessageDialog(null, "Liga no encontrada: " + ligaSeleccionada, "Error", JOptionPane.ERROR_MESSAGE);
+                // Retorna lista vacía si no se encuentra la liga
+                return new ArrayList<>();
+            }
+
+            // Obtener los partidos correspondientes a la liga utilizando el ID de la liga
+            List<Partidos> partidosList = session.createQuery("FROM Partidos p WHERE p.liga.id = :ligaId", Partidos.class)
+                    .setParameter("ligaId", liga.getPkLiga())
+                    .getResultList();
+
+            // Agregar las jornadas al Set para evitar duplicados
+            for (Partidos partido : partidosList) {
+                jornadasSet.add(partido.getJornada());
+            }
+
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            JOptionPane.showMessageDialog(null, "Error al obtener las jornadas: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            System.err.println("Error al obtener las jornadas: " + e.getMessage());
+        }
+
+        // Convertir el Set de jornadas a una lista y devolverla
+        return new ArrayList<>(jornadasSet);
     }
 
     // Obtener los partidos de la jornada y liga seleccionados mediante los comboBox de la interfaz
