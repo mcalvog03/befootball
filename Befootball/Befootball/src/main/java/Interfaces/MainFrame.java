@@ -6,8 +6,13 @@ package Interfaces;
 
 import Funcionalidades.PartidosTableModel;
 import Funcionalidades.ConfiguradorDeInterfaz;
+import Funcionalidades.EstiloTablaJugadores;
+import Funcionalidades.EstiloTablaPartidos;
 import Funcionalidades.ImageRenderer;
+import Funcionalidades.JugadoresTableModel;
 import Funcionalidades.ObtenerDatos;
+import POJOS.Equipos;
+import POJOS.Jugadores;
 import POJOS.Partidos;
 import POJOS.Usuarios;
 import java.awt.BorderLayout;
@@ -35,6 +40,8 @@ public class MainFrame extends javax.swing.JFrame {
 
     private SessionFactory factory;
     private ObtenerDatos obtenerDatos;
+    private int pkUsuario;
+    private boolean estiloInterfaz;
 
     // Información servidor socket
     private static final String SERVER_IP = "192.168.1.45";
@@ -64,12 +71,16 @@ public class MainFrame extends javax.swing.JFrame {
         if (pkUsuario != 0) {
             System.out.println("Cargando datos del usuario...");
             cargarPanelUsuario(pkUsuario);
+            // Establecer valor en la variabla del id del usuario que ha iniciado sesión
+            this.pkUsuario = pkUsuario;
         }
 
         System.out.println("Configurando interfaz por rol...");
         if (rol != null) {
             ConfiguradorDeInterfaz.configurarPorRol(rol, this);
         }
+
+        EstiloTablaPartidos.estilizarTabla(partidosTable);
     }
 
     /**
@@ -170,16 +181,16 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel30 = new javax.swing.JPanel();
         jPanel31 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        jPanel33 = new javax.swing.JPanel();
+        escudoEquipoPanel = new javax.swing.JPanel();
         jPanel32 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jugadoresEquipoTable = new javax.swing.JTable();
         jPanel29 = new javax.swing.JPanel();
         jToolBar6 = new javax.swing.JToolBar();
-        resultadosUsuarioButton1 = new javax.swing.JButton();
-        clasificacionUsuarioButton1 = new javax.swing.JButton();
-        usuarioButton1 = new javax.swing.JButton();
+        resultadosEquipoButton = new javax.swing.JButton();
+        clasificacionEquipoButton = new javax.swing.JButton();
+        usuarioEquipoButton = new javax.swing.JButton();
         partidoPanel = new javax.swing.JPanel();
         jPanel34 = new javax.swing.JPanel();
         jPanel37 = new javax.swing.JPanel();
@@ -194,13 +205,19 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel23 = new javax.swing.JLabel();
         jPanel36 = new javax.swing.JPanel();
         jToolBar7 = new javax.swing.JToolBar();
-        resultadosUsuarioButton2 = new javax.swing.JButton();
-        clasificacionUsuarioButton2 = new javax.swing.JButton();
-        usuarioButton2 = new javax.swing.JButton();
+        resultadosPartidoButton = new javax.swing.JButton();
+        clasificacionPartidoButton = new javax.swing.JButton();
+        usuarioPartidoButton = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         inicioMenu = new javax.swing.JMenu();
         logoutMenuItem = new javax.swing.JMenuItem();
         salirMenuItem = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        cambiarNombreMenuItem = new javax.swing.JMenuItem();
+        cambiarCorreoMenuItem = new javax.swing.JMenuItem();
+        cambiarContraseñaMenuItem = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        estiloInterfazCheckBoxMenuItem = new javax.swing.JCheckBoxMenuItem();
         devMenu = new javax.swing.JMenu();
         crearPartidoMenuItem = new javax.swing.JMenuItem();
         ayudaMenu = new javax.swing.JMenu();
@@ -423,12 +440,11 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel12.setLayout(new java.awt.BorderLayout());
 
         partidosTable.setBackground(new java.awt.Color(0, 0, 0));
+        partidosTable.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         partidosTable.setForeground(new java.awt.Color(255, 255, 255));
         partidosTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Escudo local", "Equipo local", "Goles local", "Goles visitante", "Equipo visitante", "Escudo visitante"
@@ -447,7 +463,8 @@ public class MainFrame extends javax.swing.JFrame {
         partidosTable.setSelectionBackground(new java.awt.Color(0, 0, 0));
         partidosTable.setSelectionForeground(new java.awt.Color(0, 255, 0));
         partidosTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        partidosTable.setShowGrid(true);
+        partidosTable.setShowGrid(false);
+        partidosTable.setShowHorizontalLines(true);
         partidosTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(partidosTable);
 
@@ -776,6 +793,12 @@ public class MainFrame extends javax.swing.JFrame {
         equipoFavoritoLabel.setText("nombre del equipo");
 
         escudoFavoritoPanel.setBackground(new java.awt.Color(0, 181, 12));
+        escudoFavoritoPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        escudoFavoritoPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                escudoFavoritoPanelMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout escudoFavoritoPanelLayout = new javax.swing.GroupLayout(escudoFavoritoPanel);
         escudoFavoritoPanel.setLayout(escudoFavoritoPanelLayout);
@@ -862,6 +885,11 @@ public class MainFrame extends javax.swing.JFrame {
         usuarioButton.setFocusable(false);
         usuarioButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         usuarioButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        usuarioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usuarioButtonActionPerformed(evt);
+            }
+        });
         jToolBar4.add(usuarioButton);
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
@@ -1079,14 +1107,16 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("Escudo");
 
-        javax.swing.GroupLayout jPanel33Layout = new javax.swing.GroupLayout(jPanel33);
-        jPanel33.setLayout(jPanel33Layout);
-        jPanel33Layout.setHorizontalGroup(
-            jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        escudoEquipoPanel.setBackground(new java.awt.Color(102, 102, 102));
+
+        javax.swing.GroupLayout escudoEquipoPanelLayout = new javax.swing.GroupLayout(escudoEquipoPanel);
+        escudoEquipoPanel.setLayout(escudoEquipoPanelLayout);
+        escudoEquipoPanelLayout.setHorizontalGroup(
+            escudoEquipoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
-        jPanel33Layout.setVerticalGroup(
-            jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        escudoEquipoPanelLayout.setVerticalGroup(
+            escudoEquipoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 121, Short.MAX_VALUE)
         );
 
@@ -1098,7 +1128,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
-                    .addComponent(jPanel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(escudoEquipoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel31Layout.setVerticalGroup(
@@ -1107,7 +1137,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(escudoEquipoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1122,8 +1152,12 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel11.setText("Jugadores");
         jPanel32.add(jLabel11, java.awt.BorderLayout.PAGE_START);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jugadoresEquipoTable.setBackground(new java.awt.Color(0, 0, 0));
+        jugadoresEquipoTable.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jugadoresEquipoTable.setForeground(new java.awt.Color(255, 255, 255));
+        jugadoresEquipoTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
@@ -1133,7 +1167,13 @@ public class MainFrame extends javax.swing.JFrame {
                 "Nombre", "Nacionalidad", "Posición", "Dorsal"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jugadoresEquipoTable.setGridColor(new java.awt.Color(255, 255, 255));
+        jugadoresEquipoTable.setRowHeight(20);
+        jugadoresEquipoTable.setSelectionBackground(new java.awt.Color(0, 0, 0));
+        jugadoresEquipoTable.setSelectionForeground(new java.awt.Color(0, 255, 0));
+        jugadoresEquipoTable.setShowGrid(true);
+        jugadoresEquipoTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(jugadoresEquipoTable);
 
         jPanel32.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
@@ -1151,45 +1191,50 @@ public class MainFrame extends javax.swing.JFrame {
         jToolBar6.setFloatable(false);
         jToolBar6.setRollover(true);
 
-        resultadosUsuarioButton1.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
-        resultadosUsuarioButton1.setForeground(new java.awt.Color(102, 255, 255));
-        resultadosUsuarioButton1.setText("Resultados");
-        resultadosUsuarioButton1.setContentAreaFilled(false);
-        resultadosUsuarioButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        resultadosUsuarioButton1.setFocusable(false);
-        resultadosUsuarioButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        resultadosUsuarioButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        resultadosUsuarioButton1.addActionListener(new java.awt.event.ActionListener() {
+        resultadosEquipoButton.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        resultadosEquipoButton.setForeground(new java.awt.Color(102, 255, 255));
+        resultadosEquipoButton.setText("Resultados");
+        resultadosEquipoButton.setContentAreaFilled(false);
+        resultadosEquipoButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        resultadosEquipoButton.setFocusable(false);
+        resultadosEquipoButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        resultadosEquipoButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        resultadosEquipoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                resultadosUsuarioButton1ActionPerformed(evt);
+                resultadosEquipoButtonActionPerformed(evt);
             }
         });
-        jToolBar6.add(resultadosUsuarioButton1);
+        jToolBar6.add(resultadosEquipoButton);
 
-        clasificacionUsuarioButton1.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
-        clasificacionUsuarioButton1.setForeground(new java.awt.Color(102, 255, 255));
-        clasificacionUsuarioButton1.setText("Clasificación");
-        clasificacionUsuarioButton1.setContentAreaFilled(false);
-        clasificacionUsuarioButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        clasificacionUsuarioButton1.setFocusable(false);
-        clasificacionUsuarioButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        clasificacionUsuarioButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        clasificacionUsuarioButton1.addActionListener(new java.awt.event.ActionListener() {
+        clasificacionEquipoButton.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        clasificacionEquipoButton.setForeground(new java.awt.Color(102, 255, 255));
+        clasificacionEquipoButton.setText("Clasificación");
+        clasificacionEquipoButton.setContentAreaFilled(false);
+        clasificacionEquipoButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        clasificacionEquipoButton.setFocusable(false);
+        clasificacionEquipoButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        clasificacionEquipoButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        clasificacionEquipoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                clasificacionUsuarioButton1ActionPerformed(evt);
+                clasificacionEquipoButtonActionPerformed(evt);
             }
         });
-        jToolBar6.add(clasificacionUsuarioButton1);
+        jToolBar6.add(clasificacionEquipoButton);
 
-        usuarioButton1.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
-        usuarioButton1.setForeground(new java.awt.Color(102, 255, 255));
-        usuarioButton1.setText("Usuario");
-        usuarioButton1.setContentAreaFilled(false);
-        usuarioButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        usuarioButton1.setFocusable(false);
-        usuarioButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        usuarioButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar6.add(usuarioButton1);
+        usuarioEquipoButton.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        usuarioEquipoButton.setForeground(new java.awt.Color(102, 255, 255));
+        usuarioEquipoButton.setText("Usuario");
+        usuarioEquipoButton.setContentAreaFilled(false);
+        usuarioEquipoButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        usuarioEquipoButton.setFocusable(false);
+        usuarioEquipoButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        usuarioEquipoButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        usuarioEquipoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usuarioEquipoButtonActionPerformed(evt);
+            }
+        });
+        jToolBar6.add(usuarioEquipoButton);
 
         javax.swing.GroupLayout jPanel29Layout = new javax.swing.GroupLayout(jPanel29);
         jPanel29.setLayout(jPanel29Layout);
@@ -1215,7 +1260,7 @@ public class MainFrame extends javax.swing.JFrame {
         partidoPanel.setLayout(new java.awt.BorderLayout());
 
         jPanel34.setBackground(new java.awt.Color(0, 0, 0));
-        jPanel34.setLayout(new java.awt.GridLayout());
+        jPanel34.setLayout(new java.awt.GridLayout(1, 0));
 
         javax.swing.GroupLayout jPanel37Layout = new javax.swing.GroupLayout(jPanel37);
         jPanel37.setLayout(jPanel37Layout);
@@ -1322,45 +1367,50 @@ public class MainFrame extends javax.swing.JFrame {
         jToolBar7.setFloatable(false);
         jToolBar7.setRollover(true);
 
-        resultadosUsuarioButton2.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
-        resultadosUsuarioButton2.setForeground(new java.awt.Color(102, 255, 255));
-        resultadosUsuarioButton2.setText("Resultados");
-        resultadosUsuarioButton2.setContentAreaFilled(false);
-        resultadosUsuarioButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        resultadosUsuarioButton2.setFocusable(false);
-        resultadosUsuarioButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        resultadosUsuarioButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        resultadosUsuarioButton2.addActionListener(new java.awt.event.ActionListener() {
+        resultadosPartidoButton.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        resultadosPartidoButton.setForeground(new java.awt.Color(102, 255, 255));
+        resultadosPartidoButton.setText("Resultados");
+        resultadosPartidoButton.setContentAreaFilled(false);
+        resultadosPartidoButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        resultadosPartidoButton.setFocusable(false);
+        resultadosPartidoButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        resultadosPartidoButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        resultadosPartidoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                resultadosUsuarioButton2ActionPerformed(evt);
+                resultadosPartidoButtonActionPerformed(evt);
             }
         });
-        jToolBar7.add(resultadosUsuarioButton2);
+        jToolBar7.add(resultadosPartidoButton);
 
-        clasificacionUsuarioButton2.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
-        clasificacionUsuarioButton2.setForeground(new java.awt.Color(102, 255, 255));
-        clasificacionUsuarioButton2.setText("Clasificación");
-        clasificacionUsuarioButton2.setContentAreaFilled(false);
-        clasificacionUsuarioButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        clasificacionUsuarioButton2.setFocusable(false);
-        clasificacionUsuarioButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        clasificacionUsuarioButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        clasificacionUsuarioButton2.addActionListener(new java.awt.event.ActionListener() {
+        clasificacionPartidoButton.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        clasificacionPartidoButton.setForeground(new java.awt.Color(102, 255, 255));
+        clasificacionPartidoButton.setText("Clasificación");
+        clasificacionPartidoButton.setContentAreaFilled(false);
+        clasificacionPartidoButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        clasificacionPartidoButton.setFocusable(false);
+        clasificacionPartidoButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        clasificacionPartidoButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        clasificacionPartidoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                clasificacionUsuarioButton2ActionPerformed(evt);
+                clasificacionPartidoButtonActionPerformed(evt);
             }
         });
-        jToolBar7.add(clasificacionUsuarioButton2);
+        jToolBar7.add(clasificacionPartidoButton);
 
-        usuarioButton2.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
-        usuarioButton2.setForeground(new java.awt.Color(102, 255, 255));
-        usuarioButton2.setText("Usuario");
-        usuarioButton2.setContentAreaFilled(false);
-        usuarioButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        usuarioButton2.setFocusable(false);
-        usuarioButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        usuarioButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar7.add(usuarioButton2);
+        usuarioPartidoButton.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        usuarioPartidoButton.setForeground(new java.awt.Color(102, 255, 255));
+        usuarioPartidoButton.setText("Usuario");
+        usuarioPartidoButton.setContentAreaFilled(false);
+        usuarioPartidoButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        usuarioPartidoButton.setFocusable(false);
+        usuarioPartidoButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        usuarioPartidoButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        usuarioPartidoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usuarioPartidoButtonActionPerformed(evt);
+            }
+        });
+        jToolBar7.add(usuarioPartidoButton);
 
         javax.swing.GroupLayout jPanel36Layout = new javax.swing.GroupLayout(jPanel36);
         jPanel36.setLayout(jPanel36Layout);
@@ -1398,6 +1448,28 @@ public class MainFrame extends javax.swing.JFrame {
         inicioMenu.add(salirMenuItem);
 
         jMenuBar1.add(inicioMenu);
+
+        jMenu1.setText("Ajustes");
+
+        cambiarNombreMenuItem.setText("Cambiar nombre");
+        jMenu1.add(cambiarNombreMenuItem);
+
+        cambiarCorreoMenuItem.setText("Cambiar correo");
+        jMenu1.add(cambiarCorreoMenuItem);
+
+        cambiarContraseñaMenuItem.setText("Cambiar contraseña");
+        jMenu1.add(cambiarContraseñaMenuItem);
+        jMenu1.add(jSeparator2);
+
+        estiloInterfazCheckBoxMenuItem.setText("Interfaz clásica");
+        estiloInterfazCheckBoxMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                estiloInterfazCheckBoxMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu1.add(estiloInterfazCheckBoxMenuItem);
+
+        jMenuBar1.add(jMenu1);
 
         devMenu.setText("Dev");
 
@@ -1502,54 +1574,66 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        mostrarPanelEquipo();
+        //mostrarPanelEquipo();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void resultadosUsuarioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resultadosUsuarioButton1ActionPerformed
+    private void resultadosEquipoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resultadosEquipoButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_resultadosUsuarioButton1ActionPerformed
+        mostrarPanelResultadosUsuario();
+    }//GEN-LAST:event_resultadosEquipoButtonActionPerformed
 
-    private void clasificacionUsuarioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clasificacionUsuarioButton1ActionPerformed
+    private void clasificacionEquipoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clasificacionEquipoButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_clasificacionUsuarioButton1ActionPerformed
+        mostrarPanelResultadosUsuario();
+    }//GEN-LAST:event_clasificacionEquipoButtonActionPerformed
 
-    private void resultadosUsuarioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resultadosUsuarioButton2ActionPerformed
+    private void resultadosPartidoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resultadosPartidoButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_resultadosUsuarioButton2ActionPerformed
+        mostrarPanelResultadosUsuario();
+    }//GEN-LAST:event_resultadosPartidoButtonActionPerformed
 
-    private void clasificacionUsuarioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clasificacionUsuarioButton2ActionPerformed
+    private void clasificacionPartidoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clasificacionPartidoButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_clasificacionUsuarioButton2ActionPerformed
+        mostrarPanelClasificacionUsuario();
+    }//GEN-LAST:event_clasificacionPartidoButtonActionPerformed
 
     private void jornadaComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jornadaComboBoxActionPerformed
         // TODO add your handling code here:
-
-        // Obtener elementos seleccionados en los comboBox
-        String ligaSeleccionada = (String) ligaComboBox.getSelectedItem();
-        Object jornadaSeleccionadaObj = jornadaComboBox.getSelectedItem();
-
-        // Evitar error cuando aún no hay valores seleccionados en los comboBox
-        if (ligaSeleccionada == null || jornadaSeleccionadaObj == null) {
-            return;
-        }
-
-        try {
-            int jornadaSeleccionada = Integer.parseInt(jornadaSeleccionadaObj.toString());
-            // Crear una lista de los partidos de la jornada y liga seleccionada
-            List<Partidos> partidos = obtenerDatos.obtenerPartidosFiltrados(ligaSeleccionada, jornadaSeleccionada);
-            // Cargar la lista en el modelo de la tabla
-            PartidosTableModel model = new PartidosTableModel(partidos);
-            // Actualizar la tabla
-            partidosTable.setModel(model);
-            // Escudo Local
-            partidosTable.getColumnModel().getColumn(0).setCellRenderer(new ImageRenderer());
-            // Escudo Visitante
-            partidosTable.getColumnModel().getColumn(5).setCellRenderer(new ImageRenderer());
-
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Error al convertir jornada a número: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        mostrarResultados();
     }//GEN-LAST:event_jornadaComboBoxActionPerformed
+
+    private void usuarioEquipoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioEquipoButtonActionPerformed
+        // TODO add your handling code here:
+        mostrarPanelUsuario();
+        cargarPanelUsuario(pkUsuario);
+    }//GEN-LAST:event_usuarioEquipoButtonActionPerformed
+
+    private void usuarioPartidoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioPartidoButtonActionPerformed
+        // TODO add your handling code here:
+        mostrarPanelUsuario();
+        cargarPanelUsuario(pkUsuario);
+    }//GEN-LAST:event_usuarioPartidoButtonActionPerformed
+
+    private void escudoFavoritoPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_escudoFavoritoPanelMouseClicked
+        // TODO add your handling code here:
+        Usuarios usuario = obtenerDatos.obtenerDatosUsuario(pkUsuario);
+        mostrarPanelEquipo(usuario.getEquipoFavorito().getPkEquipo());
+    }//GEN-LAST:event_escudoFavoritoPanelMouseClicked
+
+    private void usuarioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioButtonActionPerformed
+        // TODO add your handling code here:
+        cargarPanelUsuario(pkUsuario);
+    }//GEN-LAST:event_usuarioButtonActionPerformed
+
+    private void estiloInterfazCheckBoxMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estiloInterfazCheckBoxMenuItemActionPerformed
+        // TODO add your handling code here:
+        estiloInterfaz = estiloInterfazCheckBoxMenuItem.isSelected();
+        if (estiloInterfaz) {
+            JOptionPane.showMessageDialog(null, "True", "", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "False", "", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_estiloInterfazCheckBoxMenuItemActionPerformed
 
     // Crear factorty
     private void initializeSessionFactory() {
@@ -1593,12 +1677,15 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Mostrar panel de equipo
-    public void mostrarPanelEquipo() {
+    public void mostrarPanelEquipo(int pkEquipo) {
         CardLayout cl = (CardLayout) mainPanel.getLayout();
         // Añadir nombre del panel a cambiar en el panel elegido con cardLayout
         mainPanel.add(equipoPanel, "equipoPanel");
         // Mostrar el panel
         cl.show(mainPanel, "equipoPanel");
+
+        // Cargar información en el panel
+        cargarPanelEquipo(pkEquipo);
     }
 
     // Mostrar panel de resultados desde usuario
@@ -1647,6 +1734,44 @@ public class MainFrame extends javax.swing.JFrame {
         obtenerEscudoFavorito(pkUsuario);
     }
 
+    // Cargar información en el panel de equipo
+    public void cargarPanelEquipo(int pkEquipo) {
+        // Crear un objeto de equipo con la información del equipo seleccionado
+        Equipos equipo = obtenerDatos.obtenerDatosEquipos(pkEquipo);
+        // Mostrar nombre del equipo
+        nombreEquipoLabel.setText(equipo.getNombreEquipo());
+        // Mostrar pais del equipo
+        paisEquipoLabel.setText(equipo.getLiga().getPais().getNombrePais());
+        // Mostrar liga del equipo
+        ligaEquipoLabel.setText(equipo.getLiga().getNombreLiga());
+        // Mostrar posición en la clasificación de su liga
+        //posicionLigaEquipoLabel.setText();
+        // Mostrar nombre del estadio del equipo
+        estadioEquipoLabel.setText(equipo.getEstadio().getNombreEstadio());
+        // Cargar escudo del equipo seleccionado
+        obtenerEscudo(pkEquipo);
+        // Cargar tabla con los jugadores del equipo seleccionado
+        cargarTablaJugadoresEquipo(pkEquipo);
+    }
+
+    public void cargarTablaJugadoresEquipo(int pkEquipo) {
+        // Crear una lista de los jugadores del equipo seleccionado
+        List<Jugadores> jugadores = obtenerDatos.obtenerJugadoresEquipo(pkEquipo);
+
+        // Verificar que la lista no esté vacía
+        if (jugadores != null && !jugadores.isEmpty()) {
+            // Cargar la lista en el modelo de la tabla
+            JugadoresTableModel model = new JugadoresTableModel(jugadores);
+            // Actualizar la tabla
+            jugadoresEquipoTable.setModel(model);
+            // Estilizar la tabla
+            EstiloTablaJugadores.estilizarTabla(jugadoresEquipoTable);
+        } else {
+            // Mostrar mensaje si no hay jugadores
+            JOptionPane.showMessageDialog(null, "No se encontraron jugadores para este equipo.", "Aviso", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
     // Crear directorio para guardar los escudos en caso de que no exista
     public void crearDirectorioEscudos() {
         File localDir = new File(LOCAL_FOLDER);
@@ -1658,6 +1783,11 @@ public class MainFrame extends javax.swing.JFrame {
     // Obtener el escudo favorito del usuario
     private void obtenerEscudoFavorito(int pkUsuario) {
         mostrarEscudoEnPanel(obtenerDatos.obtenerDatosUsuario(pkUsuario).getEquipoFavorito().getEscudo(), escudoFavoritoPanel);
+    }
+
+    // Obtener el escudo del equipo seleccionado
+    private void obtenerEscudo(int pkEquipo) {
+        mostrarEscudoEnPanel(obtenerDatos.obtenerDatosEquipos(pkEquipo).getEscudo(), escudoEquipoPanel);
     }
 
     // Descargar el escudo favortio y mostrarlo en el panel
@@ -1740,6 +1870,37 @@ public class MainFrame extends javax.swing.JFrame {
             }
         }
     }
+    
+    // Método para cargar los resultados de los partidos
+    public void mostrarResultados(){
+        // Obtener elementos seleccionados en los comboBox
+        String ligaSeleccionada = (String) ligaComboBox.getSelectedItem();
+        Object jornadaSeleccionadaObj = jornadaComboBox.getSelectedItem();
+
+        // Evitar error cuando aún no hay valores seleccionados en los comboBox
+        if (ligaSeleccionada == null || jornadaSeleccionadaObj == null) {
+            return;
+        }
+
+        try {
+            int jornadaSeleccionada = Integer.parseInt(jornadaSeleccionadaObj.toString());
+            // Crear una lista de los partidos de la jornada y liga seleccionada
+            List<Partidos> partidos = obtenerDatos.obtenerPartidosFiltrados(ligaSeleccionada, jornadaSeleccionada);
+            // Cargar la lista en el modelo de la tabla
+            PartidosTableModel model = new PartidosTableModel(partidos);
+            // Actualizar la tabla
+            partidosTable.setModel(model);
+            // Estilizar la tabla
+            EstiloTablaPartidos.estilizarTabla(partidosTable);
+            // Escudo Local
+            partidosTable.getColumnModel().getColumn(0).setCellRenderer(new ImageRenderer());
+            // Escudo Visitante
+            partidosTable.getColumnModel().getColumn(5).setCellRenderer(new ImageRenderer());
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Error al convertir jornada a número: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -1781,20 +1942,25 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel appPanel;
     private javax.swing.JMenu ayudaMenu;
     private javax.swing.JMenuItem ayudaMenuItem;
+    private javax.swing.JMenuItem cambiarContraseñaMenuItem;
+    private javax.swing.JMenuItem cambiarCorreoMenuItem;
+    private javax.swing.JMenuItem cambiarNombreMenuItem;
     private javax.swing.JButton clasificacionButton;
+    private javax.swing.JButton clasificacionEquipoButton;
     private javax.swing.JPanel clasificacionPanel;
+    private javax.swing.JButton clasificacionPartidoButton;
     private javax.swing.JButton clasificacionResultadosButton;
     private javax.swing.JButton clasificacionUsuarioButton;
-    private javax.swing.JButton clasificacionUsuarioButton1;
-    private javax.swing.JButton clasificacionUsuarioButton2;
     private javax.swing.JLabel correoUsuarioLabel;
     private javax.swing.JMenuItem crearPartidoMenuItem;
     private javax.swing.JMenu devMenu;
     private javax.swing.JPanel equipoFavPanel;
     private javax.swing.JLabel equipoFavoritoLabel;
     private javax.swing.JPanel equipoPanel;
+    private javax.swing.JPanel escudoEquipoPanel;
     private javax.swing.JPanel escudoFavoritoPanel;
     private javax.swing.JLabel estadioEquipoLabel;
+    private javax.swing.JCheckBoxMenuItem estiloInterfazCheckBoxMenuItem;
     private javax.swing.JLabel fechaRegistroUsuarioLabel;
     private javax.swing.JLabel idUsuarioLabel;
     private javax.swing.JPanel infoUsuarioPanel;
@@ -1824,6 +1990,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -1851,7 +2018,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel30;
     private javax.swing.JPanel jPanel31;
     private javax.swing.JPanel jPanel32;
-    private javax.swing.JPanel jPanel33;
     private javax.swing.JPanel jPanel34;
     private javax.swing.JPanel jPanel35;
     private javax.swing.JPanel jPanel36;
@@ -1866,7 +2032,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JToolBar.Separator jSeparator1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToolBar jToolBar2;
     private javax.swing.JToolBar jToolBar4;
@@ -1874,6 +2040,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JToolBar jToolBar6;
     private javax.swing.JToolBar jToolBar7;
     private javax.swing.JComboBox<String> jornadaComboBox;
+    private javax.swing.JTable jugadoresEquipoTable;
     private javax.swing.JComboBox<String> ligaComboBox;
     private javax.swing.JLabel ligaEquipoLabel;
     private javax.swing.JMenuItem logoutMenuItem;
@@ -1890,16 +2057,16 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton resultadosButton;
     private javax.swing.JPanel resultadosClasifiacionPanel;
     private javax.swing.JButton resultadosClasificacionButton;
+    private javax.swing.JButton resultadosEquipoButton;
     private javax.swing.JPanel resultadosPanel;
+    private javax.swing.JButton resultadosPartidoButton;
     private javax.swing.JButton resultadosUsuarioButton;
-    private javax.swing.JButton resultadosUsuarioButton1;
-    private javax.swing.JButton resultadosUsuarioButton2;
     private javax.swing.JLabel rolUsuarioLabel;
     private javax.swing.JMenuItem salirMenuItem;
     private javax.swing.JPanel userPanel;
     private javax.swing.JButton usuarioButton;
-    private javax.swing.JButton usuarioButton1;
-    private javax.swing.JButton usuarioButton2;
+    private javax.swing.JButton usuarioEquipoButton;
+    private javax.swing.JButton usuarioPartidoButton;
     private javax.swing.JButton usuarioResultadosButton;
     private javax.swing.JButton usuariosClasificacionButton;
     private javax.swing.JMenuItem webMenuItem;

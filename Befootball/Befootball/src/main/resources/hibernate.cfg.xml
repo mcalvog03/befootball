@@ -29,6 +29,7 @@
         <!-- Mapeo de clases -->
         <mapping class="POJOS.Equipos"/>
         <mapping class="POJOS.Estadios"/>
+        <mapping class="POJOS.Jugadores"/>
         <mapping class="POJOS.Ligas"/>
         <mapping class="POJOS.Paises"/>
         <mapping class="POJOS.Partidos"/>

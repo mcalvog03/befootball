@@ -5,6 +5,7 @@
 package Funcionalidades;
 
 import POJOS.Equipos;
+import POJOS.Jugadores;
 import POJOS.Ligas;
 import POJOS.Partidos;
 import POJOS.Usuarios;
@@ -40,6 +41,49 @@ public class ObtenerDatos {
         }
 
         return usuario;
+    }
+    
+    // Obtener datos del equipo seleccionado
+    public Equipos obtenerDatosEquipos(int pkEquipo) {
+        Equipos equipo = null;
+        try (Session session = factory.openSession()) {
+            // Iniciar transacción
+            Transaction transaction = session.beginTransaction();
+
+            // Buscar el usuario en la base de datos
+            equipo = session.find(Equipos.class, pkEquipo);
+
+            // Confirmar la transacción
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return equipo;
+    }
+    
+    public List<Jugadores> obtenerJugadoresEquipo(int pkEquipo){
+        List<Jugadores> jugadores = new ArrayList<>();
+        Transaction tx = null;
+
+        try (Session session = factory.openSession()) {
+            tx = session.beginTransaction();
+            
+            // Obtener los partidos correspondientes a la liga y jornada seleccionada
+            jugadores = session.createQuery("FROM Jugadores j WHERE j.equipo.id = :equipoid", Jugadores.class)
+                    .setParameter("equipoid", pkEquipo)
+                    .getResultList();
+
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            JOptionPane.showMessageDialog(null, "Error al obtener los jugadores: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            System.err.println("Error al obtener los jugadores: " + e.getMessage());
+        }
+
+        return jugadores;
     }
 
     // Obtener ligas
