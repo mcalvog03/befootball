@@ -94,7 +94,7 @@ public class PartidosTableModel extends AbstractTableModel {
         }
     }
     
-    // Método añadido para obtener el partido en la fila seleccionada
+    // Método para obtener el partido en la fila seleccionada
     public Partidos getPartidoEnFila(int rowIndex) {
         return partidos.get(rowIndex);
     }

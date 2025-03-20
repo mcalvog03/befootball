@@ -215,6 +215,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel27 = new javax.swing.JLabel();
         nombreVisitanteLabel = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
+        editarPartidoButton = new javax.swing.JButton();
         jPanel36 = new javax.swing.JPanel();
         jToolBar7 = new javax.swing.JToolBar();
         resultadosPartidoButton = new javax.swing.JButton();
@@ -232,6 +233,7 @@ public class MainFrame extends javax.swing.JFrame {
         estiloInterfazCheckBoxMenuItem = new javax.swing.JCheckBoxMenuItem();
         devMenu = new javax.swing.JMenu();
         crearPartidoMenuItem = new javax.swing.JMenuItem();
+        editarRolMenuItem = new javax.swing.JMenuItem();
         ayudaMenu = new javax.swing.JMenu();
         acercaDeMenuItem = new javax.swing.JMenuItem();
         webMenuItem = new javax.swing.JMenuItem();
@@ -1417,19 +1419,24 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel40.add(nombreVisitanteLabel);
         jPanel40.add(jLabel24);
 
+        editarPartidoButton.setText("e");
+
         javax.swing.GroupLayout jPanel35Layout = new javax.swing.GroupLayout(jPanel35);
         jPanel35.setLayout(jPanel35Layout);
         jPanel35Layout.setHorizontalGroup(
             jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel40, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel35Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(estadoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jornadaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(ligaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 746, Short.MAX_VALUE)
-                    .addComponent(fechaPartidoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 746, Short.MAX_VALUE))
+                    .addComponent(fechaPartidoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 746, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel35Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(editarPartidoButton)))
                 .addContainerGap())
-            .addComponent(jPanel40, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel35Layout.setVerticalGroup(
             jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1443,7 +1450,9 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(ligaLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fechaPartidoLabel)
-                .addContainerGap(192, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
+                .addComponent(editarPartidoButton)
+                .addContainerGap())
         );
 
         partidoPanel.add(jPanel35, java.awt.BorderLayout.CENTER);
@@ -1574,6 +1583,14 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
         devMenu.add(crearPartidoMenuItem);
+
+        editarRolMenuItem.setText("Editar rol de usuario");
+        editarRolMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editarRolMenuItemActionPerformed(evt);
+            }
+        });
+        devMenu.add(editarRolMenuItem);
 
         jMenuBar1.add(devMenu);
 
@@ -1752,6 +1769,12 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_partidosTableMouseClicked
 
+    private void editarRolMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarRolMenuItemActionPerformed
+        // TODO add your handling code here:
+        EditarRolUsuario editarRolUsuario = new EditarRolUsuario(this, rootPaneCheckingEnabled);
+        editarRolUsuario.setVisible(true);
+    }//GEN-LAST:event_editarRolMenuItemActionPerformed
+
     // Crear factorty
     private void initializeSessionFactory() {
         factory = new Configuration().configure().buildSessionFactory();
@@ -1851,14 +1874,15 @@ public class MainFrame extends javax.swing.JFrame {
     // Interfaz para usuario normal
     public void ventanaUsuario() {
         devMenu.setVisible(false);
+        editarPartidoButton.setVisible(false);
     }
 
     // Interfaz para invitado
     public void ventanaInvitado() {
+        ventanaUsuario();
         usuarioButton.setVisible(false);
         usuarioResultadosButton.setVisible(false);
         usuariosClasificacionButton.setVisible(false);
-        devMenu.setVisible(false);
         cambiarNombreMenuItem.setVisible(false);
         cambiarCorreoMenuItem.setVisible(false);
         cambiarContraseñaMenuItem.setVisible(false);
@@ -2178,6 +2202,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem crearPartidoMenuItem;
     private javax.swing.JMenu devMenu;
     private javax.swing.JButton editarEquipoFavButton;
+    private javax.swing.JButton editarPartidoButton;
+    private javax.swing.JMenuItem editarRolMenuItem;
     private javax.swing.JPanel equipoFavPanel;
     private javax.swing.JLabel equipoFavoritoLabel;
     private javax.swing.JPanel equipoPanel;
