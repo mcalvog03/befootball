@@ -238,7 +238,6 @@ public class SelectorEquipos extends javax.swing.JDialog {
             if (tx != null) {
                 tx.rollback();
             }
-            System.err.println("Error al eliminar el equipo favorito: " + e.getMessage());
         }
     }
     

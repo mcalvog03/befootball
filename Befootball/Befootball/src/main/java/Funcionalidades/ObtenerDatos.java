@@ -52,7 +52,7 @@ public class ObtenerDatos {
             // Iniciar transacción
             Transaction transaction = session.beginTransaction();
 
-            // Buscar el usuario en la base de datos
+            // Buscar el equipo en la base de datos
             equipo = session.find(Equipos.class, pkEquipo);
 
             // Confirmar la transacción
@@ -269,5 +269,51 @@ public class ObtenerDatos {
         }
 
         return partidosFiltrados;
+    }
+    
+    // Obtener un partido por id
+    public Partidos obtenerDatosPartido(int pkPartido) {
+        Partidos partido = null;
+        try (Session session = factory.openSession()) {
+            // Iniciar transacción
+            Transaction transaction = session.beginTransaction();
+
+            // Buscar el partido en la base de datos
+            partido = session.find(Partidos.class, pkPartido);
+
+            // Confirmar la transacción
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return partido;
+    }
+    
+    // Metodo para seleccionar el equipo favorito del usuario utilizando
+    public void seleccionarEquipoFav(int pkUsuario, int pkEquipo) {
+        Transaction tx = null;
+        try (Session session = factory.openSession()) {
+            tx = session.beginTransaction();
+
+            // Obtener el usuario por id
+            Usuarios usuario = session.find(Usuarios.class, pkUsuario);
+
+            if (usuario != null) {
+                // Establecer el equipo seleccionado en el Jlist
+                usuario.setEquipoFavorito(obtenerDatosEquipos(pkEquipo));
+
+                // Guardar los cambios en la base de datos
+                session.persist(usuario);
+
+                tx.commit();
+            } else {
+                System.out.println("Usuario no encontrado con ID: " + pkUsuario);
+            }
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+        }
     }
 }
