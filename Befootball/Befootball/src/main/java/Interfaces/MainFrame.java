@@ -22,6 +22,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -60,6 +61,8 @@ public class MainFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/logo.png");
         setIconImage(icon);
+        // Crear carpeta de escudos descargados en caso de que no exista
+        crearDirectorioEscudos();
         // Inicializar factory
         initializeSessionFactory();
         // Crear objeto de obtención de datos
@@ -109,7 +112,6 @@ public class MainFrame extends javax.swing.JFrame {
         resultadosButton = new javax.swing.JButton();
         clasificacionResultadosButton = new javax.swing.JButton();
         usuarioResultadosButton = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -151,9 +153,11 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         idUsuarioLabel = new javax.swing.JLabel();
         equipoFavPanel = new javax.swing.JPanel();
+        escudoFavoritoPanel = new javax.swing.JPanel();
+        jPanel33 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         equipoFavoritoLabel = new javax.swing.JLabel();
-        escudoFavoritoPanel = new javax.swing.JPanel();
+        editarEquipoFavButton = new javax.swing.JButton();
         jPanel15 = new javax.swing.JPanel();
         jToolBar4 = new javax.swing.JToolBar();
         resultadosUsuarioButton = new javax.swing.JButton();
@@ -169,7 +173,6 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jPanel20 = new javax.swing.JPanel();
         jPanel28 = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -178,10 +181,13 @@ public class MainFrame extends javax.swing.JFrame {
         paisEquipoLabel = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         estadioEquipoLabel = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
         jPanel30 = new javax.swing.JPanel();
         jPanel31 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
         escudoEquipoPanel = new javax.swing.JPanel();
+        jPanel39 = new javax.swing.JPanel();
+        agregarEquipoFavButton = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
         jPanel32 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -354,18 +360,6 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
         jToolBar2.add(usuarioResultadosButton);
-
-        jButton1.setForeground(new java.awt.Color(255, 153, 0));
-        jButton1.setText("jButton1");
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jToolBar2.add(jButton1);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -782,16 +776,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         equipoFavPanel.setBackground(new java.awt.Color(0, 181, 12));
 
-        jLabel6.setFont(new java.awt.Font("sansserif", 1, 36)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Equipo favorito");
-
-        equipoFavoritoLabel.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        equipoFavoritoLabel.setForeground(new java.awt.Color(255, 255, 255));
-        equipoFavoritoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        equipoFavoritoLabel.setText("nombre del equipo");
-
         escudoFavoritoPanel.setBackground(new java.awt.Color(0, 181, 12));
         escudoFavoritoPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         escudoFavoritoPanel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -804,32 +788,74 @@ public class MainFrame extends javax.swing.JFrame {
         escudoFavoritoPanel.setLayout(escudoFavoritoPanelLayout);
         escudoFavoritoPanelLayout.setHorizontalGroup(
             escudoFavoritoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 367, Short.MAX_VALUE)
         );
         escudoFavoritoPanelLayout.setVerticalGroup(
             escudoFavoritoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 232, Short.MAX_VALUE)
+            .addGap(0, 206, Short.MAX_VALUE)
+        );
+
+        jPanel33.setBackground(new java.awt.Color(0, 181, 12));
+
+        jLabel6.setFont(new java.awt.Font("sansserif", 1, 36)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Equipo favorito");
+
+        equipoFavoritoLabel.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        equipoFavoritoLabel.setForeground(new java.awt.Color(255, 255, 255));
+        equipoFavoritoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        equipoFavoritoLabel.setText("        nombre del equipo");
+
+        editarEquipoFavButton.setText("e");
+        editarEquipoFavButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editarEquipoFavButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel33Layout = new javax.swing.GroupLayout(jPanel33);
+        jPanel33.setLayout(jPanel33Layout);
+        jPanel33Layout.setHorizontalGroup(
+            jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel33Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel33Layout.createSequentialGroup()
+                        .addComponent(equipoFavoritoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(editarEquipoFavButton)
+                        .addContainerGap())
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+        jPanel33Layout.setVerticalGroup(
+            jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel33Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(equipoFavoritoLabel)
+                    .addComponent(editarEquipoFavButton))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout equipoFavPanelLayout = new javax.swing.GroupLayout(equipoFavPanel);
         equipoFavPanel.setLayout(equipoFavPanelLayout);
         equipoFavPanelLayout.setHorizontalGroup(
             equipoFavPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, equipoFavPanelLayout.createSequentialGroup()
+            .addGroup(equipoFavPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(equipoFavPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(equipoFavPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(escudoFavoritoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
-                    .addComponent(equipoFavoritoLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         equipoFavPanelLayout.setVerticalGroup(
             equipoFavPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(equipoFavPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(equipoFavoritoLabel)
+                .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(escudoFavoritoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -1005,11 +1031,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         jPanel28.setBackground(new java.awt.Color(0, 0, 0));
 
-        jLabel12.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("Información");
-
         jLabel13.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setText("Pais:");
@@ -1042,6 +1063,11 @@ public class MainFrame extends javax.swing.JFrame {
         estadioEquipoLabel.setForeground(new java.awt.Color(255, 255, 255));
         estadioEquipoLabel.setText("estadio");
 
+        jLabel12.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("Información");
+
         javax.swing.GroupLayout jPanel28Layout = new javax.swing.GroupLayout(jPanel28);
         jPanel28.setLayout(jPanel28Layout);
         jPanel28Layout.setHorizontalGroup(
@@ -1049,7 +1075,6 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(jPanel28Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel28Layout.createSequentialGroup()
                         .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel28Layout.createSequentialGroup()
@@ -1068,7 +1093,8 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addComponent(jLabel19)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(estadioEquipoLabel)))
-                        .addGap(0, 179, Short.MAX_VALUE)))
+                        .addGap(0, 179, Short.MAX_VALUE))
+                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel28Layout.setVerticalGroup(
@@ -1076,7 +1102,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(jPanel28Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel12)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
                     .addComponent(paisEquipoLabel))
@@ -1092,7 +1118,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel19)
                     .addComponent(estadioEquipoLabel))
-                .addContainerGap(129, Short.MAX_VALUE))
+                .addContainerGap(141, Short.MAX_VALUE))
         );
 
         jPanel20.add(jPanel28);
@@ -1102,22 +1128,50 @@ public class MainFrame extends javax.swing.JFrame {
 
         jPanel31.setBackground(new java.awt.Color(102, 102, 102));
 
-        jLabel10.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("Escudo");
-
         escudoEquipoPanel.setBackground(new java.awt.Color(102, 102, 102));
 
         javax.swing.GroupLayout escudoEquipoPanelLayout = new javax.swing.GroupLayout(escudoEquipoPanel);
         escudoEquipoPanel.setLayout(escudoEquipoPanelLayout);
         escudoEquipoPanelLayout.setHorizontalGroup(
             escudoEquipoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 367, Short.MAX_VALUE)
         );
         escudoEquipoPanelLayout.setVerticalGroup(
             escudoEquipoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 121, Short.MAX_VALUE)
+            .addGap(0, 105, Short.MAX_VALUE)
+        );
+
+        jPanel39.setBackground(new java.awt.Color(102, 102, 102));
+
+        agregarEquipoFavButton.setText(".");
+        agregarEquipoFavButton.setToolTipText("Agregar equipo favorito");
+
+        jLabel10.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("    Escudo");
+
+        javax.swing.GroupLayout jPanel39Layout = new javax.swing.GroupLayout(jPanel39);
+        jPanel39.setLayout(jPanel39Layout);
+        jPanel39Layout.setHorizontalGroup(
+            jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel39Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(agregarEquipoFavButton)
+                .addContainerGap())
+        );
+        jPanel39Layout.setVerticalGroup(
+            jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel39Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel39Layout.createSequentialGroup()
+                        .addComponent(agregarEquipoFavButton)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel31Layout = new javax.swing.GroupLayout(jPanel31);
@@ -1127,15 +1181,15 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(jPanel31Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
-                    .addComponent(escudoEquipoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(escudoEquipoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel39, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel31Layout.setVerticalGroup(
             jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel31Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel10)
+                .addComponent(jPanel39, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(escudoEquipoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -1436,6 +1490,11 @@ public class MainFrame extends javax.swing.JFrame {
         inicioMenu.setText("Inicio");
 
         logoutMenuItem.setText("Cerrar sesión");
+        logoutMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutMenuItemActionPerformed(evt);
+            }
+        });
         inicioMenu.add(logoutMenuItem);
 
         salirMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_DOWN_MASK));
@@ -1572,11 +1631,6 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ligaComboBoxActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        //mostrarPanelEquipo();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void resultadosEquipoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resultadosEquipoButtonActionPerformed
         // TODO add your handling code here:
         mostrarPanelResultadosUsuario();
@@ -1635,9 +1689,38 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_estiloInterfazCheckBoxMenuItemActionPerformed
 
+    private void logoutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutMenuItemActionPerformed
+        // TODO add your handling code here:
+        logOut();
+    }//GEN-LAST:event_logoutMenuItemActionPerformed
+
+    private void editarEquipoFavButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarEquipoFavButtonActionPerformed
+        // TODO add your handling code here:
+        editarEquipoFavoritoPerfil();
+    }//GEN-LAST:event_editarEquipoFavButtonActionPerformed
+
     // Crear factorty
     private void initializeSessionFactory() {
         factory = new Configuration().configure().buildSessionFactory();
+    }
+
+    // Cerrar sesión y mostrar de nuevo el dialogo de incio de sesión
+    public void logOut() {
+        int opcion = JOptionPane.showConfirmDialog(
+                null,
+                "¿Estás seguro de que deseas cerrar sesión?",
+                "Confirmar cierre de sesión",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE
+        );
+
+        if (opcion == JOptionPane.YES_OPTION) {
+            pkUsuario = 0;
+            this.dispose();
+            LoginDialog login = new LoginDialog(null, true);
+            login.setVisible(true);
+            System.out.println("Sesión cerrada correctamente.");
+        }
     }
 
     // Mostrar panel princiapl
@@ -1710,6 +1793,11 @@ public class MainFrame extends javax.swing.JFrame {
         usuarioButton.setVisible(false);
         usuarioResultadosButton.setVisible(false);
         usuariosClasificacionButton.setVisible(false);
+        devMenu.setVisible(false);
+        cambiarNombreMenuItem.setVisible(false);
+        cambiarCorreoMenuItem.setVisible(false);
+        cambiarContraseñaMenuItem.setVisible(false);
+        jSeparator2.setVisible(false);
     }
 
     // Cargar panel de usuario con datos obtenidos comparadno login con la base de datos
@@ -1767,6 +1855,8 @@ public class MainFrame extends javax.swing.JFrame {
             // Estilizar la tabla
             EstiloTablaJugadores.estilizarTabla(jugadoresEquipoTable);
         } else {
+            // Estilizar la tabla
+            EstiloTablaJugadores.estilizarTabla(jugadoresEquipoTable);
             // Mostrar mensaje si no hay jugadores
             JOptionPane.showMessageDialog(null, "No se encontraron jugadores para este equipo.", "Aviso", JOptionPane.WARNING_MESSAGE);
         }
@@ -1870,9 +1960,9 @@ public class MainFrame extends javax.swing.JFrame {
             }
         }
     }
-    
+
     // Método para cargar los resultados de los partidos
-    public void mostrarResultados(){
+    public void mostrarResultados() {
         // Obtener elementos seleccionados en los comboBox
         String ligaSeleccionada = (String) ligaComboBox.getSelectedItem();
         Object jornadaSeleccionadaObj = jornadaComboBox.getSelectedItem();
@@ -1900,6 +1990,17 @@ public class MainFrame extends javax.swing.JFrame {
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Error al convertir jornada a número: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    // Editar equipo favorito
+    public void editarEquipoFavoritoPerfil() {
+        SelectorEquipos selectorEquipos = new SelectorEquipos(null, true, pkUsuario);
+        selectorEquipos.setVisible(true);
+    }
+    
+    // Agregar equipo favorito desde panel de equipo
+    public void agregarEquipoFavorito(int pkEquipo) {
+        
     }
 
     /**
@@ -1939,6 +2040,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem acercaDeMenuItem;
+    private javax.swing.JButton agregarEquipoFavButton;
     private javax.swing.JPanel appPanel;
     private javax.swing.JMenu ayudaMenu;
     private javax.swing.JMenuItem ayudaMenuItem;
@@ -1954,6 +2056,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel correoUsuarioLabel;
     private javax.swing.JMenuItem crearPartidoMenuItem;
     private javax.swing.JMenu devMenu;
+    private javax.swing.JButton editarEquipoFavButton;
     private javax.swing.JPanel equipoFavPanel;
     private javax.swing.JLabel equipoFavoritoLabel;
     private javax.swing.JPanel equipoPanel;
@@ -1965,7 +2068,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel idUsuarioLabel;
     private javax.swing.JPanel infoUsuarioPanel;
     private javax.swing.JMenu inicioMenu;
-    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -2018,11 +2120,13 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel30;
     private javax.swing.JPanel jPanel31;
     private javax.swing.JPanel jPanel32;
+    private javax.swing.JPanel jPanel33;
     private javax.swing.JPanel jPanel34;
     private javax.swing.JPanel jPanel35;
     private javax.swing.JPanel jPanel36;
     private javax.swing.JPanel jPanel37;
     private javax.swing.JPanel jPanel38;
+    private javax.swing.JPanel jPanel39;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
