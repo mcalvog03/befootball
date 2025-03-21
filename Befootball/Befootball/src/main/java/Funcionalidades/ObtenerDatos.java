@@ -145,55 +145,11 @@ public class ObtenerDatos {
 
         return nombresEquipos;
     }
-
-    /*
-    // Obtener las jornadas existentes por liga
-    public List<Integer> obtenerJornadas(String ligaSeleccionada) {
-        List<Integer> jornadas = new ArrayList<>();
-        Transaction tx = null;
-
-        try (Session session = factory.openSession()) {
-            tx = session.beginTransaction();
-
-            // Obtener el objeto Ligas correspondiente al nombre de la liga
-            Ligas liga = session.createQuery("FROM Ligas l WHERE l.nombreLiga = :ligaNombre", Ligas.class)
-                    .setParameter("ligaNombre", ligaSeleccionada)
-                    .uniqueResult();
-
-            // Si no se encuentra la liga mostrar mensaje de error
-            if (liga == null) {
-                JOptionPane.showMessageDialog(null, "Liga no encontrada: " + ligaSeleccionada, "Error", JOptionPane.ERROR_MESSAGE);
-                // Retorna lista vacía si no se encuentra la liga
-                return jornadas;
-            }
-
-            // Obtener los partidos correspondientes a la liga utilizando el ID de la liga
-            List<Partidos> partidosList = session.createQuery("FROM Partidos p WHERE p.liga.id = :ligaId", Partidos.class)
-                    .setParameter("ligaId", liga.getPkLiga())
-                    .getResultList();
-
-            // Agregar las jornadas a la lista
-            for (Partidos partido : partidosList) {
-                jornadas.add(partido.getJornada());
-            }
-
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null) {
-                tx.rollback();
-            }
-            JOptionPane.showMessageDialog(null, "Error al obtener las jornadas: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            System.err.println("Error al obtener las jornadas: " + e.getMessage());
-        }
-
-        return jornadas;
-    }
-    */
-    
     
     // Obtener las jornadas existentes por liga
     public List<Integer> obtenerJornadas(String ligaSeleccionada) {
-        Set<Integer> jornadasSet = new HashSet<>();  // Usamos un Set para evitar duplicados
+        // Usar un Set para evitar jornadas duplicadas
+        Set<Integer> jornadasSet = new HashSet<>();  
         Transaction tx = null;
 
         try (Session session = factory.openSession()) {

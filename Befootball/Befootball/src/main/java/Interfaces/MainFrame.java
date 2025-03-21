@@ -22,11 +22,11 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.ImageIcon;
@@ -375,7 +375,7 @@ public class MainFrame extends javax.swing.JFrame {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jToolBar2, javax.swing.GroupLayout.DEFAULT_SIZE, 742, Short.MAX_VALUE)
+                .addComponent(jToolBar2, javax.swing.GroupLayout.DEFAULT_SIZE, 896, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -397,7 +397,7 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 266, Short.MAX_VALUE)
+            .addGap(0, 317, Short.MAX_VALUE)
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -427,7 +427,7 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 266, Short.MAX_VALUE)
+            .addGap(0, 317, Short.MAX_VALUE)
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -495,7 +495,7 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel23.setLayout(jPanel23Layout);
         jPanel23Layout.setHorizontalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 273, Short.MAX_VALUE)
+            .addGap(0, 325, Short.MAX_VALUE)
         );
         jPanel23Layout.setVerticalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -521,7 +521,7 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel24.setLayout(jPanel24Layout);
         jPanel24Layout.setHorizontalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 273, Short.MAX_VALUE)
+            .addGap(0, 325, Short.MAX_VALUE)
         );
         jPanel24Layout.setVerticalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -538,11 +538,11 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel25.setLayout(jPanel25Layout);
         jPanel25Layout.setHorizontalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 758, Short.MAX_VALUE)
+            .addGap(0, 912, Short.MAX_VALUE)
         );
         jPanel25Layout.setVerticalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 235, Short.MAX_VALUE)
+            .addGap(0, 812, Short.MAX_VALUE)
         );
 
         jPanel21.add(jPanel25, java.awt.BorderLayout.CENTER);
@@ -601,7 +601,7 @@ public class MainFrame extends javax.swing.JFrame {
             jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel26Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jToolBar5, javax.swing.GroupLayout.DEFAULT_SIZE, 742, Short.MAX_VALUE)
+                .addComponent(jToolBar5, javax.swing.GroupLayout.DEFAULT_SIZE, 896, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel26Layout.setVerticalGroup(
@@ -658,7 +658,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(jPanel17Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(185, Short.MAX_VALUE))
+                .addContainerGap(262, Short.MAX_VALUE))
         );
         jPanel17Layout.setVerticalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -681,7 +681,7 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel18.setLayout(jPanel18Layout);
         jPanel18Layout.setHorizontalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 288, Short.MAX_VALUE)
+            .addGap(0, 365, Short.MAX_VALUE)
         );
         jPanel18Layout.setVerticalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -739,7 +739,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(infoUsuarioPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(infoUsuarioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
                     .addGroup(infoUsuarioPanelLayout.createSequentialGroup()
                         .addGroup(infoUsuarioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(infoUsuarioPanelLayout.createSequentialGroup()
@@ -778,7 +778,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(infoUsuarioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(fechaRegistroUsuarioLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 155, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 732, Short.MAX_VALUE)
                 .addGroup(infoUsuarioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(idUsuarioLabel))
@@ -801,11 +801,11 @@ public class MainFrame extends javax.swing.JFrame {
         escudoFavoritoPanel.setLayout(escudoFavoritoPanelLayout);
         escudoFavoritoPanelLayout.setHorizontalGroup(
             escudoFavoritoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 367, Short.MAX_VALUE)
+            .addGap(0, 444, Short.MAX_VALUE)
         );
         escudoFavoritoPanelLayout.setVerticalGroup(
             escudoFavoritoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 216, Short.MAX_VALUE)
+            .addGap(0, 793, Short.MAX_VALUE)
         );
 
         jPanel33.setBackground(new java.awt.Color(0, 181, 12));
@@ -839,7 +839,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(editarEquipoFavButton)
                         .addContainerGap())
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)))
         );
         jPanel33Layout.setVerticalGroup(
             jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -937,7 +937,7 @@ public class MainFrame extends javax.swing.JFrame {
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jToolBar4, javax.swing.GroupLayout.DEFAULT_SIZE, 742, Short.MAX_VALUE)
+                .addComponent(jToolBar4, javax.swing.GroupLayout.DEFAULT_SIZE, 896, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel15Layout.setVerticalGroup(
@@ -986,7 +986,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(146, Short.MAX_VALUE))
+                .addContainerGap(198, Short.MAX_VALUE))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1010,7 +1010,7 @@ public class MainFrame extends javax.swing.JFrame {
             jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel27Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(nombreEquipoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                .addComponent(nombreEquipoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel27Layout.setVerticalGroup(
@@ -1029,7 +1029,7 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 252, Short.MAX_VALUE)
+            .addGap(0, 304, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1106,7 +1106,7 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addComponent(jLabel19)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(estadioEquipoLabel)))
-                        .addGap(0, 179, Short.MAX_VALUE))
+                        .addGap(0, 256, Short.MAX_VALUE))
                     .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1131,7 +1131,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel19)
                     .addComponent(estadioEquipoLabel))
-                .addContainerGap(141, Short.MAX_VALUE))
+                .addContainerGap(718, Short.MAX_VALUE))
         );
 
         jPanel20.add(jPanel28);
@@ -1147,11 +1147,11 @@ public class MainFrame extends javax.swing.JFrame {
         escudoEquipoPanel.setLayout(escudoEquipoPanelLayout);
         escudoEquipoPanelLayout.setHorizontalGroup(
             escudoEquipoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 367, Short.MAX_VALUE)
+            .addGap(0, 444, Short.MAX_VALUE)
         );
         escudoEquipoPanelLayout.setVerticalGroup(
             escudoEquipoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 105, Short.MAX_VALUE)
+            .addGap(0, 394, Short.MAX_VALUE)
         );
 
         jPanel39.setBackground(new java.awt.Color(102, 102, 102));
@@ -1307,7 +1307,7 @@ public class MainFrame extends javax.swing.JFrame {
             jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel29Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jToolBar6, javax.swing.GroupLayout.DEFAULT_SIZE, 742, Short.MAX_VALUE)
+                .addComponent(jToolBar6, javax.swing.GroupLayout.DEFAULT_SIZE, 896, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel29Layout.setVerticalGroup(
@@ -1334,7 +1334,7 @@ public class MainFrame extends javax.swing.JFrame {
         localPanel.setLayout(localPanelLayout);
         localPanelLayout.setHorizontalGroup(
             localPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 151, Short.MAX_VALUE)
+            .addGap(0, 182, Short.MAX_VALUE)
         );
         localPanelLayout.setVerticalGroup(
             localPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1368,7 +1368,7 @@ public class MainFrame extends javax.swing.JFrame {
         visitantePanel.setLayout(visitantePanelLayout);
         visitantePanelLayout.setHorizontalGroup(
             visitantePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 151, Short.MAX_VALUE)
+            .addGap(0, 182, Short.MAX_VALUE)
         );
         visitantePanelLayout.setVerticalGroup(
             visitantePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1402,7 +1402,7 @@ public class MainFrame extends javax.swing.JFrame {
         fechaPartidoLabel.setText("Fecha: X");
 
         jPanel40.setBackground(new java.awt.Color(0, 0, 0));
-        jPanel40.setLayout(new java.awt.GridLayout());
+        jPanel40.setLayout(new java.awt.GridLayout(1, 0));
         jPanel40.add(jLabel26);
 
         nombreLocalLabel.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
@@ -1431,8 +1431,8 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(estadoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jornadaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ligaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 746, Short.MAX_VALUE)
-                    .addComponent(fechaPartidoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 746, Short.MAX_VALUE)
+                    .addComponent(ligaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
+                    .addComponent(fechaPartidoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel35Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(editarPartidoButton)))
@@ -1450,7 +1450,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(ligaLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fechaPartidoLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 735, Short.MAX_VALUE)
                 .addComponent(editarPartidoButton)
                 .addContainerGap())
         );
@@ -1516,7 +1516,7 @@ public class MainFrame extends javax.swing.JFrame {
             jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel36Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jToolBar7, javax.swing.GroupLayout.DEFAULT_SIZE, 742, Short.MAX_VALUE)
+                .addComponent(jToolBar7, javax.swing.GroupLayout.DEFAULT_SIZE, 896, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel36Layout.setVerticalGroup(
@@ -1735,9 +1735,9 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         estiloInterfaz = estiloInterfazCheckBoxMenuItem.isSelected();
         if (estiloInterfaz) {
-            JOptionPane.showMessageDialog(null, "True", "", JOptionPane.INFORMATION_MESSAGE);
+            cambioClasico();
         } else {
-            JOptionPane.showMessageDialog(null, "False", "", JOptionPane.INFORMATION_MESSAGE);
+            cambioPorDefecto();
         }
     }//GEN-LAST:event_estiloInterfazCheckBoxMenuItemActionPerformed
 
@@ -2017,17 +2017,19 @@ public class MainFrame extends javax.swing.JFrame {
         mostrarEscudoEnPanel(obtenerDatos.obtenerDatosEquipos(pkEquipo).getEscudo(), escudoEquipoPanel);
     }
 
-    // Descargar el escudo favortio y mostrarlo en el panel
+    // Descargar el escudo favorito y mostrarlo en el panel
     private void mostrarEscudoEnPanel(String fileName, JPanel panelDestino) {
         File tempFile = new File(LOCAL_FOLDER, fileName);
+        final File[] fileToUse = {tempFile};
 
         // Verificar si la imagen ya está descargada
-        if (!tempFile.exists()) {
-            try (Socket socket = new Socket(SERVER_IP, SERVER_PORT); PrintWriter writer = new PrintWriter(socket.getOutputStream(), true); InputStream in = socket.getInputStream(); FileOutputStream fileOut = new FileOutputStream(tempFile)) {
+        if (!fileToUse[0].exists()) {
+            try (Socket socket = new Socket(SERVER_IP, SERVER_PORT); PrintWriter writer = new PrintWriter(socket.getOutputStream(), true); InputStream in = socket.getInputStream(); FileOutputStream fileOut = new FileOutputStream(fileToUse[0])) {
 
                 // Enviar comando para descargar la imagen al servidor
                 writer.println("DOWNLOAD " + fileName);
 
+                // Se lee el archivo recibido en bloques de 1024 bytes y se escribe en el archivo local
                 byte[] buffer = new byte[1024];
                 int bytesRead;
                 while ((bytesRead = in.read(buffer)) != -1) {
@@ -2037,14 +2039,21 @@ public class MainFrame extends javax.swing.JFrame {
             } catch (IOException e) {
                 System.err.println("Error al descargar el escudo: " + fileName);
                 e.printStackTrace();
-                return;
+                // Si no se pudo descargar, usamos el escudo por defecto
+                fileToUse[0] = null;
             }
         }
 
         // Usar invokeLater para asegurarse de que la actualización se haga en el hilo de la interfaz
         SwingUtilities.invokeLater(() -> {
-            // Cargar la imagen y aplicarla al panel
-            ImageIcon icon = new ImageIcon(new ImageIcon(tempFile.getAbsolutePath()).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
+            ImageIcon icon;
+
+            // Verificar si el archivo existe, si no, usar el escudo por defecto
+            if (fileToUse[0] != null && fileToUse[0].exists()) {
+                icon = redimensionarImagen(fileToUse[0], 100, 100);
+            } else {
+                icon = obtenerEscudoPorDefecto(); // Usar el escudo por defecto si no se pudo descargar
+            }
 
             // Crear label para el escudo
             JLabel labelEscudo = new JLabel(icon);
@@ -2065,6 +2074,23 @@ public class MainFrame extends javax.swing.JFrame {
             panelDestino.revalidate();
             panelDestino.repaint();
         });
+    }
+
+    // Obtener el escudo por defecto para cuando no se pueda descargar
+    private ImageIcon obtenerEscudoPorDefecto() {
+        URL url = getClass().getClassLoader().getResource("images/escudoPlaceHolder.png");
+        if (url != null) {
+            return new ImageIcon(new ImageIcon(url).getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
+        } else {
+            System.out.println("Escudo por defecto no encontrado.");
+            // Devuelve un icono vacío si no se encuentra el recurso
+            return new ImageIcon(); 
+        }
+    }
+
+    // Método reutilizable para redimensionar imágenes
+    private ImageIcon redimensionarImagen(File file, int width, int height) {
+        return new ImageIcon(new ImageIcon(file.getAbsolutePath()).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
     }
 
     // Rellenar el combox de ligas con los datos obtenidos mediante el objeto obtener datos
@@ -2146,6 +2172,83 @@ public class MainFrame extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Equipo agregado como favorito", "", JOptionPane.INFORMATION_MESSAGE);
             }
         });
+    }
+    
+    // Método para cabiar el estilo de la interfaz a clasico
+    public void cambioClasico(){
+    jToolBar1.setBackground(new java.awt.Color(0, 0, 0));
+    jPanel2.setBackground(new java.awt.Color(0, 0, 0));
+    jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+    jPanel4.setBackground(new java.awt.Color(0, 0, 0));
+    infoUsuarioPanel.setBackground(new java.awt.Color(0, 0, 0));
+    escudoFavoritoPanel.setBackground(new java.awt.Color(0, 0, 0));
+    equipoFavPanel.setBackground(new java.awt.Color(0, 0, 0));
+    jPanel33.setBackground(new java.awt.Color(0, 0, 0));
+    nombreUsuarioLabel.setForeground(new java.awt.Color(255, 255, 255));
+    nombreLocalLabel.setForeground(new java.awt.Color(255, 255, 255));
+    nombreVisitanteLabel.setForeground(new java.awt.Color(255, 255, 255));
+    jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+    jornadaComboBox.setBackground(new java.awt.Color(214,217,223));
+    ligaComboBox.setBackground(new java.awt.Color(214,217,223));
+    
+    
+    resultadosUsuarioButton.setForeground(new java.awt.Color(255, 255, 255));
+    clasificacionUsuarioButton.setForeground(new java.awt.Color(255, 255, 255));
+    usuarioButton.setForeground(new java.awt.Color(255, 255, 255));
+    
+    resultadosClasificacionButton.setForeground(new java.awt.Color(255, 255, 255));
+    clasificacionButton.setForeground(new java.awt.Color(255, 255, 255));
+    usuariosClasificacionButton.setForeground(new java.awt.Color(255, 255, 255));
+        
+    resultadosButton.setForeground(new java.awt.Color(255, 255, 255));
+    clasificacionResultadosButton.setForeground(new java.awt.Color(255, 255, 255));
+    usuarioResultadosButton.setForeground(new java.awt.Color(255, 255, 255));
+        
+    resultadosEquipoButton.setForeground(new java.awt.Color(255, 255, 255));
+    clasificacionEquipoButton.setForeground(new java.awt.Color(102, 255, 255));
+    usuarioEquipoButton.setForeground(new java.awt.Color(255, 255, 255));
+        
+    resultadosPartidoButton.setForeground(new java.awt.Color(255, 255, 255));
+    clasificacionPartidoButton.setForeground(new java.awt.Color(255, 255, 255));
+    usuarioPartidoButton.setForeground(new java.awt.Color(255, 255, 255));
+}
+
+    // Método para cabiar el estilo de la interfaz por defecto
+    public void cambioPorDefecto(){
+        jToolBar1.setBackground(new java.awt.Color(229, 229, 0));
+        jPanel2.setBackground(new java.awt.Color(229, 229, 0));
+        jLabel1.setForeground(new java.awt.Color(0, 69, 193));
+        jPanel4.setBackground(new java.awt.Color(229, 229, 0));
+        infoUsuarioPanel.setBackground(new java.awt.Color(223, 31, 31));
+        escudoFavoritoPanel.setBackground(new java.awt.Color(0, 181, 12));
+        equipoFavPanel.setBackground(new java.awt.Color(0, 181, 12));
+        jPanel33.setBackground(new java.awt.Color(0, 181, 12));
+        nombreUsuarioLabel.setForeground(new java.awt.Color(229, 229, 0));
+        nombreLocalLabel.setForeground(new java.awt.Color(229, 229, 0));
+        nombreVisitanteLabel.setForeground(new java.awt.Color(229, 229, 0));
+        jLabel2.setForeground(new java.awt.Color(229, 229, 0));
+        jornadaComboBox.setBackground(new java.awt.Color(229, 229, 0));
+        ligaComboBox.setBackground(new java.awt.Color(255, 0, 0));
+         
+        resultadosUsuarioButton.setForeground(new java.awt.Color(102, 255, 255));
+        clasificacionUsuarioButton.setForeground(new java.awt.Color(102, 255, 255));
+        usuarioButton.setForeground(new java.awt.Color(102, 255, 255));
+        
+        resultadosClasificacionButton.setForeground(new java.awt.Color(102, 255, 255));
+        clasificacionButton.setForeground(new java.awt.Color(102, 255, 255));
+        usuariosClasificacionButton.setForeground(new java.awt.Color(102, 255, 255));
+        
+        resultadosButton.setForeground(new java.awt.Color(102, 255, 255));
+        clasificacionResultadosButton.setForeground(new java.awt.Color(102, 255, 255));
+        usuarioResultadosButton.setForeground(new java.awt.Color(102, 255, 255));
+        
+        resultadosEquipoButton.setForeground(new java.awt.Color(102, 255, 255));
+        clasificacionEquipoButton.setForeground(new java.awt.Color(102, 255, 255));
+        usuarioEquipoButton.setForeground(new java.awt.Color(102, 255, 255));
+        
+        resultadosPartidoButton.setForeground(new java.awt.Color(102, 255, 255));
+        clasificacionPartidoButton.setForeground(new java.awt.Color(102, 255, 255));
+        usuarioPartidoButton.setForeground(new java.awt.Color(102, 255, 255));
     }
 
     /**

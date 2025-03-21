@@ -337,7 +337,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jToolBar2" pref="742" max="32767" attributes="0"/>
+                                  <Component id="jToolBar2" pref="896" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -457,7 +457,7 @@
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <EmptySpace min="0" pref="266" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="317" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                             <DimensionLayout dim="1">
@@ -508,7 +508,7 @@
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <EmptySpace min="0" pref="266" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="317" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                             <DimensionLayout dim="1">
@@ -643,7 +643,7 @@
                               <Layout>
                                 <DimensionLayout dim="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <EmptySpace min="0" pref="273" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="325" max="32767" attributes="0"/>
                                   </Group>
                                 </DimensionLayout>
                                 <DimensionLayout dim="1">
@@ -696,7 +696,7 @@
                               <Layout>
                                 <DimensionLayout dim="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <EmptySpace min="0" pref="273" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="325" max="32767" attributes="0"/>
                                   </Group>
                                 </DimensionLayout>
                                 <DimensionLayout dim="1">
@@ -723,12 +723,12 @@
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <EmptySpace min="0" pref="758" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="912" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <EmptySpace min="0" pref="235" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="812" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                           </Layout>
@@ -757,7 +757,7 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jToolBar5" pref="742" max="32767" attributes="0"/>
+                                      <Component id="jToolBar5" pref="896" max="32767" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -911,7 +911,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jPanel6" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="185" max="32767" attributes="0"/>
+                                  <EmptySpace pref="262" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -983,7 +983,7 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="288" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="365" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
@@ -1025,7 +1025,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel7" pref="367" max="32767" attributes="0"/>
+                                      <Component id="jLabel7" pref="444" max="32767" attributes="0"/>
                                       <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" attributes="0">
@@ -1076,7 +1076,7 @@
                                       <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="fechaRegistroUsuarioLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="155" max="32767" attributes="0"/>
+                                  <EmptySpace pref="732" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="idUsuarioLabel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1232,12 +1232,12 @@
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <EmptySpace min="0" pref="367" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="444" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <EmptySpace min="0" pref="216" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="793" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                           </Layout>
@@ -1261,7 +1261,7 @@
                                               <Component id="editarEquipoFavButton" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                           </Group>
-                                          <Component id="jLabel6" max="32767" attributes="0"/>
+                                          <Component id="jLabel6" pref="438" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -1344,7 +1344,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jToolBar4" pref="742" max="32767" attributes="0"/>
+                              <Component id="jToolBar4" pref="896" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -1479,7 +1479,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="146" max="32767" attributes="0"/>
+                              <EmptySpace pref="198" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1541,7 +1541,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="nombreEquipoLabel" pref="240" max="32767" attributes="0"/>
+                              <Component id="nombreEquipoLabel" pref="292" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -1581,7 +1581,7 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="252" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="304" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -1641,7 +1641,7 @@
                                               <Component id="estadioEquipoLabel" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <EmptySpace min="0" pref="179" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="256" max="32767" attributes="0"/>
                                   </Group>
                                   <Component id="jLabel12" alignment="0" max="32767" attributes="0"/>
                               </Group>
@@ -1674,7 +1674,7 @@
                                   <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="estadioEquipoLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="141" max="32767" attributes="0"/>
+                              <EmptySpace pref="718" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1837,12 +1837,12 @@
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <EmptySpace min="0" pref="367" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="444" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <EmptySpace min="0" pref="105" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="394" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                           </Layout>
@@ -2007,7 +2007,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jToolBar6" pref="742" max="32767" attributes="0"/>
+                          <Component id="jToolBar6" pref="896" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -2145,7 +2145,7 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="151" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="182" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -2204,7 +2204,7 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="151" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="182" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -2237,8 +2237,8 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="estadoLabel" max="32767" attributes="0"/>
                               <Component id="jornadaLabel" max="32767" attributes="0"/>
-                              <Component id="ligaLabel" pref="746" max="32767" attributes="0"/>
-                              <Component id="fechaPartidoLabel" pref="746" max="32767" attributes="0"/>
+                              <Component id="ligaLabel" pref="900" max="32767" attributes="0"/>
+                              <Component id="fechaPartidoLabel" pref="900" max="32767" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   <Component id="editarPartidoButton" min="-2" max="-2" attributes="0"/>
@@ -2260,7 +2260,7 @@
                           <Component id="ligaLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="fechaPartidoLabel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="158" max="32767" attributes="0"/>
+                          <EmptySpace pref="735" max="32767" attributes="0"/>
                           <Component id="editarPartidoButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -2391,7 +2391,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jToolBar7" pref="742" max="32767" attributes="0"/>
+                          <Component id="jToolBar7" pref="896" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>

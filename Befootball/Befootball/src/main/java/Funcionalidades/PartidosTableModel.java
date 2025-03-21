@@ -7,6 +7,7 @@ import java.io.*;
 import java.net.Socket;
 import java.util.List;
 import POJOS.Partidos;
+import java.net.URL;
 
 public class PartidosTableModel extends AbstractTableModel {
 
@@ -15,6 +16,7 @@ public class PartidosTableModel extends AbstractTableModel {
     private static final String SERVER_IP = "192.168.1.45";
     private static final int SERVER_PORT = 5000;
     private static final String LOCAL_FOLDER = "EscudosDescargados";
+    private static boolean errorDescarga = false;
 
     public PartidosTableModel(List<Partidos> partidos) {
         this.partidos = partidos;
@@ -66,37 +68,67 @@ public class PartidosTableModel extends AbstractTableModel {
         fireTableDataChanged();
     }
 
+    // Descargar escudo del servidor socket
     private ImageIcon descargarEscudo(String fileName) {
-        if (fileName == null || fileName.isEmpty()) {
-            return null;
+        // Si ya hubo un error, no intentar más descargas
+        if (fileName == null || fileName.isEmpty() || errorDescarga) {
+            return obtenerEscudoPorDefecto();
         }
 
+        // Se crea un objeto File que apunta a la ubicación local donde se guardará el escudo y si este existe se devuelve redimensionado a 60x60
         File tempFile = new File(LOCAL_FOLDER, fileName);
         if (tempFile.exists()) {
-            return new ImageIcon(new ImageIcon(tempFile.getAbsolutePath()).getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
+            return redimensionarImagen(tempFile);
         }
 
+        // Descargar escudo del servidor 
         try (Socket socket = new Socket(SERVER_IP, SERVER_PORT); PrintWriter writer = new PrintWriter(socket.getOutputStream(), true); InputStream in = socket.getInputStream(); FileOutputStream fileOut = new FileOutputStream(tempFile)) {
 
+            // Enviar comando para solicitar el archivo
             writer.println("DOWNLOAD " + fileName);
+
+            // Se lee el archivo recibido en bloques de 1024 bytes y se escribe en el archivo local
             byte[] buffer = new byte[1024];
             int bytesRead;
             while ((bytesRead = in.read(buffer)) != -1) {
                 fileOut.write(buffer, 0, bytesRead);
             }
 
-            return new ImageIcon(new ImageIcon(tempFile.getAbsolutePath()).getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
+            return redimensionarImagen(tempFile);
+
         } catch (IOException e) {
-            System.out.println("Error al descargar el escudo: " + fileName);
-            JOptionPane.showMessageDialog(null, "Error al descargar escudos.", "Error", JOptionPane.ERROR_MESSAGE);
+            System.err.println("Error al descargar el escudo: " + fileName);
             e.printStackTrace();
-            return null;
+            if (!errorDescarga) {
+                JOptionPane.showMessageDialog(null, "No se pudieron descargar los escudos, reinicia la aplicación para volver a intentar descargarlos.", "Error", JOptionPane.ERROR_MESSAGE);
+                // No se permitirán más descargas
+                errorDescarga = true;
+            }
+            return obtenerEscudoPorDefecto();
         }
     }
-    
+
+    // Obtener el escudo por defecto para cuando no se pueda descargar
+    private ImageIcon obtenerEscudoPorDefecto() {
+        URL url = getClass().getClassLoader().getResource("images/escudoPlaceHolder.png");
+        if (url != null) {
+            return new ImageIcon(new ImageIcon(url).getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
+        } else {
+            System.out.println("Escudo por defecto no encontrado.");
+            // Devuelve un icono vacío si no se encuentra el recurso
+            return new ImageIcon(); 
+        }
+    }
+
+    // Redimensionar la imagen a 60x60
+    private ImageIcon redimensionarImagen(File file) {
+        return new ImageIcon(new ImageIcon(file.getAbsolutePath()).getImage()
+                .getScaledInstance(60, 60, Image.SCALE_SMOOTH));
+    }
+
     // Método para obtener el partido en la fila seleccionada
     public Partidos getPartidoEnFila(int rowIndex) {
         return partidos.get(rowIndex);
     }
-    
+
 }
