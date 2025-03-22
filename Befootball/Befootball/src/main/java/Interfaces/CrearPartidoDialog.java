@@ -16,7 +16,6 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import org.hibernate.cfg.Configuration;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultListModel;
@@ -30,7 +29,7 @@ public class CrearPartidoDialog extends javax.swing.JDialog {
 
     private SessionFactory factory;
     private ObtenerDatos obtenerDatos;
-    
+
     /**
      * Creates new form CrearPartido
      */
@@ -331,6 +330,12 @@ public class CrearPartidoDialog extends javax.swing.JDialog {
         // Obtener el número de la jornada del spinner
         int jornada = (int) jornadaSpinner.getValue();
 
+        // Verificar si ya existe un partido en esa liga y jornada con los mismos equipos
+        if (existePartidoEnJornada(ligaSeleccionada, jornada, equipoLocal, equipoVisitante)) {
+            JOptionPane.showMessageDialog(this, "Ya existe un partido en esa jornada con los mismos equipos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         // Crear un objeto de partidos
         Partidos nuevoPartido = new Partidos();
 
@@ -360,6 +365,35 @@ public class CrearPartidoDialog extends javax.swing.JDialog {
             }
             JOptionPane.showMessageDialog(this, "Error al crear el partido: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             System.err.println("Error al crear el partido: " + e.getMessage());
+        }
+    }
+
+    // Método para verificar si ya existe un partido en la misma liga, jornada y con los mismos equipos
+    private boolean existePartidoEnJornada(Ligas liga, int jornada, Equipos equipoLocal, Equipos equipoVisitante) {
+        Transaction tx = null;
+        try (Session session = factory.openSession()) {
+            tx = session.beginTransaction();
+
+            // Consulta HQL para verificar si ya existe un partido en la misma liga, jornada y con los mismos equipos
+            Partidos partido = session.createQuery("FROM Partidos p WHERE p.liga = :liga AND p.jornada = :jornada AND ((p.equipoLocal = :equipoLocal AND p.equipoVisitante = :equipoVisitante) OR (p.equipoLocal = :equipoVisitante AND p.equipoVisitante = :equipoLocal))", Partidos.class)
+                    .setParameter("liga", liga)
+                    .setParameter("jornada", jornada)
+                    .setParameter("equipoLocal", equipoLocal)
+                    .setParameter("equipoVisitante", equipoVisitante)
+                    .uniqueResult();
+
+            // Comprobar si ya existe un partido
+            boolean existe = partido != null;
+
+            tx.commit();
+            return existe;
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            JOptionPane.showMessageDialog(null, "Error al verificar el partido: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            System.err.println("Error al verificar el partido: " + e.getMessage());
+            return false;
         }
     }
 

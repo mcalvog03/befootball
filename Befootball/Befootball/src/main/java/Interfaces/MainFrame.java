@@ -4,13 +4,16 @@
  */
 package Interfaces;
 
-import Funcionalidades.PartidosTableModel;
+import ComponentesModelos.ClasificacionTableModel;
+import ComponentesModelos.PartidosTableModel;
 import Funcionalidades.ConfiguradorDeInterfaz;
-import Funcionalidades.EstiloTablaJugadores;
-import Funcionalidades.EstiloTablaPartidos;
+import ComponentesModelos.EstiloTablaClasificacion;
+import ComponentesModelos.EstiloTablaJugadores;
+import ComponentesModelos.EstiloTablaPartidos;
 import Funcionalidades.ImageRenderer;
-import Funcionalidades.JugadoresTableModel;
+import ComponentesModelos.JugadoresTableModel;
 import Funcionalidades.ObtenerDatos;
+import POJOS.Clasificacion;
 import POJOS.Equipos;
 import POJOS.Jugadores;
 import POJOS.Partidos;
@@ -20,6 +23,8 @@ import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -34,6 +39,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -84,6 +90,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
 
         EstiloTablaPartidos.estilizarTabla(partidosTable);
+        EstiloTablaClasificacion.estilizarTabla(clasificacionTable);
     }
 
     /**
@@ -100,7 +107,7 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
         jPanel4 = new javax.swing.JPanel();
-        resizableImageLabel1 = new Componentes.ResizableImageLabel();
+        resizableImageLabel1 = new ComponentesModelos.ResizableImageLabel();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -125,9 +132,10 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel22 = new javax.swing.JPanel();
         jPanel23 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox5 = new javax.swing.JComboBox<>();
         jPanel24 = new javax.swing.JPanel();
         jPanel25 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        clasificacionTable = new javax.swing.JTable();
         jPanel26 = new javax.swing.JPanel();
         jToolBar5 = new javax.swing.JToolBar();
         resultadosClasificacionButton = new javax.swing.JButton();
@@ -138,7 +146,7 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel16 = new javax.swing.JPanel();
         jPanel17 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
-        resizableImageLabel2 = new Componentes.ResizableImageLabel();
+        resizableImageLabel2 = new ComponentesModelos.ResizableImageLabel();
         nombreUsuarioLabel = new javax.swing.JLabel();
         jPanel18 = new javax.swing.JPanel();
         jPanel19 = new javax.swing.JPanel();
@@ -167,7 +175,7 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
-        resizableImageLabel3 = new Componentes.ResizableImageLabel();
+        resizableImageLabel3 = new ComponentesModelos.ResizableImageLabel();
         jPanel27 = new javax.swing.JPanel();
         nombreEquipoLabel = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
@@ -283,9 +291,11 @@ public class MainFrame extends javax.swing.JFrame {
         jToolBar1.add(jLabel1);
 
         jPanel2.setBackground(new java.awt.Color(229, 229, 0));
+        jPanel2.setMaximumSize(new java.awt.Dimension(192, 100));
 
         ligaComboBox.setBackground(new java.awt.Color(255, 0, 0));
         ligaComboBox.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        ligaComboBox.setMaximumSize(new java.awt.Dimension(35, 34));
         ligaComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ligaComboBoxActionPerformed(evt);
@@ -495,7 +505,7 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel23.setLayout(jPanel23Layout);
         jPanel23Layout.setHorizontalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 325, Short.MAX_VALUE)
+            .addGap(0, 231, Short.MAX_VALUE)
         );
         jPanel23Layout.setVerticalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -507,13 +517,8 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("sansserif", 1, 48)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(229, 229, 0));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Tabla");
+        jLabel5.setText("Clasificación");
         jPanel22.add(jLabel5);
-
-        jComboBox5.setBackground(new java.awt.Color(229, 229, 0));
-        jComboBox5.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel22.add(jComboBox5);
 
         jPanel24.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -521,7 +526,7 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel24.setLayout(jPanel24Layout);
         jPanel24Layout.setHorizontalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 325, Short.MAX_VALUE)
+            .addGap(0, 231, Short.MAX_VALUE)
         );
         jPanel24Layout.setVerticalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -533,17 +538,34 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel21.add(jPanel22, java.awt.BorderLayout.PAGE_START);
 
         jPanel25.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel25.setLayout(new java.awt.BorderLayout());
 
-        javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
-        jPanel25.setLayout(jPanel25Layout);
-        jPanel25Layout.setHorizontalGroup(
-            jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 912, Short.MAX_VALUE)
-        );
-        jPanel25Layout.setVerticalGroup(
-            jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 812, Short.MAX_VALUE)
-        );
+        clasificacionTable.setBackground(new java.awt.Color(0, 0, 0));
+        clasificacionTable.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        clasificacionTable.setForeground(new java.awt.Color(255, 255, 255));
+        clasificacionTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Posición", "Escudo", "Equipo", "PTS", "PJ", "PG", "PE", "PP", "DG"
+            }
+        ));
+        clasificacionTable.setGridColor(new java.awt.Color(255, 255, 255));
+        clasificacionTable.setRowHeight(70);
+        clasificacionTable.setSelectionBackground(new java.awt.Color(0, 0, 0));
+        clasificacionTable.setSelectionForeground(new java.awt.Color(0, 255, 0));
+        clasificacionTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        clasificacionTable.setShowHorizontalLines(true);
+        clasificacionTable.getTableHeader().setReorderingAllowed(false);
+        clasificacionTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                clasificacionTableMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(clasificacionTable);
+
+        jPanel25.add(jScrollPane3, java.awt.BorderLayout.CENTER);
 
         jPanel21.add(jPanel25, java.awt.BorderLayout.CENTER);
 
@@ -778,7 +800,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(infoUsuarioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(fechaRegistroUsuarioLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 732, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 155, Short.MAX_VALUE)
                 .addGroup(infoUsuarioPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(idUsuarioLabel))
@@ -805,7 +827,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
         escudoFavoritoPanelLayout.setVerticalGroup(
             escudoFavoritoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 793, Short.MAX_VALUE)
+            .addGap(0, 216, Short.MAX_VALUE)
         );
 
         jPanel33.setBackground(new java.awt.Color(0, 181, 12));
@@ -1131,7 +1153,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel19)
                     .addComponent(estadioEquipoLabel))
-                .addContainerGap(718, Short.MAX_VALUE))
+                .addContainerGap(141, Short.MAX_VALUE))
         );
 
         jPanel20.add(jPanel28);
@@ -1151,7 +1173,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
         escudoEquipoPanelLayout.setVerticalGroup(
             escudoEquipoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGap(0, 105, Short.MAX_VALUE)
         );
 
         jPanel39.setBackground(new java.awt.Color(102, 102, 102));
@@ -1450,7 +1472,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(ligaLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fechaPartidoLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 735, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
                 .addComponent(editarPartidoButton)
                 .addContainerGap())
         );
@@ -1666,7 +1688,6 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void ligaComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ligaComboBoxActionPerformed
         // TODO add your handling code here:
-
         // Obtener liga seleccionada
         String ligaSeleccionada = (String) ligaComboBox.getSelectedItem();
 
@@ -1691,6 +1712,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void clasificacionEquipoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clasificacionEquipoButtonActionPerformed
         // TODO add your handling code here:
         mostrarPanelResultadosUsuario();
+        mostrarPanelClasificacion();
     }//GEN-LAST:event_clasificacionEquipoButtonActionPerformed
 
     private void resultadosPartidoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resultadosPartidoButtonActionPerformed
@@ -1706,6 +1728,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void jornadaComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jornadaComboBoxActionPerformed
         // TODO add your handling code here:
         mostrarResultadosPartidos();
+        mostrarClasificacion();
     }//GEN-LAST:event_jornadaComboBoxActionPerformed
 
     private void usuarioEquipoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioEquipoButtonActionPerformed
@@ -1774,6 +1797,22 @@ public class MainFrame extends javax.swing.JFrame {
         EditarRolUsuario editarRolUsuario = new EditarRolUsuario(this, rootPaneCheckingEnabled);
         editarRolUsuario.setVisible(true);
     }//GEN-LAST:event_editarRolMenuItemActionPerformed
+
+    private void clasificacionTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clasificacionTableMouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) { // Doble clic
+            // Obtener la fila seleccionada
+            int filaSeleccionada = clasificacionTable.getSelectedRow();
+            if (filaSeleccionada != -1) {
+                // Obtener la ID del equipo de la fila seleccionada
+                Equipos equipoSeleccionado = ((ClasificacionTableModel) clasificacionTable.getModel()).getEquipoEnFila(filaSeleccionada);
+                int idEquipo = equipoSeleccionado.getPkEquipo();
+
+                // Llamar al método que muestra los detalles del partido
+                mostrarPanelEquipo(idEquipo);
+            }
+        }
+    }//GEN-LAST:event_clasificacionTableMouseClicked
 
     // Crear factorty
     private void initializeSessionFactory() {
@@ -1915,6 +1954,44 @@ public class MainFrame extends javax.swing.JFrame {
     public void cargarPanelEquipo(int pkEquipo) {
         // Crear un objeto de equipo con la información del equipo seleccionado
         Equipos equipo = obtenerDatos.obtenerDatosEquipos(pkEquipo);
+
+        // Cambiar valor comboBox liga para poder cargar la posicion del equipo correctamente para evitar que en el panel de equipo se cargue un equipo de una liga que no esta seleccionada en el comboBox
+        ligaComboBox.setSelectedItem(equipo.getLiga().getNombreLiga());
+
+        // Buscar la posición del equipo en la tabla
+        int filaPosicion = -1;
+        for (int i = 0; i < clasificacionTable.getRowCount(); i++) {
+            // Obtener el valor de la columna Equipo en la fila i
+            Object valorEquipo = clasificacionTable.getValueAt(i, clasificacionTable.getColumnModel().getColumnIndex("Equipo"));
+
+            // Verificar si el equipo en esa fila es el que se esta buscando
+            if (valorEquipo != null && valorEquipo.toString().equals(equipo.getNombreEquipo())) {
+                // Guardar el índice de la fila donde se encuentra el equipo
+                filaPosicion = i;
+                break;
+            }
+        }
+
+        // Verificar si el equipo fue encontrado en la tabla
+        if (filaPosicion != -1) {
+            // Obtener el índice de la columna "Posición"
+            int columnaPosicion = clasificacionTable.getColumnModel().getColumnIndex("Posición");
+
+            // Verificar si la columna "Posición" existe
+            if (columnaPosicion != -1) {
+                // Obtener el valor de la celda en la columna "Posición" y la fila encontrada
+                Object valorPosicion = clasificacionTable.getValueAt(filaPosicion, columnaPosicion);
+
+                // Actualizar la etiqueta con el valor de la posición
+                posicionLigaEquipoLabel.setText(valorPosicion.toString());
+            } else {
+                posicionLigaEquipoLabel.setText("Columna 'Posición' no encontrada");
+            }
+        } else {
+            // Si no se encuentra el equipo en la tabla
+            posicionLigaEquipoLabel.setText("Equipo no encontrado");
+        }
+
         // Mostrar nombre del equipo
         nombreEquipoLabel.setText(equipo.getNombreEquipo());
         // Mostrar pais del equipo
@@ -1922,7 +1999,7 @@ public class MainFrame extends javax.swing.JFrame {
         // Mostrar liga del equipo
         ligaEquipoLabel.setText(equipo.getLiga().getNombreLiga());
         // Mostrar posición en la clasificación de su liga
-        //posicionLigaEquipoLabel.setText();
+        //posicionLigaEquipoLabel.setText(valorColumna.toString());
         // Mostrar nombre del estadio del equipo
         estadioEquipoLabel.setText(equipo.getEstadio().getNombreEstadio());
         // Cargar escudo del equipo seleccionado
@@ -1934,6 +2011,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     }
 
+    // Cargar tabla de los jugadores del equipo seleccionado
     public void cargarTablaJugadoresEquipo(int pkEquipo) {
         // Crear una lista de los jugadores del equipo seleccionado
         List<Jugadores> jugadores = obtenerDatos.obtenerJugadoresEquipo(pkEquipo);
@@ -1949,6 +2027,8 @@ public class MainFrame extends javax.swing.JFrame {
         } else {
             // Estilizar la tabla
             EstiloTablaJugadores.estilizarTabla(jugadoresEquipoTable);
+            // Vaciar tabla por si hay datos de jugadores de otros equipos
+            jugadoresEquipoTable.setModel(new DefaultTableModel());
             // Mostrar mensaje si no hay jugadores
             JOptionPane.showMessageDialog(null, "No se encontraron jugadores para este equipo.", "Aviso", JOptionPane.WARNING_MESSAGE);
         }
@@ -1997,6 +2077,20 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        // Añadir un ActionListener al boton para editar los detalles del partiod (funcionalidad para desarrolladores)
+        editarPartidoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Partidos partido = obtenerDatos.obtenerDatosPartido(pkPartido);
+                editarPartido(pkPartido, partido.getGolesLocal(), partido.getGolesVisitante(), partido.getEstado());
+            }
+        });
+
+    }
+
+    public void editarPartido(int pkPartido, int golesLocal, int golesVisitante, String estado) {
+        EditarPartidoDialog editarPartido = new EditarPartidoDialog(this, rootPaneCheckingEnabled, pkPartido, golesLocal, golesVisitante, estado);
+        editarPartido.setVisible(true);
     }
 
     // Crear directorio para guardar los escudos en caso de que no exista
@@ -2084,7 +2178,7 @@ public class MainFrame extends javax.swing.JFrame {
         } else {
             System.out.println("Escudo por defecto no encontrado.");
             // Devuelve un icono vacío si no se encuentra el recurso
-            return new ImageIcon(); 
+            return new ImageIcon();
         }
     }
 
@@ -2143,16 +2237,38 @@ public class MainFrame extends javax.swing.JFrame {
             PartidosTableModel model = new PartidosTableModel(partidos);
             // Actualizar la tabla
             partidosTable.setModel(model);
-            // Estilizar la tabla
-            EstiloTablaPartidos.estilizarTabla(partidosTable);
             // Escudo Local
             partidosTable.getColumnModel().getColumn(0).setCellRenderer(new ImageRenderer());
             // Escudo Visitante
             partidosTable.getColumnModel().getColumn(5).setCellRenderer(new ImageRenderer());
+            // Estilizar la tabla
+            EstiloTablaPartidos.estilizarTabla(partidosTable);
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Error al convertir jornada a número: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    // Método para cargar la clasificación de la liga seleccionada
+    public void mostrarClasificacion() {
+        // Obtener elementos seleccionados en los comboBox
+        String ligaSeleccionada = (String) ligaComboBox.getSelectedItem();
+
+        // Evitar error cuando aún no hay valores seleccionados en los comboBox
+        if (ligaSeleccionada == null) {
+            return;
+        }
+
+        // Crear una lista de los partidos de la jornada y liga seleccionada
+        List<Clasificacion> clasificaciones = obtenerDatos.obtenerClasifiacionFiltrada(ligaSeleccionada);
+        // Cargar la lista en el modelo de la tabla
+        ClasificacionTableModel model = new ClasificacionTableModel(clasificaciones);
+        // Actualizar la tabla
+        clasificacionTable.setModel(model);
+        // Estilizar la tabla
+        EstiloTablaClasificacion.estilizarTabla(clasificacionTable);
+        // Renderizar escudo
+        clasificacionTable.getColumnModel().getColumn(1).setCellRenderer(new ImageRenderer());
     }
 
     // Editar equipo favorito
@@ -2173,48 +2289,48 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
     }
-    
+
     // Método para cabiar el estilo de la interfaz a clasico
-    public void cambioClasico(){
-    jToolBar1.setBackground(new java.awt.Color(0, 0, 0));
-    jPanel2.setBackground(new java.awt.Color(0, 0, 0));
-    jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-    jPanel4.setBackground(new java.awt.Color(0, 0, 0));
-    infoUsuarioPanel.setBackground(new java.awt.Color(0, 0, 0));
-    escudoFavoritoPanel.setBackground(new java.awt.Color(0, 0, 0));
-    equipoFavPanel.setBackground(new java.awt.Color(0, 0, 0));
-    jPanel33.setBackground(new java.awt.Color(0, 0, 0));
-    nombreUsuarioLabel.setForeground(new java.awt.Color(255, 255, 255));
-    nombreLocalLabel.setForeground(new java.awt.Color(255, 255, 255));
-    nombreVisitanteLabel.setForeground(new java.awt.Color(255, 255, 255));
-    jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-    jornadaComboBox.setBackground(new java.awt.Color(214,217,223));
-    ligaComboBox.setBackground(new java.awt.Color(214,217,223));
-    
-    
-    resultadosUsuarioButton.setForeground(new java.awt.Color(255, 255, 255));
-    clasificacionUsuarioButton.setForeground(new java.awt.Color(255, 255, 255));
-    usuarioButton.setForeground(new java.awt.Color(255, 255, 255));
-    
-    resultadosClasificacionButton.setForeground(new java.awt.Color(255, 255, 255));
-    clasificacionButton.setForeground(new java.awt.Color(255, 255, 255));
-    usuariosClasificacionButton.setForeground(new java.awt.Color(255, 255, 255));
-        
-    resultadosButton.setForeground(new java.awt.Color(255, 255, 255));
-    clasificacionResultadosButton.setForeground(new java.awt.Color(255, 255, 255));
-    usuarioResultadosButton.setForeground(new java.awt.Color(255, 255, 255));
-        
-    resultadosEquipoButton.setForeground(new java.awt.Color(255, 255, 255));
-    clasificacionEquipoButton.setForeground(new java.awt.Color(102, 255, 255));
-    usuarioEquipoButton.setForeground(new java.awt.Color(255, 255, 255));
-        
-    resultadosPartidoButton.setForeground(new java.awt.Color(255, 255, 255));
-    clasificacionPartidoButton.setForeground(new java.awt.Color(255, 255, 255));
-    usuarioPartidoButton.setForeground(new java.awt.Color(255, 255, 255));
-}
+    public void cambioClasico() {
+        jToolBar1.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel2.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel4.setBackground(new java.awt.Color(0, 0, 0));
+        infoUsuarioPanel.setBackground(new java.awt.Color(0, 0, 0));
+        escudoFavoritoPanel.setBackground(new java.awt.Color(0, 0, 0));
+        equipoFavPanel.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel33.setBackground(new java.awt.Color(0, 0, 0));
+        nombreUsuarioLabel.setForeground(new java.awt.Color(255, 255, 255));
+        nombreLocalLabel.setForeground(new java.awt.Color(255, 255, 255));
+        nombreVisitanteLabel.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jornadaComboBox.setBackground(new java.awt.Color(214, 217, 223));
+        ligaComboBox.setBackground(new java.awt.Color(214, 217, 223));
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+
+        resultadosUsuarioButton.setForeground(new java.awt.Color(255, 255, 255));
+        clasificacionUsuarioButton.setForeground(new java.awt.Color(255, 255, 255));
+        usuarioButton.setForeground(new java.awt.Color(255, 255, 255));
+
+        resultadosClasificacionButton.setForeground(new java.awt.Color(255, 255, 255));
+        clasificacionButton.setForeground(new java.awt.Color(255, 255, 255));
+        usuariosClasificacionButton.setForeground(new java.awt.Color(255, 255, 255));
+
+        resultadosButton.setForeground(new java.awt.Color(255, 255, 255));
+        clasificacionResultadosButton.setForeground(new java.awt.Color(255, 255, 255));
+        usuarioResultadosButton.setForeground(new java.awt.Color(255, 255, 255));
+
+        resultadosEquipoButton.setForeground(new java.awt.Color(255, 255, 255));
+        clasificacionEquipoButton.setForeground(new java.awt.Color(102, 255, 255));
+        usuarioEquipoButton.setForeground(new java.awt.Color(255, 255, 255));
+
+        resultadosPartidoButton.setForeground(new java.awt.Color(255, 255, 255));
+        clasificacionPartidoButton.setForeground(new java.awt.Color(255, 255, 255));
+        usuarioPartidoButton.setForeground(new java.awt.Color(255, 255, 255));
+    }
 
     // Método para cabiar el estilo de la interfaz por defecto
-    public void cambioPorDefecto(){
+    public void cambioPorDefecto() {
         jToolBar1.setBackground(new java.awt.Color(229, 229, 0));
         jPanel2.setBackground(new java.awt.Color(229, 229, 0));
         jLabel1.setForeground(new java.awt.Color(0, 69, 193));
@@ -2229,23 +2345,24 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(229, 229, 0));
         jornadaComboBox.setBackground(new java.awt.Color(229, 229, 0));
         ligaComboBox.setBackground(new java.awt.Color(255, 0, 0));
-         
+        jLabel5.setForeground(new java.awt.Color(229, 229, 0));
+
         resultadosUsuarioButton.setForeground(new java.awt.Color(102, 255, 255));
         clasificacionUsuarioButton.setForeground(new java.awt.Color(102, 255, 255));
         usuarioButton.setForeground(new java.awt.Color(102, 255, 255));
-        
+
         resultadosClasificacionButton.setForeground(new java.awt.Color(102, 255, 255));
         clasificacionButton.setForeground(new java.awt.Color(102, 255, 255));
         usuariosClasificacionButton.setForeground(new java.awt.Color(102, 255, 255));
-        
+
         resultadosButton.setForeground(new java.awt.Color(102, 255, 255));
         clasificacionResultadosButton.setForeground(new java.awt.Color(102, 255, 255));
         usuarioResultadosButton.setForeground(new java.awt.Color(102, 255, 255));
-        
+
         resultadosEquipoButton.setForeground(new java.awt.Color(102, 255, 255));
         clasificacionEquipoButton.setForeground(new java.awt.Color(102, 255, 255));
         usuarioEquipoButton.setForeground(new java.awt.Color(102, 255, 255));
-        
+
         resultadosPartidoButton.setForeground(new java.awt.Color(102, 255, 255));
         clasificacionPartidoButton.setForeground(new java.awt.Color(102, 255, 255));
         usuarioPartidoButton.setForeground(new java.awt.Color(102, 255, 255));
@@ -2300,6 +2417,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel clasificacionPanel;
     private javax.swing.JButton clasificacionPartidoButton;
     private javax.swing.JButton clasificacionResultadosButton;
+    private javax.swing.JTable clasificacionTable;
     private javax.swing.JButton clasificacionUsuarioButton;
     private javax.swing.JLabel correoUsuarioLabel;
     private javax.swing.JMenuItem crearPartidoMenuItem;
@@ -2322,7 +2440,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel idUsuarioLabel;
     private javax.swing.JPanel infoUsuarioPanel;
     private javax.swing.JMenu inicioMenu;
-    private javax.swing.JComboBox<String> jComboBox5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2385,6 +2502,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JToolBar jToolBar1;
@@ -2410,9 +2528,9 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel partidoPanel;
     private javax.swing.JTable partidosTable;
     private javax.swing.JLabel posicionLigaEquipoLabel;
-    private Componentes.ResizableImageLabel resizableImageLabel1;
-    private Componentes.ResizableImageLabel resizableImageLabel2;
-    private Componentes.ResizableImageLabel resizableImageLabel3;
+    private ComponentesModelos.ResizableImageLabel resizableImageLabel1;
+    private ComponentesModelos.ResizableImageLabel resizableImageLabel2;
+    private ComponentesModelos.ResizableImageLabel resizableImageLabel3;
     private javax.swing.JButton resultadosButton;
     private javax.swing.JPanel resultadosClasifiacionPanel;
     private javax.swing.JButton resultadosClasificacionButton;

@@ -5,22 +5,35 @@
 package Funcionalidades;
 
 import javax.swing.ImageIcon;
-import static javax.swing.SwingConstants.CENTER;
+import java.awt.Component;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
 public class ImageRenderer extends DefaultTableCellRenderer {
 
     @Override
-    public void setValue(Object value) {
+    public Component getTableCellRendererComponent(
+            JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+
         if (value instanceof ImageIcon) {
-            // Establecer el icono en la celda
             setIcon((ImageIcon) value);
-            // Evita que se muestre texto en la celda
-            setText(""); 
+            setText("");
         } else {
-            setText((value != null) ? value.toString() : "");
             setIcon(null);
+            setText(value != null ? value.toString() : "");
         }
+
+        // Mantener el fondo uniforme con el de la tabla
+        if (isSelected) {
+            setBackground(table.getSelectionBackground());
+        } else {
+            setBackground(table.getBackground());
+        }
+
+        // Asegurar que la imagen esté centrada
         setHorizontalAlignment(CENTER);
+
+        return this;
     }
+
 }

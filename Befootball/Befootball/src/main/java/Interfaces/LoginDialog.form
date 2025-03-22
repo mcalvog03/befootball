@@ -86,7 +86,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="Componentes.ResizableImageLabel" name="resizableImageLabel2">
+            <Component class="ComponentesModelos.ResizableImageLabel" name="resizableImageLabel2">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/images/logo.png"/>

@@ -27,6 +27,7 @@
         <property name="jakarta.persistence.schema-generation.database.action">none</property>
         
         <!-- Mapeo de clases -->
+        <mapping class="POJOS.Clasificacion"/>
         <mapping class="POJOS.Equipos"/>
         <mapping class="POJOS.Estadios"/>
         <mapping class="POJOS.Jugadores"/>

@@ -4,6 +4,7 @@
  */
 package Funcionalidades;
 
+import POJOS.Clasificacion;
 import POJOS.Equipos;
 import POJOS.Jugadores;
 import POJOS.Ligas;
@@ -225,6 +226,37 @@ public class ObtenerDatos {
         }
 
         return partidosFiltrados;
+    }
+    
+    // Obtener clasificación de la liga seleccionada
+    public List<Clasificacion> obtenerClasifiacionFiltrada(String ligaSeleccionada){
+        List<Clasificacion> clasificacionFiltrada = new ArrayList<>();
+        Transaction tx = null;
+
+        try (Session session = factory.openSession()) {
+            tx = session.beginTransaction();
+
+            // Obtener el objeto Ligas correspondiente al nombre de la liga
+            Ligas liga = session.createQuery("FROM Ligas l WHERE l.nombreLiga = :ligaNombre", Ligas.class)
+                    .setParameter("ligaNombre", ligaSeleccionada)
+                    .uniqueResult();
+
+            
+            // Obtener los equipos correspondientes a la liga seleccionada
+            clasificacionFiltrada = session.createQuery("FROM Clasificacion c WHERE c.liga.id = :ligaId", Clasificacion.class)
+                    .setParameter("ligaId", liga.getPkLiga())
+                    .getResultList();
+
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            JOptionPane.showMessageDialog(null, "Error al obtener la clasificacion: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            System.err.println("Error al obtener la clasificacion: " + e.getMessage());
+        }
+
+        return clasificacionFiltrada;
     }
     
     // Obtener un partido por id

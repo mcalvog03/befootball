@@ -4,24 +4,38 @@
  */
 package Interfaces;
 
+import POJOS.Partidos;
 import java.awt.Image;
 import java.awt.Toolkit;
+import javax.swing.JOptionPane;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
 
-/**
- *
- * @author miche
- */
 public class EditarPartidoDialog extends javax.swing.JDialog {
+
+    private SessionFactory factory;
+    private int pkPartido;
+    private int golesLocal;
+    private int golesVisitante;
+    private String estado;
 
     /**
      * Creates new form AgregarGoles
      */
-    public EditarPartidoDialog(java.awt.Frame parent, boolean modal) {
+    public EditarPartidoDialog(java.awt.Frame parent, boolean modal, int pkPartido, int golesLocal, int golesVisitante, String estado) {
         super(parent, modal);
+        this.pkPartido = pkPartido;
+        this.golesLocal = golesLocal;
+        this.golesVisitante = golesVisitante;
+        this.estado = estado;
         initComponents();
         setLocationRelativeTo(null);
         Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/logo.png");
         setIconImage(icon);
+        initializeSessionFactory();
+        cargarDatos();
     }
 
     /**
@@ -33,13 +47,13 @@ public class EditarPartidoDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup = new javax.swing.ButtonGroup();
+        estadobuttonGroup = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
-        jSpinner2 = new javax.swing.JSpinner();
+        golesLocalSpinner = new javax.swing.JSpinner();
+        golesVisitanteSpinner = new javax.swing.JSpinner();
         jPanel2 = new javax.swing.JPanel();
         noIniciadoRadioButton = new javax.swing.JRadioButton();
         primeraRadioButton = new javax.swing.JRadioButton();
@@ -68,11 +82,11 @@ public class EditarPartidoDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(golesLocalSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSpinner2, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
+                .addComponent(golesVisitanteSpinner, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -80,10 +94,10 @@ public class EditarPartidoDialog extends javax.swing.JDialog {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(golesLocalSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
-                    .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(golesVisitanteSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -91,19 +105,19 @@ public class EditarPartidoDialog extends javax.swing.JDialog {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Estado del partido"));
 
-        buttonGroup.add(noIniciadoRadioButton);
+        estadobuttonGroup.add(noIniciadoRadioButton);
         noIniciadoRadioButton.setText("No iniciado");
 
-        buttonGroup.add(primeraRadioButton);
+        estadobuttonGroup.add(primeraRadioButton);
         primeraRadioButton.setText("Primera parte");
 
-        buttonGroup.add(descansoRadioButton);
+        estadobuttonGroup.add(descansoRadioButton);
         descansoRadioButton.setText("Descanso");
 
-        buttonGroup.add(segundaRadioButton);
+        estadobuttonGroup.add(segundaRadioButton);
         segundaRadioButton.setText("Segunda parte");
 
-        buttonGroup.add(finalRadioButton);
+        estadobuttonGroup.add(finalRadioButton);
         finalRadioButton.setText("Final");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -145,6 +159,11 @@ public class EditarPartidoDialog extends javax.swing.JDialog {
         jPanel1.add(jPanel2, java.awt.BorderLayout.CENTER);
 
         jButton1.setText("Modificar partido");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton1, java.awt.BorderLayout.PAGE_END);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -160,6 +179,78 @@ public class EditarPartidoDialog extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        actualizarDatos(pkPartido);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    // Crear factorty
+    private void initializeSessionFactory() {
+        try {
+            factory = new Configuration().configure().buildSessionFactory();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al inicializar Hibernate: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    // Cargar goles en los spinner y el estado en los radio button
+    public void cargarDatos() {
+        golesLocalSpinner.setValue(golesLocal);
+        golesVisitanteSpinner.setValue(golesVisitante);
+
+        if (estado.equals("finalizado")) {
+            finalRadioButton.setSelected(true);
+        } else if (estado.equals("segunda parte")) {
+            segundaRadioButton.setSelected(true);
+        } else if (estado.equals("descanso")) {
+            descansoRadioButton.setSelected(true);
+        } else if (estado.equals("primera parte")) {
+            primeraRadioButton.setSelected(true);
+        } else if (estado.equals("no iniciado")) {
+            noIniciadoRadioButton.setSelected(true);
+        }
+    }
+
+    // Actualizar datos del partido
+    public void actualizarDatos(int pkPartido) {
+        Transaction tx = null;
+        try (Session session = factory.openSession()) {
+            tx = session.beginTransaction();
+
+            // Obtener id del partido
+            Partidos partido = session.find(Partidos.class, pkPartido);
+
+            partido.setGolesLocal((int) golesLocalSpinner.getValue());
+            partido.setGolesVisitante((int) golesVisitanteSpinner.getValue());
+
+            if (finalRadioButton.isSelected()) {
+                partido.setEstado("finalizado");
+            } else if (segundaRadioButton.isSelected()) {
+                partido.setEstado("segunda parte");
+            } else if (descansoRadioButton.isSelected()) {
+                partido.setEstado("descanso");
+            } else if (primeraRadioButton.isSelected()) {
+                partido.setEstado("primera parte");
+            } else if (noIniciadoRadioButton.isSelected()) {
+                partido.setEstado("no iniciado");
+            }
+
+            // Actualizar los datos en la base de datos
+            session.persist(partido);
+
+            tx.commit();
+            JOptionPane.showMessageDialog(this, "Partido actualizado", "", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+                e.printStackTrace();
+            }
+            JOptionPane.showMessageDialog(this, "Error al actualizar el partido: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -198,7 +289,7 @@ public class EditarPartidoDialog extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                EditarPartidoDialog dialog = new EditarPartidoDialog(new javax.swing.JFrame(), true);
+                EditarPartidoDialog dialog = new EditarPartidoDialog(new javax.swing.JFrame(), true, 0, 0, 0, "");
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -211,17 +302,17 @@ public class EditarPartidoDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JRadioButton descansoRadioButton;
+    private javax.swing.ButtonGroup estadobuttonGroup;
     private javax.swing.JRadioButton finalRadioButton;
+    private javax.swing.JSpinner golesLocalSpinner;
+    private javax.swing.JSpinner golesVisitanteSpinner;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JSpinner jSpinner2;
     private javax.swing.JRadioButton noIniciadoRadioButton;
     private javax.swing.JRadioButton primeraRadioButton;
     private javax.swing.JRadioButton segundaRadioButton;

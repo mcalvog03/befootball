@@ -1,4 +1,4 @@
-package Funcionalidades;
+package ComponentesModelos;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;

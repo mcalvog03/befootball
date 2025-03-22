@@ -38,7 +38,7 @@ public class LoginDialog extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        resizableImageLabel2 = new Componentes.ResizableImageLabel();
+        resizableImageLabel2 = new ComponentesModelos.ResizableImageLabel();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -333,6 +333,6 @@ public class LoginDialog extends javax.swing.JDialog {
     private javax.swing.JButton loginButton;
     private javax.swing.JTextField nombreTextField;
     private javax.swing.JButton registrarButton;
-    private Componentes.ResizableImageLabel resizableImageLabel2;
+    private ComponentesModelos.ResizableImageLabel resizableImageLabel2;
     // End of variables declaration//GEN-END:variables
 }
