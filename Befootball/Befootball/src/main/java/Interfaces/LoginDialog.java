@@ -40,7 +40,6 @@ public class LoginDialog extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         resizableImageLabel2 = new ComponentesModelos.ResizableImageLabel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         registrarButton = new javax.swing.JButton();
@@ -64,14 +63,8 @@ public class LoginDialog extends javax.swing.JDialog {
 
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Iniciar sesión");
-
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -81,23 +74,16 @@ public class LoginDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(resizableImageLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(resizableImageLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addComponent(jButton1)))
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(resizableImageLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -110,10 +96,17 @@ public class LoginDialog extends javax.swing.JDialog {
         jPanel4.setLayout(new java.awt.GridLayout(1, 0));
 
         registrarButton.setBackground(new java.awt.Color(229, 229, 0));
+        registrarButton.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         registrarButton.setText("Registrarse");
+        registrarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registrarButtonActionPerformed(evt);
+            }
+        });
         jPanel4.add(registrarButton);
 
         accederButton.setBackground(new java.awt.Color(229, 229, 0));
+        accederButton.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         accederButton.setText("Acceder sin iniciar sesión");
         accederButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -123,6 +116,7 @@ public class LoginDialog extends javax.swing.JDialog {
         jPanel4.add(accederButton);
 
         loginButton.setBackground(new java.awt.Color(229, 229, 0));
+        loginButton.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         loginButton.setText("Acceder");
         loginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,7 +149,7 @@ public class LoginDialog extends javax.swing.JDialog {
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nombreTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
+                    .addComponent(nombreTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
                     .addComponent(contraseñaPasswordField))
                 .addContainerGap())
         );
@@ -203,15 +197,11 @@ public class LoginDialog extends javax.swing.JDialog {
         login();
     }//GEN-LAST:event_loginButtonActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void registrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarButtonActionPerformed
         // TODO add your handling code here:
-        // Crear una instancia de UsuarioService
-        UsuarioService usuarioService = new UsuarioService();
-
-// Registrar un nuevo usuario (ejemplo con datos ficticios)
-        usuarioService.registerUser("prueba", "prueba@prueba.com", "1234", "USUARIO");
-
-    }//GEN-LAST:event_jButton1ActionPerformed
+        RegistroDialog registro = new RegistroDialog(this, rootPaneCheckingEnabled);
+        registro.setVisible(true);
+    }//GEN-LAST:event_registrarButtonActionPerformed
 
     // Iniciar sesión con un usuario
     private void login() {
@@ -321,7 +311,6 @@ public class LoginDialog extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton accederButton;
     private javax.swing.JPasswordField contraseñaPasswordField;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

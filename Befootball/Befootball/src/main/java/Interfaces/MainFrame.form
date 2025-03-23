@@ -11,6 +11,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="logoutMenuItem">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/images/logout20.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cerrar sesi&#xf3;n"/>
               </Properties>
               <Events>
@@ -21,6 +24,9 @@
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Alt+F4"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/images/close20.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Salir"/>
               </Properties>
@@ -37,16 +43,25 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="cambiarNombreMenuItem">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/images/editBlack20.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cambiar nombre"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="cambiarCorreoMenuItem">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/images/editBlack20.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cambiar correo"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="cambiarContrase&#xf1;aMenuItem">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/images/editBlack20.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cambiar contrase&#xf1;a"/>
               </Properties>
             </MenuItem>
@@ -90,18 +105,27 @@
             <Property name="text" type="java.lang.String" value="Ayuda"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="acercaDeMenuItem">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Acerca de"/>
-              </Properties>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="webMenuItem">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/images/globe20.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="P&#xe1;gina web"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="acercaDeMenuItem">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/images/info20.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Acerca de"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="ayudaMenuItem">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/images/help20.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Ayuda"/>
               </Properties>
             </MenuItem>
@@ -1271,7 +1295,7 @@
                             </DimensionLayout>
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <EmptySpace min="0" pref="216" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="220" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                           </Layout>
@@ -1292,10 +1316,10 @@
                                           <Group type="102" attributes="0">
                                               <Component id="equipoFavoritoLabel" max="32767" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="editarEquipoFavButton" min="-2" max="-2" attributes="0"/>
+                                              <Component id="editarEquipoFavButton" min="-2" pref="32" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                           </Group>
-                                          <Component id="jLabel6" pref="438" max="32767" attributes="0"/>
+                                          <Component id="jLabel6" pref="361" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -1308,7 +1332,7 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="equipoFavoritoLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="editarEquipoFavButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="editarEquipoFavButton" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="32767" attributes="0"/>
                                   </Group>
@@ -1342,7 +1366,14 @@
                             </Component>
                             <Component class="javax.swing.JButton" name="editarEquipoFavButton">
                               <Properties>
-                                <Property name="text" type="java.lang.String" value="e"/>
+                                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                  <Image iconType="3" name="/images/edit20.png"/>
+                                </Property>
+                                <Property name="toolTipText" type="java.lang.String" value="Editar equipo favorito"/>
+                                <Property name="contentAreaFilled" type="boolean" value="false"/>
+                                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                                  <Color id="Hand Cursor"/>
+                                </Property>
                               </Properties>
                               <Events>
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editarEquipoFavButtonActionPerformed"/>
@@ -1489,6 +1520,11 @@
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
           <SubComponents>
             <Container class="javax.swing.JPanel" name="jPanel3">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="cc" green="33" red="0" type="rgb"/>
+                </Property>
+              </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
                   <BorderConstraints direction="First"/>
@@ -1513,7 +1549,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="198" max="32767" attributes="0"/>
+                              <EmptySpace pref="146" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1563,48 +1599,18 @@
                     </Container>
                   </SubComponents>
                 </Container>
-                <Container class="javax.swing.JPanel" name="jPanel27">
+                <Component class="javax.swing.JLabel" name="nombreEquipoLabel">
                   <Properties>
-                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="cc" green="33" red="0" type="rgb"/>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="sansserif" size="24" style="1"/>
                     </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="text" type="java.lang.String" value="Equipo"/>
                   </Properties>
-
-                  <Layout>
-                    <DimensionLayout dim="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="nombreEquipoLabel" pref="292" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                    <DimensionLayout dim="1">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="nombreEquipoLabel" pref="100" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                  </Layout>
-                  <SubComponents>
-                    <Component class="javax.swing.JLabel" name="nombreEquipoLabel">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="sansserif" size="24" style="1"/>
-                        </Property>
-                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                        </Property>
-                        <Property name="horizontalAlignment" type="int" value="0"/>
-                        <Property name="text" type="java.lang.String" value="Equipo"/>
-                      </Properties>
-                    </Component>
-                  </SubComponents>
-                </Container>
+                </Component>
                 <Container class="javax.swing.JPanel" name="jPanel5">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -1615,7 +1621,7 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="304" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="252" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -1876,7 +1882,7 @@
                             </DimensionLayout>
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <EmptySpace min="0" pref="105" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="101" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                           </Layout>
@@ -1893,9 +1899,9 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jLabel10" max="32767" attributes="0"/>
+                                      <Component id="jLabel10" pref="325" max="32767" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="agregarEquipoFavButton" min="-2" max="-2" attributes="0"/>
+                                      <Component id="agregarEquipoFavButton" min="-2" pref="24" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -1916,8 +1922,14 @@
                           <SubComponents>
                             <Component class="javax.swing.JButton" name="agregarEquipoFavButton">
                               <Properties>
-                                <Property name="text" type="java.lang.String" value="."/>
+                                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                  <Image iconType="3" name="/images/favorite20.png"/>
+                                </Property>
                                 <Property name="toolTipText" type="java.lang.String" value="Agregar equipo favorito"/>
+                                <Property name="contentAreaFilled" type="boolean" value="false"/>
+                                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                                  <Color id="Hand Cursor"/>
+                                </Property>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel10">
@@ -2265,18 +2277,18 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jPanel40" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jPanel40" alignment="0" pref="758" max="32767" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="estadoLabel" max="32767" attributes="0"/>
-                              <Component id="jornadaLabel" max="32767" attributes="0"/>
-                              <Component id="ligaLabel" pref="900" max="32767" attributes="0"/>
-                              <Component id="fechaPartidoLabel" pref="900" max="32767" attributes="0"/>
-                              <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="102" attributes="0">
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   <Component id="editarPartidoButton" min="-2" max="-2" attributes="0"/>
                               </Group>
+                              <Component id="estadoLabel" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jornadaLabel" alignment="0" max="32767" attributes="0"/>
+                              <Component id="ligaLabel" alignment="0" pref="900" max="32767" attributes="0"/>
+                              <Component id="fechaPartidoLabel" alignment="0" pref="900" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -2294,7 +2306,7 @@
                           <Component id="ligaLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="fechaPartidoLabel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="158" max="32767" attributes="0"/>
+                          <EmptySpace pref="154" max="32767" attributes="0"/>
                           <Component id="editarPartidoButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -2396,7 +2408,13 @@
                 </Container>
                 <Component class="javax.swing.JButton" name="editarPartidoButton">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="e"/>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/images/edit20.png"/>
+                    </Property>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                      <Color id="Hand Cursor"/>
+                    </Property>
                   </Properties>
                 </Component>
               </SubComponents>

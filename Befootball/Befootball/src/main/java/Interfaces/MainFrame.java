@@ -176,7 +176,6 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel13 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         resizableImageLabel3 = new ComponentesModelos.ResizableImageLabel();
-        jPanel27 = new javax.swing.JPanel();
         nombreEquipoLabel = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jPanel20 = new javax.swing.JPanel();
@@ -243,8 +242,8 @@ public class MainFrame extends javax.swing.JFrame {
         crearPartidoMenuItem = new javax.swing.JMenuItem();
         editarRolMenuItem = new javax.swing.JMenuItem();
         ayudaMenu = new javax.swing.JMenu();
-        acercaDeMenuItem = new javax.swing.JMenuItem();
         webMenuItem = new javax.swing.JMenuItem();
+        acercaDeMenuItem = new javax.swing.JMenuItem();
         ayudaMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -827,7 +826,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
         escudoFavoritoPanelLayout.setVerticalGroup(
             escudoFavoritoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 216, Short.MAX_VALUE)
+            .addGap(0, 220, Short.MAX_VALUE)
         );
 
         jPanel33.setBackground(new java.awt.Color(0, 181, 12));
@@ -842,7 +841,10 @@ public class MainFrame extends javax.swing.JFrame {
         equipoFavoritoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         equipoFavoritoLabel.setText("        nombre del equipo");
 
-        editarEquipoFavButton.setText("e");
+        editarEquipoFavButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/edit20.png"))); // NOI18N
+        editarEquipoFavButton.setToolTipText("Editar equipo favorito");
+        editarEquipoFavButton.setContentAreaFilled(false);
+        editarEquipoFavButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         editarEquipoFavButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editarEquipoFavButtonActionPerformed(evt);
@@ -859,9 +861,9 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(jPanel33Layout.createSequentialGroup()
                         .addComponent(equipoFavoritoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(editarEquipoFavButton)
+                        .addComponent(editarEquipoFavButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)))
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)))
         );
         jPanel33Layout.setVerticalGroup(
             jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -871,7 +873,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(equipoFavoritoLabel)
-                    .addComponent(editarEquipoFavButton))
+                    .addComponent(editarEquipoFavButton, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -978,6 +980,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         equipoPanel.setLayout(new java.awt.BorderLayout());
 
+        jPanel3.setBackground(new java.awt.Color(0, 51, 204));
         jPanel3.setLayout(new java.awt.GridLayout(1, 3));
 
         jPanel13.setBackground(new java.awt.Color(0, 51, 204));
@@ -1008,7 +1011,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(198, Short.MAX_VALUE))
+                .addContainerGap(146, Short.MAX_VALUE))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1019,31 +1022,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         jPanel3.add(jPanel13);
 
-        jPanel27.setBackground(new java.awt.Color(0, 51, 204));
-
         nombreEquipoLabel.setFont(new java.awt.Font("sansserif", 1, 24)); // NOI18N
         nombreEquipoLabel.setForeground(new java.awt.Color(255, 255, 255));
         nombreEquipoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         nombreEquipoLabel.setText("Equipo");
-
-        javax.swing.GroupLayout jPanel27Layout = new javax.swing.GroupLayout(jPanel27);
-        jPanel27.setLayout(jPanel27Layout);
-        jPanel27Layout.setHorizontalGroup(
-            jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel27Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(nombreEquipoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel27Layout.setVerticalGroup(
-            jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel27Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(nombreEquipoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        jPanel3.add(jPanel27);
+        jPanel3.add(nombreEquipoLabel);
 
         jPanel5.setBackground(new java.awt.Color(0, 51, 204));
 
@@ -1051,7 +1034,7 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 304, Short.MAX_VALUE)
+            .addGap(0, 252, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1173,13 +1156,15 @@ public class MainFrame extends javax.swing.JFrame {
         );
         escudoEquipoPanelLayout.setVerticalGroup(
             escudoEquipoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 105, Short.MAX_VALUE)
+            .addGap(0, 101, Short.MAX_VALUE)
         );
 
         jPanel39.setBackground(new java.awt.Color(102, 102, 102));
 
-        agregarEquipoFavButton.setText(".");
+        agregarEquipoFavButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/favorite20.png"))); // NOI18N
         agregarEquipoFavButton.setToolTipText("Agregar equipo favorito");
+        agregarEquipoFavButton.setContentAreaFilled(false);
+        agregarEquipoFavButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel10.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -1192,9 +1177,9 @@ public class MainFrame extends javax.swing.JFrame {
             jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel39Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(agregarEquipoFavButton)
+                .addComponent(agregarEquipoFavButton, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel39Layout.setVerticalGroup(
@@ -1441,23 +1426,25 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel40.add(nombreVisitanteLabel);
         jPanel40.add(jLabel24);
 
-        editarPartidoButton.setText("e");
+        editarPartidoButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/edit20.png"))); // NOI18N
+        editarPartidoButton.setContentAreaFilled(false);
+        editarPartidoButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel35Layout = new javax.swing.GroupLayout(jPanel35);
         jPanel35.setLayout(jPanel35Layout);
         jPanel35Layout.setHorizontalGroup(
             jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel40, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel40, javax.swing.GroupLayout.DEFAULT_SIZE, 758, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel35Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(estadoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jornadaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ligaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
-                    .addComponent(fechaPartidoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel35Layout.createSequentialGroup()
+                .addGroup(jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel35Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(editarPartidoButton)))
+                        .addComponent(editarPartidoButton))
+                    .addComponent(estadoLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jornadaLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ligaLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
+                    .addComponent(fechaPartidoLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel35Layout.setVerticalGroup(
@@ -1472,7 +1459,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(ligaLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fechaPartidoLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
                 .addComponent(editarPartidoButton)
                 .addContainerGap())
         );
@@ -1555,6 +1542,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         inicioMenu.setText("Inicio");
 
+        logoutMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logout20.png"))); // NOI18N
         logoutMenuItem.setText("Cerrar sesión");
         logoutMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1564,6 +1552,7 @@ public class MainFrame extends javax.swing.JFrame {
         inicioMenu.add(logoutMenuItem);
 
         salirMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        salirMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/close20.png"))); // NOI18N
         salirMenuItem.setText("Salir");
         salirMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1576,12 +1565,15 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenu1.setText("Ajustes");
 
+        cambiarNombreMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/editBlack20.png"))); // NOI18N
         cambiarNombreMenuItem.setText("Cambiar nombre");
         jMenu1.add(cambiarNombreMenuItem);
 
+        cambiarCorreoMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/editBlack20.png"))); // NOI18N
         cambiarCorreoMenuItem.setText("Cambiar correo");
         jMenu1.add(cambiarCorreoMenuItem);
 
+        cambiarContraseñaMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/editBlack20.png"))); // NOI18N
         cambiarContraseñaMenuItem.setText("Cambiar contraseña");
         jMenu1.add(cambiarContraseñaMenuItem);
         jMenu1.add(jSeparator2);
@@ -1618,12 +1610,15 @@ public class MainFrame extends javax.swing.JFrame {
 
         ayudaMenu.setText("Ayuda");
 
-        acercaDeMenuItem.setText("Acerca de");
-        ayudaMenu.add(acercaDeMenuItem);
-
+        webMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/globe20.png"))); // NOI18N
         webMenuItem.setText("Página web");
         ayudaMenu.add(webMenuItem);
 
+        acercaDeMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/info20.png"))); // NOI18N
+        acercaDeMenuItem.setText("Acerca de");
+        ayudaMenu.add(acercaDeMenuItem);
+
+        ayudaMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/help20.png"))); // NOI18N
         ayudaMenuItem.setText("Ayuda");
         ayudaMenu.add(ayudaMenuItem);
 
@@ -1934,6 +1929,18 @@ public class MainFrame extends javax.swing.JFrame {
         Usuarios usuario = obtenerDatos.obtenerDatosUsuario(pkUsuario);
         // Mostrar nombre del usuario en el label
         nombreUsuarioLabel.setText(usuario.getNombre());
+        
+        // Mostrar nombre del equipo ajustando la longitud para no estropear el layout
+        String nombreUsuario = usuario.getNombre();
+        if (nombreUsuario.length() > 20) {
+            String textoCorto = nombreUsuario.substring(0, 18) + "...";
+            nombreUsuarioLabel.setText(textoCorto);
+            nombreUsuarioLabel.setToolTipText(nombreUsuario);
+        } else {
+            nombreUsuarioLabel.setText(nombreUsuario);
+            nombreUsuarioLabel.setToolTipText(null);
+        }
+        
         // Mostrar rol del usuario en el label
         rolUsuarioLabel.setText(usuario.getRol());
         // Mostrar correo del usuario en el label
@@ -1944,10 +1951,17 @@ public class MainFrame extends javax.swing.JFrame {
         fechaRegistroUsuarioLabel.setText(usuario.getFechaRegistro().format(formatoDateTime));
         // Mostrar id del usuario en el label
         idUsuarioLabel.setText(String.valueOf(pkUsuario));
-        // Mostrar nombre del equipo favorito
-        equipoFavoritoLabel.setText(usuario.getEquipoFavorito().getNombreEquipo());
-        // Cargar escudo favorito
-        obtenerEscudoFavorito(pkUsuario);
+
+        // No cargar escudo en caso de ser null
+        if (usuario.getEquipoFavorito() != null && usuario.getEquipoFavorito().getNombreEquipo() != null) {
+            // Mostrar nombre del equipo favorito
+            equipoFavoritoLabel.setText(usuario.getEquipoFavorito().getNombreEquipo());
+            // Cargar escudo favorito
+            obtenerEscudoFavorito(pkUsuario);
+        } else {
+            equipoFavoritoLabel.setText("Sin equipo favorito");
+        }
+
     }
 
     // Cargar información en el panel de equipo
@@ -1985,21 +1999,27 @@ public class MainFrame extends javax.swing.JFrame {
                 // Actualizar la etiqueta con el valor de la posición
                 posicionLigaEquipoLabel.setText(valorPosicion.toString());
             } else {
-                posicionLigaEquipoLabel.setText("Columna 'Posición' no encontrada");
+                posicionLigaEquipoLabel.setText("NA");
             }
         } else {
             // Si no se encuentra el equipo en la tabla
-            posicionLigaEquipoLabel.setText("Equipo no encontrado");
+            posicionLigaEquipoLabel.setText("NA");
         }
 
-        // Mostrar nombre del equipo
-        nombreEquipoLabel.setText(equipo.getNombreEquipo());
+        // Mostrar nombre del equipo ajustando la longitud para no estropear el layout
+        String nombreEquipo = equipo.getNombreEquipo();
+        if (nombreEquipo.length() > 20) {
+            String textoCorto = nombreEquipo.substring(0, 18) + "...";
+            nombreEquipoLabel.setText(textoCorto);
+            nombreEquipoLabel.setToolTipText(nombreEquipo);
+        } else {
+            nombreEquipoLabel.setText(nombreEquipo);
+            nombreEquipoLabel.setToolTipText(null);
+        }
         // Mostrar pais del equipo
         paisEquipoLabel.setText(equipo.getLiga().getPais().getNombrePais());
         // Mostrar liga del equipo
         ligaEquipoLabel.setText(equipo.getLiga().getNombreLiga());
-        // Mostrar posición en la clasificación de su liga
-        //posicionLigaEquipoLabel.setText(valorColumna.toString());
         // Mostrar nombre del estadio del equipo
         estadioEquipoLabel.setText(equipo.getEstadio().getNombreEstadio());
         // Cargar escudo del equipo seleccionado
@@ -2042,10 +2062,26 @@ public class MainFrame extends javax.swing.JFrame {
         golesLocalLabel.setText(String.valueOf(partido.getGolesLocal()));
         // Mostrar goles visitante
         golesVisitanteLabel.setText(String.valueOf(partido.getGolesVisitante()));
-        // Mostrar nombre equipo local
-        nombreLocalLabel.setText(partido.getEquipoLocal().getNombreEquipo());
-        // Mostrar nombre equipo visitante
-        nombreVisitanteLabel.setText(partido.getEquipoVisitante().getNombreEquipo());
+        // Mostrar nombre del equipo local ajustando la longitud para no estropear el layout
+        String nombreEquipoLocal = partido.getEquipoLocal().getNombreEquipo();
+        if (nombreEquipoLocal.length() > 20) {
+            String textoCorto = nombreEquipoLocal.substring(0, 18) + "...";
+            nombreLocalLabel.setText(textoCorto);
+            nombreLocalLabel.setToolTipText(nombreEquipoLocal);
+        } else {
+            nombreLocalLabel.setText(nombreEquipoLocal);
+            nombreLocalLabel.setToolTipText(null);
+        }
+        // Mostrar nombre del equipo visitante ajustando la longitud para no estropear el layout
+        String nombreEquipoVisitante = partido.getEquipoVisitante().getNombreEquipo();
+        if (nombreEquipoVisitante.length() > 20) {
+            String textoCorto = nombreEquipoVisitante.substring(0, 18) + "...";
+            nombreVisitanteLabel.setText(textoCorto);
+            nombreVisitanteLabel.setToolTipText(nombreEquipoVisitante);
+        } else {
+            nombreVisitanteLabel.setText(nombreEquipoVisitante);
+            nombreVisitanteLabel.setToolTipText(null);
+        }
         // Mostrar estado del partido
         estadoLabel.setText("Estado: " + partido.getEstado());
         // Mostrar jornada del partido
@@ -2321,7 +2357,7 @@ public class MainFrame extends javax.swing.JFrame {
         usuarioResultadosButton.setForeground(new java.awt.Color(255, 255, 255));
 
         resultadosEquipoButton.setForeground(new java.awt.Color(255, 255, 255));
-        clasificacionEquipoButton.setForeground(new java.awt.Color(102, 255, 255));
+        clasificacionEquipoButton.setForeground(new java.awt.Color(255, 255, 255));
         usuarioEquipoButton.setForeground(new java.awt.Color(255, 255, 255));
 
         resultadosPartidoButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -2481,7 +2517,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel24;
     private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel26;
-    private javax.swing.JPanel jPanel27;
     private javax.swing.JPanel jPanel28;
     private javax.swing.JPanel jPanel29;
     private javax.swing.JPanel jPanel3;
