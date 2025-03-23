@@ -1616,6 +1616,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         acercaDeMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/info20.png"))); // NOI18N
         acercaDeMenuItem.setText("Acerca de");
+        acercaDeMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                acercaDeMenuItemActionPerformed(evt);
+            }
+        });
         ayudaMenu.add(acercaDeMenuItem);
 
         ayudaMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/help20.png"))); // NOI18N
@@ -1809,6 +1814,12 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_clasificacionTableMouseClicked
 
+    private void acercaDeMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acercaDeMenuItemActionPerformed
+        // TODO add your handling code here:
+        AcercaDeDialog acercaDe = new AcercaDeDialog(this, rootPaneCheckingEnabled);
+        acercaDe.setVisible(true);
+    }//GEN-LAST:event_acercaDeMenuItemActionPerformed
+
     // Crear factorty
     private void initializeSessionFactory() {
         factory = new Configuration().configure().buildSessionFactory();
@@ -1929,7 +1940,7 @@ public class MainFrame extends javax.swing.JFrame {
         Usuarios usuario = obtenerDatos.obtenerDatosUsuario(pkUsuario);
         // Mostrar nombre del usuario en el label
         nombreUsuarioLabel.setText(usuario.getNombre());
-        
+
         // Mostrar nombre del equipo ajustando la longitud para no estropear el layout
         String nombreUsuario = usuario.getNombre();
         if (nombreUsuario.length() > 20) {
@@ -1940,7 +1951,7 @@ public class MainFrame extends javax.swing.JFrame {
             nombreUsuarioLabel.setText(nombreUsuario);
             nombreUsuarioLabel.setToolTipText(null);
         }
-        
+
         // Mostrar rol del usuario en el label
         rolUsuarioLabel.setText(usuario.getRol());
         // Mostrar correo del usuario en el label
@@ -2343,6 +2354,10 @@ public class MainFrame extends javax.swing.JFrame {
         jornadaComboBox.setBackground(new java.awt.Color(214, 217, 223));
         ligaComboBox.setBackground(new java.awt.Color(214, 217, 223));
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel5.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel13.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel3.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel7.setBackground(new java.awt.Color(0, 0, 0));
 
         resultadosUsuarioButton.setForeground(new java.awt.Color(255, 255, 255));
         clasificacionUsuarioButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -2382,6 +2397,10 @@ public class MainFrame extends javax.swing.JFrame {
         jornadaComboBox.setBackground(new java.awt.Color(229, 229, 0));
         ligaComboBox.setBackground(new java.awt.Color(255, 0, 0));
         jLabel5.setForeground(new java.awt.Color(229, 229, 0));
+        jPanel5.setBackground(new java.awt.Color(0, 51, 204));
+        jPanel13.setBackground(new java.awt.Color(0, 51, 204));
+        jPanel3.setBackground(new java.awt.Color(0, 51, 204));
+        jPanel7.setBackground(new java.awt.Color(0, 51, 204));
 
         resultadosUsuarioButton.setForeground(new java.awt.Color(102, 255, 255));
         clasificacionUsuarioButton.setForeground(new java.awt.Color(102, 255, 255));
