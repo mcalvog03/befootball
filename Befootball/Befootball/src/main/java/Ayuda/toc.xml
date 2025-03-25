@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <toc version="1.0">
     <tocitem text="Inicio" target="inicio">
-        <tocitem text="Historia" target="historia"/>
-        <tocitem text="Controles" target="controles"/>
-        <tocitem text="Sobre el desarrollador" target="sobre_mi"/>
+        <tocitem text="Resultados" target="resultados"/>
+        <tocitem text="Clasificaciones" target="clasificaciones"/>
+        <tocitem text="Partidos" target="partidos"/>
+        <tocitem text="Equipos" target="equipos"/>
+        <tocitem text="Usuarios" target="usuarios"/>
     </tocitem>
 </toc>
 

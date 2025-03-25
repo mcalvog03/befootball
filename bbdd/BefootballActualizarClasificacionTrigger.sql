@@ -30,15 +30,6 @@ BEGIN
         dif_goles_local := NEW.goles_local - NEW.goles_visitante;
         dif_goles_visitante := NEW.goles_visitante - NEW.goles_local;
 
-        -- Asegurarse de que las diferencias de goles no sean negativas
-        IF dif_goles_local < 0 THEN 
-            dif_goles_local := 0; 
-        END IF;
-        
-        IF dif_goles_visitante < 0 THEN 
-            dif_goles_visitante := 0; 
-        END IF;
-
         -- Si es una actualización, revertimos los datos anteriores
         IF TG_OP = 'UPDATE' THEN
             UPDATE clasificacion

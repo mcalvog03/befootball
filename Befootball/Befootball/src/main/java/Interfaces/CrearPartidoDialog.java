@@ -211,7 +211,11 @@ public class CrearPartidoDialog extends javax.swing.JDialog {
 
     // Crear factorty
     private void initializeSessionFactory() {
-        factory = new Configuration().configure().buildSessionFactory();
+        try {
+            factory = new Configuration().configure().buildSessionFactory();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al inicializar Hibernate: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     // Rellenar el comboBox de ligas con la lista de los nombres obtenidos

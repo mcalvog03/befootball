@@ -34,6 +34,8 @@ import java.net.Socket;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import javax.help.HelpBroker;
+import javax.help.HelpSet;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -89,8 +91,11 @@ public class MainFrame extends javax.swing.JFrame {
             ConfiguradorDeInterfaz.configurarPorRol(rol, this);
         }
 
+        // Estilizar tablas
         EstiloTablaPartidos.estilizarTabla(partidosTable);
         EstiloTablaClasificacion.estilizarTabla(clasificacionTable);
+        // Inicializar metodo de javaHelp
+        ayuda();
     }
 
     /**
@@ -1623,6 +1628,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
         ayudaMenu.add(acercaDeMenuItem);
 
+        ayudaMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
         ayudaMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/help20.png"))); // NOI18N
         ayudaMenuItem.setText("Ayuda");
         ayudaMenu.add(ayudaMenuItem);
@@ -1822,7 +1828,11 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Crear factorty
     private void initializeSessionFactory() {
-        factory = new Configuration().configure().buildSessionFactory();
+        try {
+            factory = new Configuration().configure().buildSessionFactory();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al inicializar Hibernate: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     // Cerrar sesión y mostrar de nuevo el dialogo de incio de sesión
@@ -2335,6 +2345,27 @@ public class MainFrame extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Equipo agregado como favorito", "", JOptionPane.INFORMATION_MESSAGE);
             }
         });
+    }
+    
+    // Menú de ayuda
+    private void ayuda() {
+        try {
+            // Carga el fichero de ayuda
+            File fichero = new File("src/main/java/Ayuda/help_set.hs");
+            URL hsURL = fichero.toURI().toURL();
+
+            // Crea el HelpSet
+            HelpSet helpset = new HelpSet(getClass().getClassLoader(), hsURL);
+            HelpBroker hb = helpset.createHelpBroker();
+
+            // Ayuda al hacer click en el JMenuItem itemAyuda.
+            hb.enableHelpOnButton(ayudaMenuItem, "inicio", helpset);
+
+            // Ayuda al pulsar F1 sobre la ventana principal
+            hb.enableHelpKey(getRootPane(), "inicio", helpset);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // Método para cabiar el estilo de la interfaz a clasico
