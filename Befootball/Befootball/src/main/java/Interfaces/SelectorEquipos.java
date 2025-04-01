@@ -4,7 +4,7 @@
  */
 package Interfaces;
 
-import Funcionalidades.ObtenerDatos;
+import FuncionalidadesHibernate.ObtenerSubirDatos;
 import POJOS.Equipos;
 import POJOS.Ligas;
 import POJOS.Usuarios;
@@ -24,7 +24,7 @@ import org.hibernate.cfg.Configuration;
 public class SelectorEquipos extends javax.swing.JDialog {
 
     private SessionFactory factory;
-    private ObtenerDatos obtenerDatos;
+    private ObtenerSubirDatos obtenerDatos;
     private int pkUsuario;
 
     /**
@@ -38,7 +38,7 @@ public class SelectorEquipos extends javax.swing.JDialog {
         Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/logo.png");
         setIconImage(icon);
         initializeSessionFactory();
-        obtenerDatos = new ObtenerDatos(factory);
+        obtenerDatos = new ObtenerSubirDatos(factory);
         rellenarCombox();
         // Listener para actualizar la lista de equipos dependiendo de la liga seleccionada
         ligasComboBox.addActionListener(new ActionListener() {

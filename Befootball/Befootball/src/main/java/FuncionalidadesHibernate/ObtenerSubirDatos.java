@@ -2,14 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Funcionalidades;
+package FuncionalidadesHibernate;
 
-import POJOS.Clasificacion;
-import POJOS.Equipos;
-import POJOS.Jugadores;
-import POJOS.Ligas;
-import POJOS.Partidos;
-import POJOS.Usuarios;
+import POJOS.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -19,11 +14,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-public class ObtenerDatos {
+public class ObtenerSubirDatos {
 
     private SessionFactory factory;
 
-    public ObtenerDatos(SessionFactory factory) {
+    public ObtenerSubirDatos(SessionFactory factory) {
         this.factory = factory;
     }
 
@@ -146,11 +141,11 @@ public class ObtenerDatos {
 
         return nombresEquipos;
     }
-    
+
     // Obtener las jornadas existentes por liga
     public List<Integer> obtenerJornadas(String ligaSeleccionada) {
         // Usar un Set para evitar jornadas duplicadas
-        Set<Integer> jornadasSet = new HashSet<>();  
+        Set<Integer> jornadasSet = new HashSet<>();
         Transaction tx = null;
 
         try (Session session = factory.openSession()) {
@@ -227,9 +222,9 @@ public class ObtenerDatos {
 
         return partidosFiltrados;
     }
-    
+
     // Obtener clasificación de la liga seleccionada
-    public List<Clasificacion> obtenerClasifiacionFiltrada(String ligaSeleccionada){
+    public List<Clasificacion> obtenerClasifiacionFiltrada(String ligaSeleccionada) {
         List<Clasificacion> clasificacionFiltrada = new ArrayList<>();
         Transaction tx = null;
 
@@ -241,7 +236,6 @@ public class ObtenerDatos {
                     .setParameter("ligaNombre", ligaSeleccionada)
                     .uniqueResult();
 
-            
             // Obtener los equipos correspondientes a la liga seleccionada
             clasificacionFiltrada = session.createQuery("FROM Clasificacion c WHERE c.liga.id = :ligaId", Clasificacion.class)
                     .setParameter("ligaId", liga.getPkLiga())
@@ -258,7 +252,7 @@ public class ObtenerDatos {
 
         return clasificacionFiltrada;
     }
-    
+
     // Obtener un partido por id
     public Partidos obtenerDatosPartido(int pkPartido) {
         Partidos partido = null;
@@ -277,7 +271,7 @@ public class ObtenerDatos {
 
         return partido;
     }
-    
+
     // Metodo para seleccionar el equipo favorito del usuario utilizando
     public void seleccionarEquipoFav(int pkUsuario, int pkEquipo) {
         Transaction tx = null;
@@ -302,6 +296,50 @@ public class ObtenerDatos {
             if (tx != null) {
                 tx.rollback();
             }
+        }
+    }
+
+    // Actualizar el nombre del usuario
+    public void actualizarNombreUsuario(String nombre, int pkUsuario) {
+        Transaction tx = null;
+        try (Session session = factory.openSession()) {
+            tx = session.beginTransaction();
+
+            // Obtener el usuario por id
+            Usuarios usuario = session.find(Usuarios.class, pkUsuario);
+
+            if (nombre == null ? usuario.getNombre() != null : !nombre.equals(usuario.getNombre())) {
+                usuario.setNombre(nombre);
+                session.persist(usuario);
+                tx.commit();
+            } else {
+                JOptionPane.showMessageDialog(null, "El nombre introducido es igual al actual", "Error", JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (Exception e) {
+            tx.rollback();
+            e.printStackTrace();
+        }
+    }
+
+    // Actualizar el correo del usuario
+    public void actualizarCorreoUsuario(String correo, int pkUsuario) {
+        Transaction tx = null;
+        try (Session session = factory.openSession()) {
+            tx = session.beginTransaction();
+
+            // Obtener el usuario por id
+            Usuarios usuario = session.find(Usuarios.class, pkUsuario);
+
+            if (correo == null ? usuario.getCorreo() != null : !correo.equals(usuario.getCorreo())) {
+                usuario.setCorreo(correo);
+                session.persist(usuario);
+                tx.commit();
+            } else {
+                JOptionPane.showMessageDialog(null, "El correo introducido es igual al actual", "Error", JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (Exception e) {
+            tx.rollback();
+            e.printStackTrace();
         }
     }
 }

@@ -4,7 +4,7 @@
  */
 package Interfaces;
 
-import Funcionalidades.ObtenerDatos;
+import FuncionalidadesHibernate.ObtenerSubirDatos;
 import POJOS.Equipos;
 import POJOS.Ligas;
 import POJOS.Partidos;
@@ -28,7 +28,7 @@ import org.hibernate.Transaction;
 public class CrearPartidoDialog extends javax.swing.JDialog {
 
     private SessionFactory factory;
-    private ObtenerDatos obtenerDatos;
+    private ObtenerSubirDatos obtenerDatos;
 
     /**
      * Creates new form CrearPartido
@@ -40,7 +40,7 @@ public class CrearPartidoDialog extends javax.swing.JDialog {
         Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/logo.png");
         setIconImage(icon);
         initializeSessionFactory();
-        obtenerDatos = new ObtenerDatos(factory);
+        obtenerDatos = new ObtenerSubirDatos(factory);
         rellenarCombox();
 
         // Listener para actualizar la lista de equipos dependiendo de la liga seleccionada

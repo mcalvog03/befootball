@@ -4,7 +4,7 @@
  */
 package Interfaces;
 
-import Funcionalidades.UsuarioService;
+import FuncionalidadesHibernate.UsuarioService;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
@@ -215,7 +215,7 @@ public class RegistroDialog extends javax.swing.JDialog {
         UsuarioService usuarioService = new UsuarioService();
 
         // Registrar un nuevo usuario (ejemplo con datos ficticios)
-        usuarioService.registerUser(nombre, correo, contraseña, "USUARIO");
+        usuarioService.registerUser(nombre, correo, contraseña);
     }
 
     // Comprobar que los datos son válidos

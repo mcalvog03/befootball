@@ -48,6 +48,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Cambiar nombre"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cambiarNombreMenuItemActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="cambiarCorreoMenuItem">
               <Properties>
@@ -56,6 +59,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Cambiar correo"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cambiarCorreoMenuItemActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="cambiarContrase&#xf1;aMenuItem">
               <Properties>

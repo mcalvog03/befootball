@@ -4,9 +4,9 @@
  */
 package Interfaces;
 
-import Funcionalidades.HibernateUtil;
+import FuncionalidadesHibernate.HibernateUtil;
 import static Funcionalidades.PasswordUtils.hashPassword;
-import Funcionalidades.UsuarioService;
+import FuncionalidadesHibernate.UsuarioService;
 import POJOS.Usuarios;
 import java.awt.Image;
 import java.awt.Toolkit;

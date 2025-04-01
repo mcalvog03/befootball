@@ -1,5 +1,6 @@
-package Funcionalidades;
+package FuncionalidadesHibernate;
 
+import Funcionalidades.PasswordUtils;
 import POJOS.Usuarios;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
@@ -9,7 +10,7 @@ import org.hibernate.Session;
 public class UsuarioService {
 
     // Método para registrar un usuario
-    public void registerUser(String nombre, String correo, String contraseña, String rol) {
+    public void registerUser(String nombre, String correo, String contraseña) {
         // Validar que los campos no estén vacíos
         if (nombre == null || nombre.trim().isEmpty() || correo == null || correo.trim().isEmpty() || contraseña == null || contraseña.trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -28,7 +29,7 @@ public class UsuarioService {
         usuario.setCorreo(correo);
         usuario.setSalt(salt);
         usuario.setPasswordHash(passwordHash);
-        usuario.setRol(rol);
+        usuario.setRol("USUARIO");
         usuario.setFechaRegistro(LocalDateTime.now());
 
         // Abrir sesión con Hibernate

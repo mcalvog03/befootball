@@ -12,7 +12,7 @@ import ComponentesModelos.EstiloTablaJugadores;
 import ComponentesModelos.EstiloTablaPartidos;
 import Funcionalidades.ImageRenderer;
 import ComponentesModelos.JugadoresTableModel;
-import Funcionalidades.ObtenerDatos;
+import FuncionalidadesHibernate.ObtenerSubirDatos;
 import POJOS.Clasificacion;
 import POJOS.Equipos;
 import POJOS.Jugadores;
@@ -42,13 +42,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 public class MainFrame extends javax.swing.JFrame {
 
     private SessionFactory factory;
-    private ObtenerDatos obtenerDatos;
+    private ObtenerSubirDatos obtenerDatos;
     private int pkUsuario;
     private boolean estiloInterfaz;
 
@@ -74,7 +75,7 @@ public class MainFrame extends javax.swing.JFrame {
         // Inicializar factory
         initializeSessionFactory();
         // Crear objeto de obtención de datos
-        obtenerDatos = new ObtenerDatos(factory);
+        obtenerDatos = new ObtenerSubirDatos(factory);
         // Rellenar el combox de ligas
         rellenarComboxLigas();
 
@@ -1572,10 +1573,20 @@ public class MainFrame extends javax.swing.JFrame {
 
         cambiarNombreMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/editBlack20.png"))); // NOI18N
         cambiarNombreMenuItem.setText("Cambiar nombre");
+        cambiarNombreMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cambiarNombreMenuItemActionPerformed(evt);
+            }
+        });
         jMenu1.add(cambiarNombreMenuItem);
 
         cambiarCorreoMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/editBlack20.png"))); // NOI18N
         cambiarCorreoMenuItem.setText("Cambiar correo");
+        cambiarCorreoMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cambiarCorreoMenuItemActionPerformed(evt);
+            }
+        });
         jMenu1.add(cambiarCorreoMenuItem);
 
         cambiarContraseñaMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/editBlack20.png"))); // NOI18N
@@ -1825,6 +1836,16 @@ public class MainFrame extends javax.swing.JFrame {
         AcercaDeDialog acercaDe = new AcercaDeDialog(this, rootPaneCheckingEnabled);
         acercaDe.setVisible(true);
     }//GEN-LAST:event_acercaDeMenuItemActionPerformed
+
+    private void cambiarNombreMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarNombreMenuItemActionPerformed
+        // TODO add your handling code here:
+        editarNombreUsuario();
+    }//GEN-LAST:event_cambiarNombreMenuItemActionPerformed
+
+    private void cambiarCorreoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarCorreoMenuItemActionPerformed
+        // TODO add your handling code here:
+        editarCorreoUsuario();
+    }//GEN-LAST:event_cambiarCorreoMenuItemActionPerformed
 
     // Crear factorty
     private void initializeSessionFactory() {
@@ -2346,7 +2367,45 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
     }
+
+    // Editar nombre del usuario
+    private String editarNombreUsuario() {
+        String nombre = (String) JOptionPane.showInputDialog(
+                this,
+                "Introduce un nuevo nombre.",
+                "Editar nombre",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                null,
+                null);
+
+        // Llamar al metodo si el campo no esta vacio
+        if (nombre != null && !nombre.isEmpty()) {
+            obtenerDatos.actualizarNombreUsuario(nombre, pkUsuario);
+        }
+
+        return nombre;
+    }
     
+    // Editar nombre del usuario
+    private String editarCorreoUsuario() {
+        String correo = (String) JOptionPane.showInputDialog(
+                this,
+                "Introduce un nuevo correo.",
+                "Editar correo",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                null,
+                null);
+
+        // Llamar al metodo si el campo no esta vacio
+        if (correo != null && !correo.isEmpty()) {
+            obtenerDatos.actualizarCorreoUsuario(correo, pkUsuario);
+        }
+
+        return correo;
+    }
+
     // Menú de ayuda
     private void ayuda() {
         try {
