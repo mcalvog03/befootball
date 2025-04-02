@@ -17,9 +17,9 @@ import service.PartidosService;
 @RequestMapping("/api/partidos")
 public class PartidosController {
     
-    @Autowired
     private final PartidosService partidosService;
     
+    @Autowired
     public PartidosController(PartidosService partidoService) {
         this.partidosService = partidoService;
     }
