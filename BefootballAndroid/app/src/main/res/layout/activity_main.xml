@@ -35,17 +35,13 @@
             android:layout_margin="8dp"
             android:padding="12dp" />
 
-        <Button
-            android:id="@+id/btnRefresh"
+        <Spinner
+            android:id="@+id/spinnerJornadas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:background="@android:color/transparent"
-            android:drawableLeft="@android:drawable/ic_popup_sync"
-            android:text=""
-            android:contentDescription="Actualizar"
-            tools:layout_editor_absoluteX="294dp"
-            tools:layout_editor_absoluteY="8dp" />
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
+            android:padding="12dp" />
 
 
     </androidx.appcompat.widget.Toolbar>

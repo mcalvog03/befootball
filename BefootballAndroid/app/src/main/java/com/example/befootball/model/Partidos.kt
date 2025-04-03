@@ -1,6 +1,4 @@
-package com.example.befootball
-
-import java.time.LocalDateTime
+package com.example.befootball.model
 
 data class Partidos(
     var pkPartido: Int,

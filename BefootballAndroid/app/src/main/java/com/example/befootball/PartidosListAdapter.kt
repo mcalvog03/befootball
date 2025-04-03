@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.befootball.databinding.ItemPartidosBinding
+import com.example.befootball.model.Partidos
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -29,6 +30,7 @@ class PartidosListAdapter : ListAdapter<Partidos, RecyclerView.ViewHolder>(Parti
                 visitante.text = partido.equipoVisitante.nombreEquipo
                 golesVisitante.text = partido.golesVisitante.toString()
                 estado.text = partido.estado
+                jornada.text = "Jornada " + partido.jornada.toString()
 
                 // Formatear la fecha
                 val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")
@@ -50,5 +52,11 @@ class PartidosListAdapter : ListAdapter<Partidos, RecyclerView.ViewHolder>(Parti
         override fun areContentsTheSame(oldItem: Partidos, newItem: Partidos): Boolean {
             return oldItem == newItem
         }
+    }
+
+    // Mostrar jornadas en orden
+    fun submitOrderedList(partidos: List<Partidos>) {
+        val orderedPartidos = partidos.sortedBy { it.jornada }
+        submitList(orderedPartidos)
     }
 }

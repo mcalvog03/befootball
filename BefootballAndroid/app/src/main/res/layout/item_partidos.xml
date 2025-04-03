@@ -11,14 +11,33 @@
         android:orientation="vertical"
         android:padding="8dp">
 
-        <!-- Liga -->
-        <TextView
-            android:id="@+id/liga"
+        <!-- Liga y jornada -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Liga"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:gravity="start|center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="4dp">
+
+            <TextView
+                android:id="@+id/liga"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Liga"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:gravity="start" />
+
+            <TextView
+                android:id="@+id/jornada"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jornada"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:gravity="end" />
+        </LinearLayout>
 
         <!-- Fila con equipos y resultados -->
         <LinearLayout
