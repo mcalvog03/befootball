@@ -1,22 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:elevation="4dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
 
+        <!-- Liga -->
+        <TextView
+            android:id="@+id/liga"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Liga"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <!-- Fila con equipos y resultados -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="4dp">
 
+            <!-- Nombre Local -->
             <TextView
-                android:id="@+id/partidos"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-        </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                android:id="@+id/local"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:text="Local"
+                android:textSize="14sp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <!-- Resultado -->
+            <TextView
+                android:id="@+id/golesLocal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="0"
+                android:textSize="14sp" />
+
+            <!-- Guion Separador -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="4dp"
+                android:text="-"
+                android:textSize="14sp" />
+
+            <!-- Resultado Visitante -->
+            <TextView
+                android:id="@+id/golesVisitante"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="0"
+                android:textSize="14sp" />
+
+            <!-- Nombre Visitante -->
+            <TextView
+                android:id="@+id/visitante"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="Visitante"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <!-- Fila con Estado y Fecha -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start|center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="4dp">
+
+            <!-- Estado -->
+            <TextView
+                android:id="@+id/estado"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Estado"
+                android:textSize="14sp"
+                android:textStyle="italic" />
+
+            <!-- Fecha -->
+            <TextView
+                android:id="@+id/fecha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="Fecha"
+                android:textSize="14sp"
+                android:textStyle="italic" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

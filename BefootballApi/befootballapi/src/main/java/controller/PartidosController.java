@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import service.PartidosService;
 
 @RestController
-@RequestMapping("/api/partidos")
+@RequestMapping("/api")
 public class PartidosController {
     
     private final PartidosService partidosService;
@@ -25,7 +25,7 @@ public class PartidosController {
     }
 
     // Obtener todos los partidos
-    @GetMapping
+    @GetMapping("/partidos")
     public ResponseEntity<List<Partidos>> getAllPartidos() {
         List<Partidos> partidos = partidosService.obtenerTodosLosPartidos();
         if (partidos.isEmpty()) {
