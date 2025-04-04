@@ -85,19 +85,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupLigaSpinnerListener() {
-        binding.spinnerLigas.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val ligaSeleccionada = ligas[position]
-                pkLigaSeleccionada = ligaSeleccionada.pkLiga
-                getJornadas(ligaSeleccionada.pkLiga)
-                getPartidos(pkLigaSeleccionada, jornadaSeleccionada) // Verifica que jornadaSeleccionada no sea null
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
-    }
-
     private fun setupJornadasSpinnerListener() {
         binding.spinnerJornadas.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -111,23 +98,46 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupLigaSpinnerListener() {
+        binding.spinnerLigas.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val ligaSeleccionada = ligas[position]
+                pkLigaSeleccionada = ligaSeleccionada.pkLiga
+                jornadaSeleccionada = null
+                getJornadas(ligaSeleccionada.pkLiga) // Traemos las jornadas para la liga seleccionada
+            }
 
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+    }
 
     private fun getJornadas(ligaId: Int) {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                val nuevasJornadas = ligasService.getJornadasByLiga(ligaId) // Llamada correcta a la API para obtener las jornadas
+                // Obtenemos todos los partidos
+                val partidos = partidosService.getAllPartidos()
+
+                // Filtramos los partidos por la liga seleccionada y extraemos las jornadas
+                val jornadasUnicas = partidos
+                    .filter { it.liga.pkLiga == ligaId } // Filtramos por la liga seleccionada
+                    .map { it.jornada } // Extraemos las jornadas
+                    .distinct() // Eliminamos duplicados
+                    .sorted() // Ordenamos las jornadas
+
                 withContext(Dispatchers.Main) {
-                    if (nuevasJornadas.isNotEmpty()) {
-                        jornadas = nuevasJornadas
+                    if (jornadasUnicas.isNotEmpty()) {
+                        // Si hay jornadas, las cargamos en el Spinner
+                        jornadas = jornadasUnicas
                         val adapter = ArrayAdapter(this@MainActivity, android.R.layout.simple_spinner_item, jornadas)
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                         binding.spinnerJornadas.adapter = adapter
-                        setupJornadasSpinnerListener()
+                        setupJornadasSpinnerListener() // Configuramos el listener del Spinner de Jornadas
                     } else {
+                        // Si no hay jornadas disponibles
                         Toast.makeText(this@MainActivity, "No se encontraron jornadas", Toast.LENGTH_SHORT).show()
                     }
                 }
+
             } catch (e: Exception) {
                 e.printStackTrace()
                 withContext(Dispatchers.Main) {
@@ -137,51 +147,40 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     private fun getPartidos(ligaId: Int?, jornadaId: Int?) {
-        // Si tenemos un número de jornada, obtenemos los partidos de esa jornada
-        if (jornadaId != null) {
-            // Llamada para obtener los partidos por jornada
-            lifecycleScope.launch(Dispatchers.IO) {
-                try {
-                    val partidos = partidosService.getPartidosByJornada(jornadaId) // Solo pasamos jornadaId
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                // Primero, aseguramos que tenemos una jornada seleccionada
+                if (jornadaId != null) {
+                    // Filtrar partidos por ligaId y jornadaId
+                    val partidos = partidosService.getAllPartidos()
+
+                    val partidosFiltrados = partidos
+                        .filter { it.liga.pkLiga == ligaId && it.jornada == jornadaId } // Filtramos por liga y jornada
+                        .sortedBy { it.fecha } // Ordenamos los partidos por fecha, si es necesario
+
                     withContext(Dispatchers.Main) {
-                        if (partidos.isNotEmpty()) {
-                            adapter.submitList(partidos) // Actualiza el RecyclerView
+                        if (partidosFiltrados.isNotEmpty()) {
+                            // Si hay partidos, los mostramos en el RecyclerView
+                            adapter.submitList(partidosFiltrados)
                         } else {
-                            Toast.makeText(this@MainActivity, "No se encontraron partidos para la jornada", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@MainActivity, "No se encontraron partidos para esta jornada", Toast.LENGTH_SHORT).show()
                         }
                     }
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                    withContext(Dispatchers.Main) {
-                        Toast.makeText(this@MainActivity, "Error al cargar partidos", Toast.LENGTH_SHORT).show()
-                    }
+                } else {
+                    // Si no hay jornada seleccionada, podemos hacer algo aquí, por ejemplo:
+                    Toast.makeText(this@MainActivity, "Por favor, selecciona una jornada", Toast.LENGTH_SHORT).show()
                 }
-            }
-        } else if (ligaId != null) {
-            // Si no hay jornada seleccionada, obtenemos los partidos por liga
-            lifecycleScope.launch(Dispatchers.IO) {
-                try {
-                    val partidos = partidosService.getPartidosByLiga(ligaId)
-                    withContext(Dispatchers.Main) {
-                        if (partidos.isNotEmpty()) {
-                            adapter.submitList(partidos) // Actualiza el RecyclerView
-                        } else {
-                            Toast.makeText(this@MainActivity, "No se encontraron partidos para la liga", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                    withContext(Dispatchers.Main) {
-                        Toast.makeText(this@MainActivity, "Error al cargar partidos", Toast.LENGTH_SHORT).show()
-                    }
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@MainActivity, "Error al cargar los partidos", Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
-
-
+    
     override fun onResume() {
         super.onResume()
         pkLigaSeleccionada?.let {
