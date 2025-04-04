@@ -124,11 +124,14 @@ class MainActivity : AppCompatActivity() {
                     .distinct() // Eliminamos duplicados
                     .sorted() // Ordenamos las jornadas
 
+                // Formateamos las jornadas para que aparezca "Jornada X"
+                val jornadasFormateadas = jornadasUnicas.map { "Jornada $it" }
+
                 withContext(Dispatchers.Main) {
-                    if (jornadasUnicas.isNotEmpty()) {
+                    if (jornadasFormateadas.isNotEmpty()) {
                         // Si hay jornadas, las cargamos en el Spinner
                         jornadas = jornadasUnicas
-                        val adapter = ArrayAdapter(this@MainActivity, android.R.layout.simple_spinner_item, jornadas)
+                        val adapter = ArrayAdapter(this@MainActivity, android.R.layout.simple_spinner_item, jornadasFormateadas)
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                         binding.spinnerJornadas.adapter = adapter
                         setupJornadasSpinnerListener() // Configuramos el listener del Spinner de Jornadas
@@ -146,6 +149,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
 
     private fun getPartidos(ligaId: Int?, jornadaId: Int?) {
         lifecycleScope.launch(Dispatchers.IO) {
@@ -180,7 +184,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-    
+
     override fun onResume() {
         super.onResume()
         pkLigaSeleccionada?.let {
