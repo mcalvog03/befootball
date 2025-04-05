@@ -34,6 +34,7 @@
         <mapping class="POJOS.Ligas"/>
         <mapping class="POJOS.Paises"/>
         <mapping class="POJOS.Partidos"/>
+        <mapping class="POJOS.Roles"/>
         <mapping class="POJOS.Usuarios"/>
     </session-factory>
 </hibernate-configuration>

@@ -4,6 +4,8 @@
  */
 package Interfaces;
 
+import FuncionalidadesHibernate.ObtenerSubirDatos;
+import POJOS.Roles;
 import POJOS.Usuarios;
 import javax.swing.JOptionPane;
 import org.hibernate.Session;
@@ -14,6 +16,7 @@ import org.hibernate.cfg.Configuration;
 public class EditarRolUsuario extends javax.swing.JDialog {
 
     private SessionFactory factory;
+    private ObtenerSubirDatos obtenerDatos;
 
     /**
      * Creates new form EditarRolUsuario
@@ -133,8 +136,12 @@ public class EditarRolUsuario extends javax.swing.JDialog {
             Usuarios usuario = session.find(Usuarios.class, pkUsuario);
 
             if (usuario != null) {
+                
+                // Obtener el rol de usuario y agregarlo
+                obtenerDatos = new ObtenerSubirDatos(factory);
+                Roles roles = obtenerDatos.obtenerRol(rol);
                 // Establecer el rol seleccionado en el usuario
-                usuario.setRol(rol);
+                usuario.setRol(roles);
 
                 // Guardar los cambios en la base de datos
                 session.persist(usuario);

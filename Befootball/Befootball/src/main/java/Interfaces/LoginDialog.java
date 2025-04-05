@@ -7,6 +7,7 @@ package Interfaces;
 import FuncionalidadesHibernate.HibernateUtil;
 import static Funcionalidades.PasswordUtils.hashPassword;
 import FuncionalidadesHibernate.UsuarioService;
+import POJOS.Roles;
 import POJOS.Usuarios;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -232,7 +233,7 @@ public class LoginDialog extends javax.swing.JDialog {
                 if (salt != null && hash != null && verifyPassword(contraseñaIngresada, salt, hash)) {
                     JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso.", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
                     dispose();  // Cierra el diálogo de login
-                    new MainFrame(usuario.getPkUsuario(), usuario.getRol()).setVisible(true); // Abrir la ventana principal
+                    new MainFrame(usuario.getPkUsuario(), usuario.getRol().getRol()).setVisible(true); // Abrir la ventana principal
                 } else {
                     JOptionPane.showMessageDialog(this, "Contraseña incorrecta.", "Error", JOptionPane.ERROR_MESSAGE);
                 }

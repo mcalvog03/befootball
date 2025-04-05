@@ -214,7 +214,7 @@ public class RegistroDialog extends javax.swing.JDialog {
         // Crear una instancia de UsuarioService
         UsuarioService usuarioService = new UsuarioService();
 
-        // Registrar un nuevo usuario (ejemplo con datos ficticios)
+        // Registrar un nuevo usuario
         usuarioService.registerUser(nombre, correo, contraseña);
     }
 

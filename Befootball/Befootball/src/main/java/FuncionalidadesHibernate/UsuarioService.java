@@ -1,14 +1,29 @@
 package FuncionalidadesHibernate;
 
 import Funcionalidades.PasswordUtils;
+import POJOS.Roles;
 import POJOS.Usuarios;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import javax.swing.JOptionPane;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 public class UsuarioService {
+    
+    private SessionFactory factory;
+    private ObtenerSubirDatos obtenerDatos;
 
+    // Crear factorty
+    private void initializeSessionFactory() {
+        try {
+            factory = new Configuration().configure().buildSessionFactory();
+        } catch (Exception e) {
+            System.err.println("ERROR: " + e);
+        }
+    }
+    
     // Método para registrar un usuario
     public void registerUser(String nombre, String correo, String contraseña) {
         // Validar que los campos no estén vacíos
@@ -29,7 +44,11 @@ public class UsuarioService {
         usuario.setCorreo(correo);
         usuario.setSalt(salt);
         usuario.setPasswordHash(passwordHash);
-        usuario.setRol("USUARIO");
+        // Obtener el rol de usuario y agregarlo
+        initializeSessionFactory();
+        obtenerDatos = new ObtenerSubirDatos(factory);
+        Roles roles = obtenerDatos.obtenerRol("USUARIO");
+        usuario.setRol(roles);
         usuario.setFechaRegistro(LocalDateTime.now());
 
         // Abrir sesión con Hibernate

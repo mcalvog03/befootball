@@ -1984,7 +1984,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
 
         // Mostrar rol del usuario en el label
-        rolUsuarioLabel.setText(usuario.getRol());
+        rolUsuarioLabel.setText(usuario.getRol().getRol());
         // Mostrar correo del usuario en el label
         correoUsuarioLabel.setText(usuario.getCorreo());
         // Formato para mostrar la fecha y hora de registro del usuario

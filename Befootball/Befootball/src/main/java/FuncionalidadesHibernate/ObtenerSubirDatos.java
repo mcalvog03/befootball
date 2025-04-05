@@ -342,4 +342,28 @@ public class ObtenerSubirDatos {
             e.printStackTrace();
         }
     }
+
+    public Roles obtenerRol(String nombreRol) {
+        Roles rol = null;
+        Transaction tx = null;
+
+        try (Session session = factory.openSession()) {
+            tx = session.beginTransaction();
+
+            rol = session.createQuery("FROM Roles r WHERE r.rol = :nombre", Roles.class)
+                    .setParameter("nombre", nombreRol)
+                    .uniqueResult();
+
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            JOptionPane.showMessageDialog(null, "Error al obtener el rol: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            System.err.println("Error al obtener el rol: " + e.getMessage());
+        }
+
+        return rol;
+    }
+
 }
