@@ -1,0 +1,17 @@
+Consumo Api desde kotlin:
+https://youtu.be/xm0GhiLD_gw?si=eFmpeBbanWvqo_pV
+
+List Adapter y ViewBinding
+https://www.youtube.com/watch?v=-uxKse1g4_8
+
+Crear modelos
+https://www.youtube.com/watch?v=zkGBa-0QGeQ
+
+Vista
+https://www.youtube.com/watch?v=eAgNdiTlLFc
+
+Diseño RecycleView
+https://youtu.be/ODFZHjt9k-Y?si=8kkM_IMzMkk5uTpS
+
+Configurar RecycleView
+https://www.youtube.com/watch?v=GmrKCVMG7qQ
