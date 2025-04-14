@@ -5,13 +5,13 @@
 package Interfaces;
 
 import ComponentesModelos.ClasificacionTableModel;
-import ComponentesModelos.PartidosTableModel;
-import Funcionalidades.ConfiguradorDeInterfaz;
 import ComponentesModelos.EstiloTablaClasificacion;
 import ComponentesModelos.EstiloTablaJugadores;
 import ComponentesModelos.EstiloTablaPartidos;
-import Funcionalidades.ImageRenderer;
 import ComponentesModelos.JugadoresTableModel;
+import ComponentesModelos.PartidosTableModel;
+import Funcionalidades.ConfiguradorDeInterfaz;
+import Funcionalidades.ImageRenderer;
 import FuncionalidadesHibernate.ObtenerSubirDatos;
 import POJOS.Clasificacion;
 import POJOS.Equipos;
@@ -42,7 +42,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -1591,6 +1590,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         cambiarContraseñaMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/editBlack20.png"))); // NOI18N
         cambiarContraseñaMenuItem.setText("Cambiar contraseña");
+        cambiarContraseñaMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cambiarContraseñaMenuItemActionPerformed(evt);
+            }
+        });
         jMenu1.add(cambiarContraseñaMenuItem);
         jMenu1.add(jSeparator2);
 
@@ -1846,6 +1850,11 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         editarCorreoUsuario();
     }//GEN-LAST:event_cambiarCorreoMenuItemActionPerformed
+
+    private void cambiarContraseñaMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarContraseñaMenuItemActionPerformed
+        // TODO add your handling code here:
+        editarContraseñaUsuario();
+    }//GEN-LAST:event_cambiarContraseñaMenuItemActionPerformed
 
     // Crear factorty
     private void initializeSessionFactory() {
@@ -2387,7 +2396,7 @@ public class MainFrame extends javax.swing.JFrame {
         return nombre;
     }
     
-    // Editar nombre del usuario
+    // Editar correo del usuario
     private String editarCorreoUsuario() {
         String correo = (String) JOptionPane.showInputDialog(
                 this,
@@ -2404,6 +2413,25 @@ public class MainFrame extends javax.swing.JFrame {
         }
 
         return correo;
+    }
+    
+    // Editar contraseña del usuario
+    private String editarContraseñaUsuario() {
+        String contraseña = (String) JOptionPane.showInputDialog(
+                this,
+                "Introduce una nueva contraseña.",
+                "Editar contraseña",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                null,
+                null);
+
+        // Llamar al metodo si el campo no esta vacio
+        if (contraseña != null && !contraseña.isEmpty()) {
+            obtenerDatos.actualizarContraseñaUsuario(contraseña, pkUsuario);
+        }
+
+        return contraseña;
     }
 
     // Menú de ayuda

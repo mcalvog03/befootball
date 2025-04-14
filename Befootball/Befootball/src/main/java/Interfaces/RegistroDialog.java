@@ -225,8 +225,8 @@ public class RegistroDialog extends javax.swing.JDialog {
         String contraseña = new String(contraseñaPasswordField.getPassword()).trim();
         String confirmarContraseña = new String(confirmarContraseñaPasswordField.getPassword()).trim();
         // Comprobar que no hay campos vacios, que el correo contiene @ y que las contraseñas son iguales
-        if (correo == null || !correo.contains("@")) {
-            JOptionPane.showMessageDialog(null, "El correo debe contener @.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        if (correo == null || !correo.contains("@") || !correo.contains(".")) {
+            JOptionPane.showMessageDialog(null, "El correo debe contener '@' y '.'", "Advertencia", JOptionPane.WARNING_MESSAGE);
         } else if (nombre == null || nombre.trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos.", "Advertencia", JOptionPane.WARNING_MESSAGE);
         } else if (contraseña == null || confirmarContraseña == null || !contraseña.equals(confirmarContraseña)) {

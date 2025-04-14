@@ -29,9 +29,9 @@ public class PartidosController {
     public ResponseEntity<List<Partidos>> getAllPartidos() {
         List<Partidos> partidos = partidosService.obtenerTodosLosPartidos();
         if (partidos.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT); // Si no hay partidos, devuelve 204 No Content
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(partidos, HttpStatus.OK); // Devuelve los partidos con estado 200 OK
+        return new ResponseEntity<>(partidos, HttpStatus.OK);
     }
 
     // Obtener partidos por liga
@@ -39,7 +39,7 @@ public class PartidosController {
     public ResponseEntity<List<Partidos>> getPartidosByLiga(@PathVariable int ligaId) {
         List<Partidos> partidos = partidosService.obtenerPartidosPorLiga(ligaId);
         if (partidos.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // Si no hay partidos, retorna 404
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(partidos, HttpStatus.OK);
     }

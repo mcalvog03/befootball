@@ -26,6 +26,6 @@ public interface PartidosRepository extends JpaRepository<Partidos, Integer> {
     // Método para buscar partidos por equipo visitante
     List<Partidos> findByEquipoVisitantePkEquipo(int equipoVisitanteId);
 
-    // Método para obtener un partido por su id (en caso de que quieras buscar por pkPartido)
+    // Método para obtener un partido por su id
     Optional<Partidos> findByPkPartido(int pkPartido);
 }

@@ -232,7 +232,7 @@ public class LoginDialog extends javax.swing.JDialog {
                 // Verificar la contraseña
                 if (salt != null && hash != null && verifyPassword(contraseñaIngresada, salt, hash)) {
                     JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso.", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
-                    dispose();  // Cierra el diálogo de login
+                    dispose();
                     new MainFrame(usuario.getPkUsuario(), usuario.getRol().getRol()).setVisible(true); // Abrir la ventana principal
                 } else {
                     JOptionPane.showMessageDialog(this, "Contraseña incorrecta.", "Error", JOptionPane.ERROR_MESSAGE);

@@ -4,6 +4,7 @@
  */
 package FuncionalidadesHibernate;
 
+import Funcionalidades.PasswordUtils;
 import POJOS.*;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -312,6 +313,7 @@ public class ObtenerSubirDatos {
                 usuario.setNombre(nombre);
                 session.persist(usuario);
                 tx.commit();
+                JOptionPane.showMessageDialog(null, "Nombre actualizado.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(null, "El nombre introducido es igual al actual", "Error", JOptionPane.WARNING_MESSAGE);
             }
@@ -323,6 +325,11 @@ public class ObtenerSubirDatos {
 
     // Actualizar el correo del usuario
     public void actualizarCorreoUsuario(String correo, int pkUsuario) {
+        if (!correo.contains("@") || !correo.contains(".")) {
+            JOptionPane.showMessageDialog(null, "El correo debe contener '@' y '.'", "Correo no válido", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         Transaction tx = null;
         try (Session session = factory.openSession()) {
             tx = session.beginTransaction();
@@ -334,9 +341,39 @@ public class ObtenerSubirDatos {
                 usuario.setCorreo(correo);
                 session.persist(usuario);
                 tx.commit();
+                JOptionPane.showMessageDialog(null, "Correo actualizado.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(null, "El correo introducido es igual al actual", "Error", JOptionPane.WARNING_MESSAGE);
             }
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        }
+    }
+
+    // Actualizar la contraseña del usuario
+    public void actualizarContraseñaUsuario(String contraseña, int pkUsuario) {
+        Transaction tx = null;
+        try (Session session = factory.openSession()) {
+            tx = session.beginTransaction();
+
+            // Obtener el usuario por id
+            Usuarios usuario = session.find(Usuarios.class, pkUsuario);
+
+            // Generar un salt aleatorio con el metodo de PasswordUtils
+            String salt = PasswordUtils.generateSalt();
+
+            // Hashear la contraseña con el salt
+            String passwordHash = PasswordUtils.hashPassword(contraseña, salt);
+
+            usuario.setSalt(salt);
+            usuario.setPasswordHash(passwordHash);
+            session.persist(usuario);
+            tx.commit();
+            JOptionPane.showMessageDialog(null, "Contraseña actualizada.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
         } catch (Exception e) {
             tx.rollback();
             e.printStackTrace();

@@ -22,9 +22,8 @@ public class PartidosService {
         this.partidosRepository = partidoRepository;
     }
     
-    // Método para obtener todos los partidos
     public List<Partidos> obtenerTodosLosPartidos() {
-        return partidosRepository.findAll(); // Devuelve todos los partidos desde la base de datos
+        return partidosRepository.findAll();
     }
 
     public List<Partidos> obtenerPartidosPorLiga(int ligaId) {
@@ -44,7 +43,7 @@ public class PartidosService {
     }
 
     public Optional<Partidos> obtenerPartidoPorId(int pkPartido) {
-        return partidosRepository.findById(pkPartido);  // Devuelve un Optional
+        return partidosRepository.findById(pkPartido);
     }
 
     public Partidos guardarPartido(Partidos partido) {
