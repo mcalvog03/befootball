@@ -121,6 +121,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="P&#xe1;gina web"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="webMenuItemActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="acercaDeMenuItem">
               <Properties>

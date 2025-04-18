@@ -20,6 +20,7 @@ import POJOS.Partidos;
 import POJOS.Usuarios;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -44,6 +45,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import java.net.URI;
 
 public class MainFrame extends javax.swing.JFrame {
 
@@ -1632,6 +1634,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         webMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/globe20.png"))); // NOI18N
         webMenuItem.setText("Página web");
+        webMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                webMenuItemActionPerformed(evt);
+            }
+        });
         ayudaMenu.add(webMenuItem);
 
         acercaDeMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/info20.png"))); // NOI18N
@@ -1855,6 +1862,16 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         editarContraseñaUsuario();
     }//GEN-LAST:event_cambiarContraseñaMenuItemActionPerformed
+
+    private void webMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_webMenuItemActionPerformed
+        // TODO add your handling code here:
+        try {
+            Desktop.getDesktop().browse(new URI("http://192.168.1.45:8069/"));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "No se pudo abrir la página web");
+        }
+    }//GEN-LAST:event_webMenuItemActionPerformed
 
     // Crear factorty
     private void initializeSessionFactory() {
@@ -2099,7 +2116,9 @@ public class MainFrame extends javax.swing.JFrame {
             // Estilizar la tabla
             EstiloTablaJugadores.estilizarTabla(jugadoresEquipoTable);
             // Vaciar tabla por si hay datos de jugadores de otros equipos
-            jugadoresEquipoTable.setModel(new DefaultTableModel());
+            DefaultTableModel emptyModel = new DefaultTableModel(new Object[][]{}, new String[]{"Nombre", "Nacionalidad", "Posición", "Dorsal"});
+            jugadoresEquipoTable.setModel(emptyModel);
+
             // Mostrar mensaje si no hay jugadores
             JOptionPane.showMessageDialog(null, "No se encontraron jugadores para este equipo.", "Aviso", JOptionPane.WARNING_MESSAGE);
         }
@@ -2163,6 +2182,11 @@ public class MainFrame extends javax.swing.JFrame {
                 mostrarPanelEquipo(partido.getEquipoVisitante().getPkEquipo());
             }
         });
+
+        // Eliminar los anteriores para evitar múltiples ejecuciones
+        for (ActionListener al : editarPartidoButton.getActionListeners()) {
+            editarPartidoButton.removeActionListener(al);
+        }
 
         // Añadir un ActionListener al boton para editar los detalles del partiod (funcionalidad para desarrolladores)
         editarPartidoButton.addActionListener(new ActionListener() {
@@ -2366,11 +2390,15 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Agregar equipo favorito desde panel de equipo
     public void agregarEquipoFavorito(int pkEquipo) {
-        // Añadir un MouseListener al panel visitante para mostrar más detalles cuando se haga clic
-        agregarEquipoFavButton.addMouseListener(new java.awt.event.MouseAdapter() {
+        // Eliminar todos los ActionListeners anteriores (si hay alguno)
+        for (ActionListener al : agregarEquipoFavButton.getActionListeners()) {
+            agregarEquipoFavButton.removeActionListener(al);
+        }
+
+        // Añadir un ActionListener (correcto para JButton)
+        agregarEquipoFavButton.addActionListener(new ActionListener() {
             @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                // Llamar al método para agregar el equipo favorito
+            public void actionPerformed(ActionEvent e) {
                 obtenerDatos.seleccionarEquipoFav(pkUsuario, pkEquipo);
                 JOptionPane.showMessageDialog(null, "Equipo agregado como favorito", "", JOptionPane.INFORMATION_MESSAGE);
             }
@@ -2395,7 +2423,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         return nombre;
     }
-    
+
     // Editar correo del usuario
     private String editarCorreoUsuario() {
         String correo = (String) JOptionPane.showInputDialog(
@@ -2414,7 +2442,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         return correo;
     }
-    
+
     // Editar contraseña del usuario
     private String editarContraseñaUsuario() {
         String contraseña = (String) JOptionPane.showInputDialog(
@@ -2476,6 +2504,10 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel13.setBackground(new java.awt.Color(0, 0, 0));
         jPanel3.setBackground(new java.awt.Color(0, 0, 0));
         jPanel7.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel31.setBackground(new java.awt.Color(0, 0, 0));
+        escudoEquipoPanel.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel39.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel32.setBackground(new java.awt.Color(0, 0, 0));
 
         resultadosUsuarioButton.setForeground(new java.awt.Color(255, 255, 255));
         clasificacionUsuarioButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -2519,6 +2551,10 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel13.setBackground(new java.awt.Color(0, 51, 204));
         jPanel3.setBackground(new java.awt.Color(0, 51, 204));
         jPanel7.setBackground(new java.awt.Color(0, 51, 204));
+        jPanel31.setBackground(new java.awt.Color(102, 102, 102));
+        escudoEquipoPanel.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel39.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel32.setBackground(new java.awt.Color(102, 102, 102));
 
         resultadosUsuarioButton.setForeground(new java.awt.Color(102, 255, 255));
         clasificacionUsuarioButton.setForeground(new java.awt.Color(102, 255, 255));
