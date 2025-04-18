@@ -21,9 +21,7 @@ public class EditarPartidoDialog extends javax.swing.JDialog {
     private int golesVisitante;
     private String estado;
 
-    /**
-     * Creates new form AgregarGoles
-     */
+    
     public EditarPartidoDialog(java.awt.Frame parent, boolean modal, int pkPartido, int golesLocal, int golesVisitante, String estado) {
         super(parent, modal);
         this.pkPartido = pkPartido;

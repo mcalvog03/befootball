@@ -26,6 +26,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -391,7 +392,7 @@ public class MainFrame extends javax.swing.JFrame {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jToolBar2, javax.swing.GroupLayout.DEFAULT_SIZE, 896, Short.MAX_VALUE)
+                .addComponent(jToolBar2, javax.swing.GroupLayout.DEFAULT_SIZE, 742, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -2174,6 +2175,11 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        // Eliminamos también los MouseListeners anteriores del panel visitante, si los hubiera
+        for (MouseListener ml : visitantePanel.getMouseListeners()) {
+            visitantePanel.removeMouseListener(ml);
+        }
+
         // Añadir un MouseListener al panel visitante para mostrar más detalles cuando se haga clic
         visitantePanel.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
@@ -2188,7 +2194,7 @@ public class MainFrame extends javax.swing.JFrame {
             editarPartidoButton.removeActionListener(al);
         }
 
-        // Añadir un ActionListener al boton para editar los detalles del partiod (funcionalidad para desarrolladores)
+        // Añadir un ActionListener al boton para editar los detalles del partido (funcionalidad para desarrolladores)
         editarPartidoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
