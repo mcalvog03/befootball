@@ -91,7 +91,7 @@ public class ClasificacionTableModel extends AbstractTableModel {
     // Método para obtener el equipo en la fila seleccionada
     public Equipos getEquipoEnFila(int rowIndex) {
         if (clasificaciones != null && rowIndex >= 0 && rowIndex < clasificaciones.size()) {
-            return clasificaciones.get(rowIndex).getEquipo(); // Asumiendo que la clase Clasificacion tiene el método getEquipo()
+            return clasificaciones.get(rowIndex).getEquipo();
         }
         return null;
     }

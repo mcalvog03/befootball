@@ -238,9 +238,11 @@ public class MainFrame extends javax.swing.JFrame {
         usuarioPartidoButton = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         inicioMenu = new javax.swing.JMenu();
+        editarEquipoFavMenuItem = new javax.swing.JMenuItem();
+        jSeparator3 = new javax.swing.JPopupMenu.Separator();
         logoutMenuItem = new javax.swing.JMenuItem();
         salirMenuItem = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
+        ajustesjMenu = new javax.swing.JMenu();
         cambiarNombreMenuItem = new javax.swing.JMenuItem();
         cambiarCorreoMenuItem = new javax.swing.JMenuItem();
         cambiarContraseñaMenuItem = new javax.swing.JMenuItem();
@@ -1550,6 +1552,15 @@ public class MainFrame extends javax.swing.JFrame {
 
         inicioMenu.setText("Inicio");
 
+        editarEquipoFavMenuItem.setText("Editar equipo favorito");
+        editarEquipoFavMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editarEquipoFavMenuItemActionPerformed(evt);
+            }
+        });
+        inicioMenu.add(editarEquipoFavMenuItem);
+        inicioMenu.add(jSeparator3);
+
         logoutMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logout20.png"))); // NOI18N
         logoutMenuItem.setText("Cerrar sesión");
         logoutMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -1571,35 +1582,35 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(inicioMenu);
 
-        jMenu1.setText("Ajustes");
+        ajustesjMenu.setText("Ajustes");
 
         cambiarNombreMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/editBlack20.png"))); // NOI18N
-        cambiarNombreMenuItem.setText("Cambiar nombre");
+        cambiarNombreMenuItem.setText("Editar nombre");
         cambiarNombreMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cambiarNombreMenuItemActionPerformed(evt);
             }
         });
-        jMenu1.add(cambiarNombreMenuItem);
+        ajustesjMenu.add(cambiarNombreMenuItem);
 
         cambiarCorreoMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/editBlack20.png"))); // NOI18N
-        cambiarCorreoMenuItem.setText("Cambiar correo");
+        cambiarCorreoMenuItem.setText("Editar correo");
         cambiarCorreoMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cambiarCorreoMenuItemActionPerformed(evt);
             }
         });
-        jMenu1.add(cambiarCorreoMenuItem);
+        ajustesjMenu.add(cambiarCorreoMenuItem);
 
         cambiarContraseñaMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/editBlack20.png"))); // NOI18N
-        cambiarContraseñaMenuItem.setText("Cambiar contraseña");
+        cambiarContraseñaMenuItem.setText("Editar contraseña");
         cambiarContraseñaMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cambiarContraseñaMenuItemActionPerformed(evt);
             }
         });
-        jMenu1.add(cambiarContraseñaMenuItem);
-        jMenu1.add(jSeparator2);
+        ajustesjMenu.add(cambiarContraseñaMenuItem);
+        ajustesjMenu.add(jSeparator2);
 
         estiloInterfazCheckBoxMenuItem.setText("Interfaz clásica");
         estiloInterfazCheckBoxMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -1607,9 +1618,9 @@ public class MainFrame extends javax.swing.JFrame {
                 estiloInterfazCheckBoxMenuItemActionPerformed(evt);
             }
         });
-        jMenu1.add(estiloInterfazCheckBoxMenuItem);
+        ajustesjMenu.add(estiloInterfazCheckBoxMenuItem);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(ajustesjMenu);
 
         devMenu.setText("Dev");
 
@@ -1874,6 +1885,12 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_webMenuItemActionPerformed
 
+    private void editarEquipoFavMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarEquipoFavMenuItemActionPerformed
+        // TODO add your handling code here:
+        editarEquipoFavoritoPerfil();
+        cargarPanelUsuario(pkUsuario);
+    }//GEN-LAST:event_editarEquipoFavMenuItemActionPerformed
+
     // Crear factorty
     private void initializeSessionFactory() {
         try {
@@ -1990,6 +2007,8 @@ public class MainFrame extends javax.swing.JFrame {
         cambiarCorreoMenuItem.setVisible(false);
         cambiarContraseñaMenuItem.setVisible(false);
         jSeparator2.setVisible(false);
+        editarEquipoFavMenuItem.setVisible(false);
+        jSeparator3.setVisible(false);
     }
 
     // Cargar panel de usuario con datos obtenidos comparadno login con la base de datos
@@ -2049,7 +2068,7 @@ public class MainFrame extends javax.swing.JFrame {
 
             // Verificar si el equipo en esa fila es el que se esta buscando
             if (valorEquipo != null && valorEquipo.toString().equals(equipo.getNombreEquipo())) {
-                // Guardar el índice de la fila donde se encuentra el equipo
+                // Guardar el indice de la fila donde se encuentra el equipo
                 filaPosicion = i;
                 break;
             }
@@ -2220,72 +2239,102 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Obtener el escudo favorito del usuario
     private void obtenerEscudoFavorito(int pkUsuario) {
-        mostrarEscudoEnPanel(obtenerDatos.obtenerDatosUsuario(pkUsuario).getEquipoFavorito().getEscudo(), escudoFavoritoPanel);
+    String fileName = obtenerDatos.obtenerDatosUsuario(pkUsuario).getEquipoFavorito().getEscudo();
+    File tempFile = new File(LOCAL_FOLDER, fileName);
+
+    if (!tempFile.exists()) {
+        // Descargar el archivo si no existe
+        try (Socket socket = new Socket(SERVER_IP, SERVER_PORT);
+             PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
+             InputStream in = socket.getInputStream();
+             FileOutputStream fileOut = new FileOutputStream(tempFile)) {
+
+            writer.println("DOWNLOAD " + fileName);
+
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = in.read(buffer)) != -1) {
+                fileOut.write(buffer, 0, bytesRead);
+            }
+        } catch (IOException e) {
+            System.err.println("Error al descargar el escudo favorito: " + fileName);
+            e.printStackTrace();
+            tempFile = null;
+        }
     }
+
+    File finalFile = (tempFile != null && tempFile.exists()) ? tempFile : null;
+
+    SwingUtilities.invokeLater(() -> {
+        ImageIcon iconoGrande = (finalFile != null) ? redimensionarImagen(finalFile, 100, 100) : obtenerEscudoPorDefecto();
+        ImageIcon iconoPequeño = (finalFile != null) ? redimensionarImagen(finalFile, 20, 20) : obtenerEscudoPorDefecto();
+
+        // Mostrar en escudoFavoritoPanel
+        JLabel labelEscudo = new JLabel(iconoGrande);
+        labelEscudo.setHorizontalAlignment(JLabel.CENTER);
+        labelEscudo.setVerticalAlignment(JLabel.CENTER);
+
+        escudoFavoritoPanel.setLayout(new BorderLayout());
+        escudoFavoritoPanel.removeAll();
+        escudoFavoritoPanel.add(labelEscudo, BorderLayout.CENTER);
+        escudoFavoritoPanel.setPreferredSize(new Dimension(100, 100));
+        escudoFavoritoPanel.revalidate();
+        escudoFavoritoPanel.repaint();
+
+        // Poner icono pequeño en los menus
+        editarEquipoFavMenuItem.setIcon(iconoPequeño);
+        inicioMenu.setIcon(iconoPequeño);
+    });
+}
+
 
     // Obtener el escudo del equipo seleccionado
     private void obtenerEscudo(int pkEquipo) {
         mostrarEscudoEnPanel(obtenerDatos.obtenerDatosEquipos(pkEquipo).getEscudo(), escudoEquipoPanel);
     }
 
-    // Descargar el escudo favorito y mostrarlo en el panel
+    // Descargar el escudo y mostrarlo en un panel
     private void mostrarEscudoEnPanel(String fileName, JPanel panelDestino) {
-        File tempFile = new File(LOCAL_FOLDER, fileName);
-        final File[] fileToUse = {tempFile};
+    File tempFile = new File(LOCAL_FOLDER, fileName);
 
-        // Verificar si la imagen ya está descargada
-        if (!fileToUse[0].exists()) {
-            try (Socket socket = new Socket(SERVER_IP, SERVER_PORT); PrintWriter writer = new PrintWriter(socket.getOutputStream(), true); InputStream in = socket.getInputStream(); FileOutputStream fileOut = new FileOutputStream(fileToUse[0])) {
+    if (!tempFile.exists()) {
+        try (Socket socket = new Socket(SERVER_IP, SERVER_PORT);
+             PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
+             InputStream in = socket.getInputStream();
+             FileOutputStream fileOut = new FileOutputStream(tempFile)) {
 
-                // Enviar comando para descargar la imagen al servidor
-                writer.println("DOWNLOAD " + fileName);
+            writer.println("DOWNLOAD " + fileName);
 
-                // Se lee el archivo recibido en bloques de 1024 bytes y se escribe en el archivo local
-                byte[] buffer = new byte[1024];
-                int bytesRead;
-                while ((bytesRead = in.read(buffer)) != -1) {
-                    fileOut.write(buffer, 0, bytesRead);
-                }
-
-            } catch (IOException e) {
-                System.err.println("Error al descargar el escudo: " + fileName);
-                e.printStackTrace();
-                // Si no se pudo descargar, usamos el escudo por defecto
-                fileToUse[0] = null;
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = in.read(buffer)) != -1) {
+                fileOut.write(buffer, 0, bytesRead);
             }
+        } catch (IOException e) {
+            System.err.println("Error al descargar el escudo: " + fileName);
+            e.printStackTrace();
+            tempFile = null;
         }
-
-        // Usar invokeLater para asegurarse de que la actualización se haga en el hilo de la interfaz
-        SwingUtilities.invokeLater(() -> {
-            ImageIcon icon;
-
-            // Verificar si el archivo existe, si no, usar el escudo por defecto
-            if (fileToUse[0] != null && fileToUse[0].exists()) {
-                icon = redimensionarImagen(fileToUse[0], 100, 100);
-            } else {
-                icon = obtenerEscudoPorDefecto(); // Usar el escudo por defecto si no se pudo descargar
-            }
-
-            // Crear label para el escudo
-            JLabel labelEscudo = new JLabel(icon);
-            labelEscudo.setHorizontalAlignment(JLabel.CENTER);
-            labelEscudo.setVerticalAlignment(JLabel.CENTER);
-
-            // Asegurar que el panel tiene un layout adecuado
-            panelDestino.setLayout(new BorderLayout());
-
-            // Limpiar panel antes de agregar la imagen
-            panelDestino.removeAll();
-            panelDestino.add(labelEscudo, BorderLayout.CENTER);
-
-            // Asegurar que el panel tiene un tamaño adecuado
-            panelDestino.setPreferredSize(new Dimension(100, 100));
-
-            // Aplicar imagen
-            panelDestino.revalidate();
-            panelDestino.repaint();
-        });
     }
+
+    File finalFile = (tempFile != null && tempFile.exists()) ? tempFile : null;
+
+    SwingUtilities.invokeLater(() -> {
+        ImageIcon icon = (finalFile != null) ? redimensionarImagen(finalFile, 100, 100) : obtenerEscudoPorDefecto();
+
+        JLabel labelEscudo = new JLabel(icon);
+        labelEscudo.setHorizontalAlignment(JLabel.CENTER);
+        labelEscudo.setVerticalAlignment(JLabel.CENTER);
+
+        panelDestino.setLayout(new BorderLayout());
+        panelDestino.removeAll();
+        panelDestino.add(labelEscudo, BorderLayout.CENTER);
+        panelDestino.setPreferredSize(new Dimension(100, 100));
+        panelDestino.revalidate();
+        panelDestino.repaint();
+    });
+}
+
 
     // Obtener el escudo por defecto para cuando no se pueda descargar
     private ImageIcon obtenerEscudoPorDefecto() {
@@ -2401,7 +2450,7 @@ public class MainFrame extends javax.swing.JFrame {
             agregarEquipoFavButton.removeActionListener(al);
         }
 
-        // Añadir un ActionListener (correcto para JButton)
+        // Añadir un ActionListener
         agregarEquipoFavButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -2621,6 +2670,7 @@ public class MainFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem acercaDeMenuItem;
     private javax.swing.JButton agregarEquipoFavButton;
+    private javax.swing.JMenu ajustesjMenu;
     private javax.swing.JPanel appPanel;
     private javax.swing.JMenu ayudaMenu;
     private javax.swing.JMenuItem ayudaMenuItem;
@@ -2638,6 +2688,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem crearPartidoMenuItem;
     private javax.swing.JMenu devMenu;
     private javax.swing.JButton editarEquipoFavButton;
+    private javax.swing.JMenuItem editarEquipoFavMenuItem;
     private javax.swing.JButton editarPartidoButton;
     private javax.swing.JMenuItem editarRolMenuItem;
     private javax.swing.JPanel equipoFavPanel;
@@ -2675,7 +2726,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -2719,6 +2769,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToolBar jToolBar2;
     private javax.swing.JToolBar jToolBar4;

@@ -9,6 +9,16 @@
             <Property name="text" type="java.lang.String" value="Inicio"/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="editarEquipoFavMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Editar equipo favorito"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editarEquipoFavMenuItemActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator3">
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="logoutMenuItem">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -36,7 +46,7 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu1">
+        <Menu class="javax.swing.JMenu" name="ajustesjMenu">
           <Properties>
             <Property name="text" type="java.lang.String" value="Ajustes"/>
           </Properties>
@@ -46,7 +56,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/images/editBlack20.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Cambiar nombre"/>
+                <Property name="text" type="java.lang.String" value="Editar nombre"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cambiarNombreMenuItemActionPerformed"/>
@@ -57,7 +67,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/images/editBlack20.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Cambiar correo"/>
+                <Property name="text" type="java.lang.String" value="Editar correo"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cambiarCorreoMenuItemActionPerformed"/>
@@ -68,7 +78,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/images/editBlack20.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Cambiar contrase&#xf1;a"/>
+                <Property name="text" type="java.lang.String" value="Editar contrase&#xf1;a"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cambiarContrase&#xf1;aMenuItemActionPerformed"/>
