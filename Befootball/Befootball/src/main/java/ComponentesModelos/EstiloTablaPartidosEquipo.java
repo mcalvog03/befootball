@@ -4,12 +4,13 @@
  */
 package ComponentesModelos;
 
-import javax.swing.*;
+import java.awt.Color;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
-import java.awt.*;
 
-public class EstiloTablaPartidos {
+public class EstiloTablaPartidosEquipo {
 
     public static void estilizarTabla(JTable table) {
         if (table == null) {
@@ -34,7 +35,7 @@ public class EstiloTablaPartidos {
         for (int i = 0; i < table.getColumnCount(); i++) {
             table.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
         }
-        
+
         // Cambiar color de fondo de la tabla
         table.getParent().setBackground(new Color(0, 0, 0));
 
@@ -44,7 +45,6 @@ public class EstiloTablaPartidos {
 
         table.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
         table.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
-        table.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
         table.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
     }
 }

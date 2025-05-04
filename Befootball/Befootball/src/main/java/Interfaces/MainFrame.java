@@ -8,6 +8,7 @@ import ComponentesModelos.ClasificacionTableModel;
 import ComponentesModelos.EstiloTablaClasificacion;
 import ComponentesModelos.EstiloTablaJugadores;
 import ComponentesModelos.EstiloTablaPartidos;
+import ComponentesModelos.EstiloTablaPartidosEquipo;
 import ComponentesModelos.JugadoresTableModel;
 import ComponentesModelos.PartidosEquipoTableModel;
 import ComponentesModelos.PartidosTableModel;
@@ -2486,7 +2487,7 @@ public class MainFrame extends javax.swing.JFrame {
             // Escudo Visitante
             partidosTableEquipo.getColumnModel().getColumn(3).setCellRenderer(new ImageRenderer());
             // Estilizar la tabla
-            EstiloTablaPartidos.estilizarTabla(partidosTableEquipo);
+            EstiloTablaPartidosEquipo.estilizarTabla(partidosTableEquipo);
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Error al convertir jornada a número: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
