@@ -6,6 +6,7 @@ package FuncionalidadesHibernate;
 
 import Funcionalidades.PasswordUtils;
 import POJOS.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -210,6 +211,34 @@ public class ObtenerSubirDatos {
             partidosFiltrados = session.createQuery("FROM Partidos p WHERE p.liga.id = :ligaId AND p.jornada = :jornada", Partidos.class)
                     .setParameter("ligaId", liga.getPkLiga())
                     .setParameter("jornada", jornadaSeleccionada)
+                    .getResultList();
+
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            JOptionPane.showMessageDialog(null, "Error al obtener los partidos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            System.err.println("Error al obtener los partidos: " + e.getMessage());
+        }
+
+        return partidosFiltrados;
+    }
+
+    // Obtener los partidos de la jornada y liga seleccionados mediante los comboBox de la interfaz
+    public List<Partidos> obtenerPartidosEquipo(int pkEquipo) {
+        List<Partidos> partidosFiltrados = new ArrayList<>();
+        Transaction tx = null;
+
+        try (Session session = factory.openSession()) {
+            tx = session.beginTransaction();
+
+            // Obtener los próximos partidos correspondientes al equipo seleccionado
+            partidosFiltrados = session.createQuery(
+                    "FROM Partidos p WHERE (p.equipoLocal.id = :pkEquipo OR p.equipoVisitante.id = :pkEquipo) AND p.fecha > :fechaActual",
+                    Partidos.class)
+                    .setParameter("pkEquipo", pkEquipo)
+                    .setParameter("fechaActual", LocalDateTime.now())
                     .getResultList();
 
             tx.commit();
