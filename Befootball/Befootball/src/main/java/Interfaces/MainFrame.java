@@ -22,6 +22,7 @@ import POJOS.Partidos;
 import POJOS.Usuarios;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Image;
@@ -191,13 +192,9 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel20 = new javax.swing.JPanel();
         jPanel28 = new javax.swing.JPanel();
         jPanel27 = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
+        paisEquipoLabel = new javax.swing.JLabel();
         ligaEquipoLabel = new javax.swing.JLabel();
         posicionLigaEquipoLabel = new javax.swing.JLabel();
-        paisEquipoLabel = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
         estadioEquipoLabel = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jPanel38 = new javax.swing.JPanel();
@@ -1069,37 +1066,21 @@ public class MainFrame extends javax.swing.JFrame {
 
         jPanel27.setBackground(new java.awt.Color(0, 0, 0));
 
-        jLabel13.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("Pais:");
-
-        jLabel14.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("Liga:");
-
-        jLabel15.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setText("Posición en liga:");
+        paisEquipoLabel.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        paisEquipoLabel.setForeground(new java.awt.Color(255, 255, 255));
+        paisEquipoLabel.setText("Pais:");
 
         ligaEquipoLabel.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         ligaEquipoLabel.setForeground(new java.awt.Color(255, 255, 255));
-        ligaEquipoLabel.setText("liga");
+        ligaEquipoLabel.setText("Liga:");
 
         posicionLigaEquipoLabel.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         posicionLigaEquipoLabel.setForeground(new java.awt.Color(255, 255, 255));
-        posicionLigaEquipoLabel.setText("pos");
-
-        paisEquipoLabel.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        paisEquipoLabel.setForeground(new java.awt.Color(255, 255, 255));
-        paisEquipoLabel.setText("pais");
-
-        jLabel19.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel19.setText("Estadio:");
+        posicionLigaEquipoLabel.setText("Posición en liga:");
 
         estadioEquipoLabel.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         estadioEquipoLabel.setForeground(new java.awt.Color(255, 255, 255));
-        estadioEquipoLabel.setText("estadio");
+        estadioEquipoLabel.setText("Estadio:");
 
         jLabel12.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
@@ -1113,27 +1094,11 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(jPanel27Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel27Layout.createSequentialGroup()
-                        .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel27Layout.createSequentialGroup()
-                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ligaEquipoLabel))
-                            .addGroup(jPanel27Layout.createSequentialGroup()
-                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(paisEquipoLabel))
-                            .addGroup(jPanel27Layout.createSequentialGroup()
-                                .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel27Layout.createSequentialGroup()
-                                        .addComponent(jLabel19)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(estadioEquipoLabel))
-                                    .addComponent(jLabel15))
-                                .addGap(18, 18, 18)
-                                .addComponent(posicionLigaEquipoLabel)))
-                        .addGap(0, 144, Short.MAX_VALUE)))
+                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
+                    .addComponent(paisEquipoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ligaEquipoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(posicionLigaEquipoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(estadioEquipoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel27Layout.setVerticalGroup(
@@ -1142,27 +1107,19 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(paisEquipoLabel))
+                .addComponent(paisEquipoLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ligaEquipoLabel)
-                    .addComponent(jLabel14))
+                .addComponent(ligaEquipoLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15)
-                    .addComponent(posicionLigaEquipoLabel))
+                .addComponent(posicionLigaEquipoLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel19)
-                    .addComponent(estadioEquipoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(estadioEquipoLabel)
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
         jPanel28.add(jPanel27);
 
-        jPanel38.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel38.setBackground(new java.awt.Color(255, 0, 0));
         jPanel38.setLayout(new java.awt.BorderLayout());
 
         jLabel16.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
@@ -1198,6 +1155,11 @@ public class MainFrame extends javax.swing.JFrame {
         partidosTableEquipo.setShowGrid(false);
         partidosTableEquipo.setShowHorizontalLines(true);
         partidosTableEquipo.getTableHeader().setReorderingAllowed(false);
+        partidosTableEquipo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                partidosTableEquipoMouseClicked(evt);
+            }
+        });
         jScrollPane5.setViewportView(partidosTableEquipo);
 
         jPanel38.add(jScrollPane5, java.awt.BorderLayout.CENTER);
@@ -1280,17 +1242,16 @@ public class MainFrame extends javax.swing.JFrame {
 
         jPanel30.add(jPanel31);
 
-        jPanel32.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel32.setBackground(new java.awt.Color(255, 255, 0));
         jPanel32.setLayout(new java.awt.BorderLayout());
 
         jLabel11.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("Jugadores");
         jPanel32.add(jLabel11, java.awt.BorderLayout.PAGE_START);
 
         jugadoresEquipoTable.setBackground(new java.awt.Color(0, 0, 0));
-        jugadoresEquipoTable.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jugadoresEquipoTable.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         jugadoresEquipoTable.setForeground(new java.awt.Color(255, 255, 255));
         jugadoresEquipoTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1946,6 +1907,22 @@ public class MainFrame extends javax.swing.JFrame {
         cargarPanelUsuario(pkUsuario);
     }//GEN-LAST:event_editarEquipoFavMenuItemActionPerformed
 
+    private void partidosTableEquipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_partidosTableEquipoMouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) { // Doble clic
+            // Obtener la fila seleccionada
+            int filaSeleccionada = partidosTableEquipo.getSelectedRow();
+            if (filaSeleccionada != -1) {
+                // Obtener la ID del partido desde la fila seleccionada
+                Partidos partidoSeleccionado = ((PartidosEquipoTableModel) partidosTableEquipo.getModel()).getPartidoEnFila(filaSeleccionada);
+                int idPartido = partidoSeleccionado.getPkPartido();
+
+                // Llamar al método que muestra los detalles del partido
+                mostrarPanelPartido(idPartido);
+            }
+        }
+    }//GEN-LAST:event_partidosTableEquipoMouseClicked
+
     // Crear factorty
     private void initializeSessionFactory() {
         try {
@@ -2020,7 +1997,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         // Cargar información en el panel
         cargarPanelEquipo(pkEquipo);
-        mostrarResultadosPartidosEquipo(pkEquipo);
     }
 
     // Mostrar panel de un partido con detalles
@@ -2066,6 +2042,7 @@ public class MainFrame extends javax.swing.JFrame {
         editarEquipoFavMenuItem.setVisible(false);
         jSeparator3.setVisible(false);
         usuarioEquipoButton.setVisible(false);
+        usuarioPartidoButton.setVisible(false);
     }
 
     // Cargar panel de usuario con datos obtenidos comparadno login con la base de datos
@@ -2142,13 +2119,13 @@ public class MainFrame extends javax.swing.JFrame {
                 Object valorPosicion = clasificacionTable.getValueAt(filaPosicion, columnaPosicion);
 
                 // Actualizar la etiqueta con el valor de la posición
-                posicionLigaEquipoLabel.setText(valorPosicion.toString());
+                posicionLigaEquipoLabel.setText("Posición en liga: " + valorPosicion.toString());
             } else {
-                posicionLigaEquipoLabel.setText("NA");
+                posicionLigaEquipoLabel.setText("Posición en liga: null");
             }
         } else {
             // Si no se encuentra el equipo en la tabla
-            posicionLigaEquipoLabel.setText("NA");
+            posicionLigaEquipoLabel.setText("Posición en liga: null");
         }
 
         // Mostrar nombre del equipo ajustando la longitud para no estropear el layout
@@ -2162,13 +2139,15 @@ public class MainFrame extends javax.swing.JFrame {
             nombreEquipoLabel.setToolTipText(null);
         }
         // Mostrar pais del equipo
-        paisEquipoLabel.setText(equipo.getLiga().getPais().getNombrePais());
+        paisEquipoLabel.setText("Pais: " + equipo.getLiga().getPais().getNombrePais());
         // Mostrar liga del equipo
-        ligaEquipoLabel.setText(equipo.getLiga().getNombreLiga());
+        ligaEquipoLabel.setText("Liga: " + equipo.getLiga().getNombreLiga());
         // Mostrar nombre del estadio del equipo
-        estadioEquipoLabel.setText(equipo.getEstadio().getNombreEstadio());
+        estadioEquipoLabel.setText("Estadio: " + equipo.getEstadio().getNombreEstadio());
         // Cargar escudo del equipo seleccionado
         obtenerEscudo(pkEquipo);
+        // Cargar proximos partidos
+        mostrarResultadosPartidosEquipo(pkEquipo);
         // Cargar tabla con los jugadores del equipo seleccionado
         cargarTablaJugadoresEquipo(pkEquipo);
         // Llamar al metodo para agregar el equipo cuando se pulse el boton con el equipo adecuado
@@ -2190,11 +2169,12 @@ public class MainFrame extends javax.swing.JFrame {
             // Estilizar la tabla
             EstiloTablaJugadores.estilizarTabla(jugadoresEquipoTable);
         } else {
-            // Estilizar la tabla
-            EstiloTablaJugadores.estilizarTabla(jugadoresEquipoTable);
             // Vaciar tabla por si hay datos de jugadores de otros equipos
             DefaultTableModel emptyModel = new DefaultTableModel(new Object[][]{}, new String[]{"Nombre", "Nacionalidad", "Posición", "Dorsal"});
             jugadoresEquipoTable.setModel(emptyModel);
+
+            // Estilizar la tabla
+            EstiloTablaJugadores.estilizarTabla(jugadoresEquipoTable);
 
             // Mostrar mensaje si no hay jugadores
             JOptionPane.showMessageDialog(null, "No se encontraron jugadores para este equipo.", "Aviso", JOptionPane.WARNING_MESSAGE);
@@ -2296,54 +2276,50 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Obtener el escudo favorito del usuario
     private void obtenerEscudoFavorito(int pkUsuario) {
-    String fileName = obtenerDatos.obtenerDatosUsuario(pkUsuario).getEquipoFavorito().getEscudo();
-    File tempFile = new File(LOCAL_FOLDER, fileName);
+        String fileName = obtenerDatos.obtenerDatosUsuario(pkUsuario).getEquipoFavorito().getEscudo();
+        File tempFile = new File(LOCAL_FOLDER, fileName);
 
-    if (!tempFile.exists()) {
-        // Descargar el archivo si no existe
-        try (Socket socket = new Socket(SERVER_IP, SERVER_PORT);
-             PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
-             InputStream in = socket.getInputStream();
-             FileOutputStream fileOut = new FileOutputStream(tempFile)) {
+        if (!tempFile.exists()) {
+            // Descargar el archivo si no existe
+            try (Socket socket = new Socket(SERVER_IP, SERVER_PORT); PrintWriter writer = new PrintWriter(socket.getOutputStream(), true); InputStream in = socket.getInputStream(); FileOutputStream fileOut = new FileOutputStream(tempFile)) {
 
-            writer.println("DOWNLOAD " + fileName);
+                writer.println("DOWNLOAD " + fileName);
 
-            byte[] buffer = new byte[1024];
-            int bytesRead;
-            while ((bytesRead = in.read(buffer)) != -1) {
-                fileOut.write(buffer, 0, bytesRead);
+                byte[] buffer = new byte[1024];
+                int bytesRead;
+                while ((bytesRead = in.read(buffer)) != -1) {
+                    fileOut.write(buffer, 0, bytesRead);
+                }
+            } catch (IOException e) {
+                System.err.println("Error al descargar el escudo favorito: " + fileName);
+                e.printStackTrace();
+                tempFile = null;
             }
-        } catch (IOException e) {
-            System.err.println("Error al descargar el escudo favorito: " + fileName);
-            e.printStackTrace();
-            tempFile = null;
         }
+
+        File finalFile = (tempFile != null && tempFile.exists()) ? tempFile : null;
+
+        SwingUtilities.invokeLater(() -> {
+            ImageIcon iconoGrande = (finalFile != null) ? redimensionarImagen(finalFile, 100, 100) : obtenerEscudoPorDefecto();
+            ImageIcon iconoPequeño = (finalFile != null) ? redimensionarImagen(finalFile, 20, 20) : obtenerEscudoPorDefecto();
+
+            // Mostrar en escudoFavoritoPanel
+            JLabel labelEscudo = new JLabel(iconoGrande);
+            labelEscudo.setHorizontalAlignment(JLabel.CENTER);
+            labelEscudo.setVerticalAlignment(JLabel.CENTER);
+
+            escudoFavoritoPanel.setLayout(new BorderLayout());
+            escudoFavoritoPanel.removeAll();
+            escudoFavoritoPanel.add(labelEscudo, BorderLayout.CENTER);
+            escudoFavoritoPanel.setPreferredSize(new Dimension(100, 100));
+            escudoFavoritoPanel.revalidate();
+            escudoFavoritoPanel.repaint();
+
+            // Poner icono pequeño en los menus
+            editarEquipoFavMenuItem.setIcon(iconoPequeño);
+            inicioMenu.setIcon(iconoPequeño);
+        });
     }
-
-    File finalFile = (tempFile != null && tempFile.exists()) ? tempFile : null;
-
-    SwingUtilities.invokeLater(() -> {
-        ImageIcon iconoGrande = (finalFile != null) ? redimensionarImagen(finalFile, 100, 100) : obtenerEscudoPorDefecto();
-        ImageIcon iconoPequeño = (finalFile != null) ? redimensionarImagen(finalFile, 20, 20) : obtenerEscudoPorDefecto();
-
-        // Mostrar en escudoFavoritoPanel
-        JLabel labelEscudo = new JLabel(iconoGrande);
-        labelEscudo.setHorizontalAlignment(JLabel.CENTER);
-        labelEscudo.setVerticalAlignment(JLabel.CENTER);
-
-        escudoFavoritoPanel.setLayout(new BorderLayout());
-        escudoFavoritoPanel.removeAll();
-        escudoFavoritoPanel.add(labelEscudo, BorderLayout.CENTER);
-        escudoFavoritoPanel.setPreferredSize(new Dimension(100, 100));
-        escudoFavoritoPanel.revalidate();
-        escudoFavoritoPanel.repaint();
-
-        // Poner icono pequeño en los menus
-        editarEquipoFavMenuItem.setIcon(iconoPequeño);
-        inicioMenu.setIcon(iconoPequeño);
-    });
-}
-
 
     // Obtener el escudo del equipo seleccionado
     private void obtenerEscudo(int pkEquipo) {
@@ -2352,46 +2328,42 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Descargar el escudo y mostrarlo en un panel
     private void mostrarEscudoEnPanel(String fileName, JPanel panelDestino) {
-    File tempFile = new File(LOCAL_FOLDER, fileName);
+        File tempFile = new File(LOCAL_FOLDER, fileName);
 
-    if (!tempFile.exists()) {
-        try (Socket socket = new Socket(SERVER_IP, SERVER_PORT);
-             PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
-             InputStream in = socket.getInputStream();
-             FileOutputStream fileOut = new FileOutputStream(tempFile)) {
+        if (!tempFile.exists()) {
+            try (Socket socket = new Socket(SERVER_IP, SERVER_PORT); PrintWriter writer = new PrintWriter(socket.getOutputStream(), true); InputStream in = socket.getInputStream(); FileOutputStream fileOut = new FileOutputStream(tempFile)) {
 
-            writer.println("DOWNLOAD " + fileName);
+                writer.println("DOWNLOAD " + fileName);
 
-            byte[] buffer = new byte[1024];
-            int bytesRead;
-            while ((bytesRead = in.read(buffer)) != -1) {
-                fileOut.write(buffer, 0, bytesRead);
+                byte[] buffer = new byte[1024];
+                int bytesRead;
+                while ((bytesRead = in.read(buffer)) != -1) {
+                    fileOut.write(buffer, 0, bytesRead);
+                }
+            } catch (IOException e) {
+                System.err.println("Error al descargar el escudo: " + fileName);
+                e.printStackTrace();
+                tempFile = null;
             }
-        } catch (IOException e) {
-            System.err.println("Error al descargar el escudo: " + fileName);
-            e.printStackTrace();
-            tempFile = null;
         }
+
+        File finalFile = (tempFile != null && tempFile.exists()) ? tempFile : null;
+
+        SwingUtilities.invokeLater(() -> {
+            ImageIcon icon = (finalFile != null) ? redimensionarImagen(finalFile, 100, 100) : obtenerEscudoPorDefecto();
+
+            JLabel labelEscudo = new JLabel(icon);
+            labelEscudo.setHorizontalAlignment(JLabel.CENTER);
+            labelEscudo.setVerticalAlignment(JLabel.CENTER);
+
+            panelDestino.setLayout(new BorderLayout());
+            panelDestino.removeAll();
+            panelDestino.add(labelEscudo, BorderLayout.CENTER);
+            panelDestino.setPreferredSize(new Dimension(100, 100));
+            panelDestino.revalidate();
+            panelDestino.repaint();
+        });
     }
-
-    File finalFile = (tempFile != null && tempFile.exists()) ? tempFile : null;
-
-    SwingUtilities.invokeLater(() -> {
-        ImageIcon icon = (finalFile != null) ? redimensionarImagen(finalFile, 100, 100) : obtenerEscudoPorDefecto();
-
-        JLabel labelEscudo = new JLabel(icon);
-        labelEscudo.setHorizontalAlignment(JLabel.CENTER);
-        labelEscudo.setVerticalAlignment(JLabel.CENTER);
-
-        panelDestino.setLayout(new BorderLayout());
-        panelDestino.removeAll();
-        panelDestino.add(labelEscudo, BorderLayout.CENTER);
-        panelDestino.setPreferredSize(new Dimension(100, 100));
-        panelDestino.revalidate();
-        panelDestino.repaint();
-    });
-}
-
 
     // Obtener el escudo por defecto para cuando no se pueda descargar
     private ImageIcon obtenerEscudoPorDefecto() {
@@ -2471,7 +2443,7 @@ public class MainFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error al convertir jornada a número: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     // Método para cargar los partidos de un equipo
     public void mostrarResultadosPartidosEquipo(int pkEquipo) {
 
@@ -2662,6 +2634,10 @@ public class MainFrame extends javax.swing.JFrame {
         resultadosPartidoButton.setForeground(new java.awt.Color(255, 255, 255));
         clasificacionPartidoButton.setForeground(new java.awt.Color(255, 255, 255));
         usuarioPartidoButton.setForeground(new java.awt.Color(255, 255, 255));
+        
+        jPanel38.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel32.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
     }
 
     // Método para cabiar el estilo de la interfaz por defecto
@@ -2709,6 +2685,10 @@ public class MainFrame extends javax.swing.JFrame {
         resultadosPartidoButton.setForeground(new java.awt.Color(102, 255, 255));
         clasificacionPartidoButton.setForeground(new java.awt.Color(102, 255, 255));
         usuarioPartidoButton.setForeground(new java.awt.Color(102, 255, 255));
+
+        jPanel38.setBackground(new java.awt.Color(255, 0, 0));
+        jPanel32.setBackground(new java.awt.Color(255, 255, 0));
+        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
     }
 
     /**
@@ -2789,12 +2769,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel26;
