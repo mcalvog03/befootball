@@ -2043,6 +2043,7 @@ public class MainFrame extends javax.swing.JFrame {
         jSeparator3.setVisible(false);
         usuarioEquipoButton.setVisible(false);
         usuarioPartidoButton.setVisible(false);
+        agregarEquipoFavButton.setVisible(false);
     }
 
     // Cargar panel de usuario con datos obtenidos comparadno login con la base de datos
@@ -2448,7 +2449,7 @@ public class MainFrame extends javax.swing.JFrame {
     public void mostrarResultadosPartidosEquipo(int pkEquipo) {
 
         try {
-            // Crear una lista de los partidos de la jornada y liga seleccionada
+            // Crear una lista de los proximos partidos
             List<Partidos> partidos = obtenerDatos.obtenerPartidosEquipo(pkEquipo);
             // Cargar la lista en el modelo de la tabla
             PartidosEquipoTableModel model = new PartidosEquipoTableModel(partidos);
