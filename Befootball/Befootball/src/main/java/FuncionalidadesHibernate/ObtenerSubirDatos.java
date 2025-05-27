@@ -4,6 +4,7 @@
  */
 package FuncionalidadesHibernate;
 
+import Funcionalidades.LogManagerApp;
 import Funcionalidades.PasswordUtils;
 import POJOS.*;
 import java.time.LocalDateTime;
@@ -11,6 +12,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -18,6 +21,7 @@ import org.hibernate.Transaction;
 
 public class ObtenerSubirDatos {
 
+    private static final Logger logger = LogManagerApp.getLogger();
     private SessionFactory factory;
 
     public ObtenerSubirDatos(SessionFactory factory) {
@@ -37,6 +41,7 @@ public class ObtenerSubirDatos {
             // Confirmar la transacción
             transaction.commit();
         } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error: {0}", e.getMessage());
             e.printStackTrace();
         }
 
@@ -56,6 +61,7 @@ public class ObtenerSubirDatos {
             // Confirmar la transacción
             transaction.commit();
         } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error: {0}", e.getMessage());
             e.printStackTrace();
         }
 
@@ -81,6 +87,7 @@ public class ObtenerSubirDatos {
             }
             JOptionPane.showMessageDialog(null, "Error al obtener los jugadores: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             System.err.println("Error al obtener los jugadores: " + e.getMessage());
+            logger.log(Level.SEVERE, "Error: {0}", e.getMessage());
         }
 
         return jugadores;
@@ -109,6 +116,7 @@ public class ObtenerSubirDatos {
             }
             JOptionPane.showMessageDialog(null, "Error al obtener las ligas: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             System.err.println("Error al obtener las ligas: " + e.getMessage());
+            logger.log(Level.SEVERE, "Error: {0}", e.getMessage());
         }
 
         return nombresLigas;
@@ -139,6 +147,7 @@ public class ObtenerSubirDatos {
             }
             JOptionPane.showMessageDialog(null, "Error al obtener equipos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             System.err.println("Error al obtener los equipos: " + e.getMessage());
+            logger.log(Level.SEVERE, "Error: {0}", e.getMessage());
         }
 
         return nombresEquipos;
@@ -182,6 +191,7 @@ public class ObtenerSubirDatos {
             }
             JOptionPane.showMessageDialog(null, "Error al obtener las jornadas: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             System.err.println("Error al obtener las jornadas: " + e.getMessage());
+            logger.log(Level.SEVERE, "Error: {0}", e.getMessage());
         }
 
         // Convertir el Set de jornadas a una lista y devolverla
@@ -220,6 +230,7 @@ public class ObtenerSubirDatos {
             }
             JOptionPane.showMessageDialog(null, "Error al obtener los partidos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             System.err.println("Error al obtener los partidos: " + e.getMessage());
+            logger.log(Level.SEVERE, "Error: {0}", e.getMessage());
         }
 
         return partidosFiltrados;
@@ -248,6 +259,7 @@ public class ObtenerSubirDatos {
             }
             JOptionPane.showMessageDialog(null, "Error al obtener los partidos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             System.err.println("Error al obtener los partidos: " + e.getMessage());
+            logger.log(Level.SEVERE, "Error: {0}", e.getMessage());
         }
 
         return partidosFiltrados;
@@ -278,6 +290,7 @@ public class ObtenerSubirDatos {
             }
             JOptionPane.showMessageDialog(null, "Error al obtener la clasificacion: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             System.err.println("Error al obtener la clasificacion: " + e.getMessage());
+            logger.log(Level.SEVERE, "Error: {0}", e.getMessage());
         }
 
         return clasificacionFiltrada;
@@ -297,6 +310,7 @@ public class ObtenerSubirDatos {
             transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
+            logger.log(Level.SEVERE, "Error: {0}", e.getMessage());
         }
 
         return partido;
@@ -323,6 +337,7 @@ public class ObtenerSubirDatos {
                 System.out.println("Usuario no encontrado con ID: " + pkUsuario);
             }
         } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error: {0}", e.getMessage());
             if (tx != null) {
                 tx.rollback();
             }
@@ -349,6 +364,7 @@ public class ObtenerSubirDatos {
         } catch (Exception e) {
             tx.rollback();
             e.printStackTrace();
+            logger.log(Level.SEVERE, "Error: {0}", e.getMessage());
         }
     }
 
@@ -379,6 +395,7 @@ public class ObtenerSubirDatos {
                 tx.rollback();
             }
             e.printStackTrace();
+            logger.log(Level.SEVERE, "Error: {0}", e.getMessage());
         }
     }
 
@@ -406,6 +423,7 @@ public class ObtenerSubirDatos {
         } catch (Exception e) {
             tx.rollback();
             e.printStackTrace();
+            logger.log(Level.SEVERE, "Error: {0}", e.getMessage());
         }
     }
 
@@ -425,6 +443,7 @@ public class ObtenerSubirDatos {
             if (tx != null) {
                 tx.rollback();
             }
+            logger.log(Level.SEVERE, "Error: {0}", e.getMessage());
             JOptionPane.showMessageDialog(null, "Error al obtener el rol: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             System.err.println("Error al obtener el rol: " + e.getMessage());
         }

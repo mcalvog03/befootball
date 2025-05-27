@@ -1,10 +1,13 @@
 package FuncionalidadesHibernate;
 
+import Funcionalidades.LogManagerApp;
 import Funcionalidades.PasswordUtils;
 import POJOS.Roles;
 import POJOS.Usuarios;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -12,6 +15,7 @@ import org.hibernate.cfg.Configuration;
 
 public class UsuarioService {
     
+    private static final Logger logger = LogManagerApp.getLogger();
     private SessionFactory factory;
     private ObtenerSubirDatos obtenerDatos;
 
@@ -21,6 +25,7 @@ public class UsuarioService {
             factory = new Configuration().configure().buildSessionFactory();
         } catch (Exception e) {
             System.err.println("ERROR: " + e);
+            logger.log(Level.SEVERE, "Error: {0}", e.getMessage());
         }
     }
     
@@ -64,6 +69,7 @@ public class UsuarioService {
             session.getTransaction().rollback();
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error al registrar el usuario.", "Error", JOptionPane.ERROR_MESSAGE);
+            logger.log(Level.SEVERE, "Error: {0}", e.getMessage());
         } finally {
             session.close();
         }
@@ -78,6 +84,7 @@ public class UsuarioService {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error al generar el hash de la contraseña.", "Error", JOptionPane.ERROR_MESSAGE);
+            logger.log(Level.SEVERE, "Error: {0}", e.getMessage());
             return null;
         }
     }

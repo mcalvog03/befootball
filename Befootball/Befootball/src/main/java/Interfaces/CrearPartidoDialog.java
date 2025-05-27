@@ -4,6 +4,7 @@
  */
 package Interfaces;
 
+import Funcionalidades.LogManagerApp;
 import FuncionalidadesHibernate.ObtenerSubirDatos;
 import POJOS.Equipos;
 import POJOS.Ligas;
@@ -18,6 +19,8 @@ import java.time.ZoneId;
 import org.hibernate.cfg.Configuration;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -27,6 +30,7 @@ import org.hibernate.Transaction;
 
 public class CrearPartidoDialog extends javax.swing.JDialog {
 
+    private static final Logger logger = LogManagerApp.getLogger();
     private SessionFactory factory;
     private ObtenerSubirDatos obtenerDatos;
 
@@ -215,6 +219,7 @@ public class CrearPartidoDialog extends javax.swing.JDialog {
             factory = new Configuration().configure().buildSessionFactory();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al inicializar Hibernate: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            logger.log(Level.SEVERE, "Error: {0}", e.getMessage());
         }
     }
 
@@ -272,6 +277,7 @@ public class CrearPartidoDialog extends javax.swing.JDialog {
             }
             JOptionPane.showMessageDialog(this, "Error al obtener la liga seleccionada: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             System.err.println("Error al obtener la liga seleccionada: " + e.getMessage());
+            logger.log(Level.SEVERE, "Error: {0}", e.getMessage());
         }
 
         return liga;
@@ -301,6 +307,7 @@ public class CrearPartidoDialog extends javax.swing.JDialog {
             }
             JOptionPane.showMessageDialog(this, "Error al obtener el equipo seleccionado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             System.err.println("Error al obtener las ligas: " + e.getMessage());
+            logger.log(Level.SEVERE, "Error: {0}", e.getMessage());
         }
 
         return equipo;
@@ -369,6 +376,7 @@ public class CrearPartidoDialog extends javax.swing.JDialog {
             }
             JOptionPane.showMessageDialog(this, "Error al crear el partido: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             System.err.println("Error al crear el partido: " + e.getMessage());
+            logger.log(Level.SEVERE, "Error: {0}", e.getMessage());
         }
     }
 
@@ -397,6 +405,7 @@ public class CrearPartidoDialog extends javax.swing.JDialog {
             }
             JOptionPane.showMessageDialog(null, "Error al verificar el partido: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             System.err.println("Error al verificar el partido: " + e.getMessage());
+            logger.log(Level.SEVERE, "Error: {0}", e.getMessage());
             return false;
         }
     }

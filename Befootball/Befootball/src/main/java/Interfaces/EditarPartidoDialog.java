@@ -4,9 +4,12 @@
  */
 package Interfaces;
 
+import Funcionalidades.LogManagerApp;
 import POJOS.Partidos;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -15,6 +18,7 @@ import org.hibernate.cfg.Configuration;
 
 public class EditarPartidoDialog extends javax.swing.JDialog {
 
+    private static final Logger logger = LogManagerApp.getLogger();
     private SessionFactory factory;
     private int pkPartido;
     private int golesLocal;
@@ -189,6 +193,7 @@ public class EditarPartidoDialog extends javax.swing.JDialog {
             factory = new Configuration().configure().buildSessionFactory();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al inicializar Hibernate: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            logger.log(Level.SEVERE, "Error: {0}", e.getMessage());
         }
     }
 
@@ -241,6 +246,7 @@ public class EditarPartidoDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Partido actualizado", "", JOptionPane.INFORMATION_MESSAGE);
 
         } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error: {0}", e.getMessage());
             if (tx != null) {
                 tx.rollback();
                 e.printStackTrace();

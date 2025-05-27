@@ -4,6 +4,7 @@
  */
 package Interfaces;
 
+import Funcionalidades.LogManagerApp;
 import FuncionalidadesHibernate.ObtenerSubirDatos;
 import POJOS.Equipos;
 import POJOS.Ligas;
@@ -13,6 +14,8 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -23,6 +26,7 @@ import org.hibernate.cfg.Configuration;
 
 public class SelectorEquipos extends javax.swing.JDialog {
 
+    private static final Logger logger = LogManagerApp.getLogger();
     private SessionFactory factory;
     private ObtenerSubirDatos obtenerDatos;
     private int pkUsuario;
@@ -122,6 +126,7 @@ public class SelectorEquipos extends javax.swing.JDialog {
         try {
             factory = new Configuration().configure().buildSessionFactory();
         } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error: {0}", e.getMessage());
             JOptionPane.showMessageDialog(this, "Error al inicializar Hibernate: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -175,6 +180,7 @@ public class SelectorEquipos extends javax.swing.JDialog {
 
             tx.commit();
         } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error: {0}", e.getMessage());
             if (tx != null) {
                 tx.rollback();
             }
@@ -204,6 +210,7 @@ public class SelectorEquipos extends javax.swing.JDialog {
 
             tx.commit();
         } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error: {0}", e.getMessage());
             if (tx != null) {
                 tx.rollback();
             }
@@ -235,6 +242,7 @@ public class SelectorEquipos extends javax.swing.JDialog {
                 System.out.println("Usuario no encontrado con ID: " + pkUsuario);
             }
         } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error: {0}", e.getMessage());
             if (tx != null) {
                 tx.rollback();
             }

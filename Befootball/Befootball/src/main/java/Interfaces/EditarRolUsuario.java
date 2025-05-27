@@ -4,9 +4,12 @@
  */
 package Interfaces;
 
+import Funcionalidades.LogManagerApp;
 import FuncionalidadesHibernate.ObtenerSubirDatos;
 import POJOS.Roles;
 import POJOS.Usuarios;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -15,6 +18,7 @@ import org.hibernate.cfg.Configuration;
 
 public class EditarRolUsuario extends javax.swing.JDialog {
 
+    private static final Logger logger = LogManagerApp.getLogger();
     private SessionFactory factory;
     private ObtenerSubirDatos obtenerDatos;
 
@@ -123,6 +127,7 @@ public class EditarRolUsuario extends javax.swing.JDialog {
             factory = new Configuration().configure().buildSessionFactory();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al inicializar Hibernate: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            logger.log(Level.SEVERE, "Error: {0}", e.getMessage());
         }
     }
 
@@ -153,6 +158,7 @@ public class EditarRolUsuario extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(null, "Usuario no encontrado con ID: " + pkUsuario, "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error: {0}", e.getMessage());
             if (tx != null) {
                 tx.rollback();
             }

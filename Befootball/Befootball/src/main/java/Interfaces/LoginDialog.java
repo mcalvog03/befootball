@@ -4,19 +4,20 @@
  */
 package Interfaces;
 
-import FuncionalidadesHibernate.HibernateUtil;
+import Funcionalidades.LogManagerApp;
 import static Funcionalidades.PasswordUtils.hashPassword;
-import FuncionalidadesHibernate.UsuarioService;
-import POJOS.Roles;
+import FuncionalidadesHibernate.HibernateUtil;
 import POJOS.Usuarios;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.hibernate.Session;
 
 public class LoginDialog extends javax.swing.JDialog {
-
+private static final Logger logger = LogManagerApp.getLogger();
     /**
      * Creates new form Login
      */
@@ -26,6 +27,7 @@ public class LoginDialog extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/logo.png");
         setIconImage(icon);
+        logger.info("Inicio de la ejecución");
     }
 
     /**
@@ -245,6 +247,7 @@ public class LoginDialog extends javax.swing.JDialog {
         } catch (Exception e) {
             session.getTransaction().rollback();
             e.printStackTrace();
+            logger.log(Level.SEVERE, "Error: {0}", e.getMessage());
             JOptionPane.showMessageDialog(this, "Error al iniciar sesión.", "Error", JOptionPane.ERROR_MESSAGE);
         } finally {
             session.close();

@@ -193,7 +193,6 @@ public class RegistroDialog extends javax.swing.JDialog {
     private void registrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarButtonActionPerformed
         // TODO add your handling code here:
         validarRegistro();
-        registrarUsuario();
     }//GEN-LAST:event_registrarButtonActionPerformed
 
     private void cancelarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarButtonActionPerformed
@@ -231,6 +230,8 @@ public class RegistroDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos.", "Advertencia", JOptionPane.WARNING_MESSAGE);
         } else if (contraseña == null || confirmarContraseña == null || !contraseña.equals(confirmarContraseña)) {
             JOptionPane.showMessageDialog(null, "Las contraseñas deben ser iguales y no pueden estar vacías.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        } else {
+            registrarUsuario();
         }
     }
 

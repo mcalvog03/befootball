@@ -4,6 +4,7 @@
  */
 package ComponentesModelos;
 
+import Funcionalidades.LogManagerApp;
 import POJOS.Partidos;
 import java.awt.Image;
 import java.io.File;
@@ -14,12 +15,15 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.URL;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 public class PartidosEquipoTableModel extends AbstractTableModel {
-
+    
+    private static final Logger logger = LogManagerApp.getLogger();
     private List<Partidos> partidos;
     private final String[] columnNames = {"Escudo Local", "Equipo Local", "Equipo Visitante", "Escudo Visitante", "Fecha"};
     private static final String SERVER_IP = "192.168.1.45";
@@ -105,6 +109,7 @@ public class PartidosEquipoTableModel extends AbstractTableModel {
 
         } catch (IOException e) {
             System.err.println("Error al descargar el escudo: " + fileName);
+            logger.log(Level.SEVERE, "Error: {0}", e.getMessage());
             e.printStackTrace();
             if (!errorDescarga) {
                 JOptionPane.showMessageDialog(null, "No se pudieron descargar los escudos, reinicia la aplicación para volver a intentar descargarlos.", "Error", JOptionPane.ERROR_MESSAGE);

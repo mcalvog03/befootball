@@ -14,6 +14,7 @@ import ComponentesModelos.PartidosEquipoTableModel;
 import ComponentesModelos.PartidosTableModel;
 import Funcionalidades.ConfiguradorDeInterfaz;
 import Funcionalidades.ImageRenderer;
+import Funcionalidades.LogManagerApp;
 import FuncionalidadesHibernate.ObtenerSubirDatos;
 import POJOS.Clasificacion;
 import POJOS.Equipos;
@@ -50,9 +51,12 @@ import javax.swing.table.DefaultTableModel;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import java.net.URI;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MainFrame extends javax.swing.JFrame {
 
+    private static final Logger logger = LogManagerApp.getLogger();
     private SessionFactory factory;
     private ObtenerSubirDatos obtenerDatos;
     private int pkUsuario;
@@ -1898,6 +1902,7 @@ public class MainFrame extends javax.swing.JFrame {
         } catch (Exception ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "No se pudo abrir la página web");
+            logger.log(Level.SEVERE, "Error: {0}", ex.getMessage());
         }
     }//GEN-LAST:event_webMenuItemActionPerformed
 
@@ -1929,6 +1934,7 @@ public class MainFrame extends javax.swing.JFrame {
             factory = new Configuration().configure().buildSessionFactory();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al inicializar Hibernate: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            logger.log(Level.SEVERE, "Error: {0}", e.getMessage());
         }
     }
 
@@ -2292,6 +2298,7 @@ public class MainFrame extends javax.swing.JFrame {
                     fileOut.write(buffer, 0, bytesRead);
                 }
             } catch (IOException e) {
+                logger.log(Level.SEVERE, "Error: {0}", e.getMessage());
                 System.err.println("Error al descargar el escudo favorito: " + fileName);
                 e.printStackTrace();
                 tempFile = null;
@@ -2342,6 +2349,7 @@ public class MainFrame extends javax.swing.JFrame {
                     fileOut.write(buffer, 0, bytesRead);
                 }
             } catch (IOException e) {
+                logger.log(Level.SEVERE, "Error: {0}", e.getMessage());
                 System.err.println("Error al descargar el escudo: " + fileName);
                 e.printStackTrace();
                 tempFile = null;
@@ -2441,6 +2449,7 @@ public class MainFrame extends javax.swing.JFrame {
             EstiloTablaPartidos.estilizarTabla(partidosTable);
 
         } catch (NumberFormatException e) {
+            logger.log(Level.SEVERE, "Error: {0}", e.getMessage());
             JOptionPane.showMessageDialog(null, "Error al convertir jornada a número: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -2463,6 +2472,7 @@ public class MainFrame extends javax.swing.JFrame {
             EstiloTablaPartidosEquipo.estilizarTabla(partidosTableEquipo);
 
         } catch (NumberFormatException e) {
+            logger.log(Level.SEVERE, "Error: {0}", e.getMessage());
             JOptionPane.showMessageDialog(null, "Error al convertir jornada a número: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -2586,6 +2596,7 @@ public class MainFrame extends javax.swing.JFrame {
             // Ayuda al pulsar F1 sobre la ventana principal
             hb.enableHelpKey(getRootPane(), "inicio", helpset);
         } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error: {0}", e.getMessage());
             e.printStackTrace();
         }
     }
