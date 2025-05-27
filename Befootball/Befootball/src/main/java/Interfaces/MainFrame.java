@@ -63,7 +63,7 @@ public class MainFrame extends javax.swing.JFrame {
     private boolean estiloInterfaz;
 
     // Información servidor socket
-    private static final String SERVER_IP = "192.168.1.45";
+    private static final String SERVER_IP = "192.168.25.45";
     private static final int SERVER_PORT = 5000;
     private static final String LOCAL_FOLDER = "EscudosDescargados";
 
@@ -1898,7 +1898,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void webMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_webMenuItemActionPerformed
         // TODO add your handling code here:
         try {
-            Desktop.getDesktop().browse(new URI("http://192.168.1.45:8069/"));
+            Desktop.getDesktop().browse(new URI("http://192.168.25.45:8069/"));
         } catch (Exception ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "No se pudo abrir la página web");

@@ -13,7 +13,7 @@ public class PartidosTableModel extends AbstractTableModel {
 
     private List<Partidos> partidos;
     private final String[] columnNames = {"Escudo Local", "Equipo Local", "Goles Local", "Goles Visitante", "Equipo Visitante", "Escudo Visitante"};
-    private static final String SERVER_IP = "192.168.1.45";
+    private static final String SERVER_IP = "192.168.25.45";
     private static final int SERVER_PORT = 5000;
     private static final String LOCAL_FOLDER = "EscudosDescargados";
     private static boolean errorDescarga = false;

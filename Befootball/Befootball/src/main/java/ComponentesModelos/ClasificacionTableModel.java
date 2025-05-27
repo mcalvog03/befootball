@@ -25,7 +25,7 @@ public class ClasificacionTableModel extends AbstractTableModel {
 
     private List<Clasificacion> clasificaciones;
     private final String[] columnNames = {"Posición", "Escudo", "Equipo", "PTS", "PJ", "PG", "PE", "PP", "DG"};
-    private static final String SERVER_IP = "192.168.1.45";
+    private static final String SERVER_IP = "192.168.25.45";
     private static final int SERVER_PORT = 5000;
     private static final String LOCAL_FOLDER = "EscudosDescargados";
     private static boolean errorDescarga = false;

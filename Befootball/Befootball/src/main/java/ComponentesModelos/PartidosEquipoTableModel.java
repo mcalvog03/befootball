@@ -26,7 +26,7 @@ public class PartidosEquipoTableModel extends AbstractTableModel {
     private static final Logger logger = LogManagerApp.getLogger();
     private List<Partidos> partidos;
     private final String[] columnNames = {"Escudo Local", "Equipo Local", "Equipo Visitante", "Escudo Visitante", "Fecha"};
-    private static final String SERVER_IP = "192.168.1.45";
+    private static final String SERVER_IP = "192.168.25.45";
     private static final int SERVER_PORT = 5000;
     private static final String LOCAL_FOLDER = "EscudosDescargados";
     private static boolean errorDescarga = false;
