@@ -1,3 +1,5 @@
+App android:
+
 Consumo Api desde kotlin:
 https://youtu.be/xm0GhiLD_gw?si=eFmpeBbanWvqo_pV
 
@@ -15,3 +17,63 @@ https://youtu.be/ODFZHjt9k-Y?si=8kkM_IMzMkk5uTpS
 
 Configurar RecycleView
 https://www.youtube.com/watch?v=GmrKCVMG7qQ
+
+
+API:
+- Spring JPA: https://spring.io/guides/gs/accessing-data-jpa
+- Postgre SQL Driver: https://www.postgresql.org/download/products/2-drivers-and-interfaces/#:~:text=The%20PostgreSQL%20JDBC%20driver.,standard%2C%20database%20independent%20Java%20code.
+- Spring web: https://medium.com/@AlexanderObregon/exploring-the-spring-web-dependency-a-beginners-overview-f19e4620ef5e#:~:text=The%20Spring%20Web%20dependency%20is%20a%20module%20within%20the%20larger,and%20building%20dynamic%20web%20content.
+
+Proteccion de datos:
+https://www.aepd.es/guias/guia-proteccion-datos-por-defecto.pdf
+
+
+
+
+
+
+A. El sector productivo
+
+Instituto Nacional de Estadística (INE). (2023). “Estadísticas del sector TIC”. Recuperado de: https://www.ine.es
+
+Observatorio Nacional de Tecnología y Sociedad (ONTSI). (2023). “Informe anual del sector TIC en España”. Ministerio de Asuntos Económicos y Transformación Digital. https://www.ontsi.es
+
+Red.es. (2022). “El sector de las TIC y los contenidos en España”. https://www.red.es
+
+Cámara de Comercio de España. (2023). “Guía para emprender en el sector TIC”. https://www.camara.es
+
+B. Constitución de empresas y trámites legales
+
+CIRCE (Centro de Información y Red de Creación de Empresas). Portal oficial del Ministerio de Industria, Comercio y Turismo. https://www.circe.es
+
+Agencia Estatal de Administración Tributaria (AEAT). (2024). “Trámites para iniciar una actividad”. https://www.agenciatributaria.es
+
+Tesorería General de la Seguridad Social (TGSS). (2024). “Alta de empresa y trabajadores”. https://www.seg-social.es
+
+Registro Mercantil Central. (2024). “Pasos para la constitución de una empresa”. https://www.rmc.es
+
+Oficina Española de Patentes y Marcas (OEPM). https://www.oepm.es
+
+Ministerio de Trabajo y Economía Social. “Convenio Estatal de Empresas de Consultoría”. https://www.mites.gob.es
+
+C. Producto/servicio (complementado con tu documentación técnica)
+
+Documentación técnica del proyecto aportada por el autor (tú).
+
+Google Cloud y AWS documentación técnica (para justificación del uso de infraestructura cloud):
+
+https://cloud.google.com
+
+https://aws.amazon.com
+
+GitHub y documentación de herramientas utilizadas:
+
+Hibernate ORM: https://hibernate.org
+
+Spring Boot: https://spring.io
+
+Retrofit: https://square.github.io/retrofit
+
+PostgreSQL: https://www.postgresql.org
+
+Odoo: https://www.odoo.com
