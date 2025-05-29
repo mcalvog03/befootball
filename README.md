@@ -1,8 +1,2 @@
-# befootball
-
-## Cambiar IPs para presentar en clase
-- menu ayuda web odoo
-- hibernate config
-- cliente socket
-- cliente api android
-- maquina
+# Befootball
+Para ver la version con las ip de clase ir a la rama de exposición.
